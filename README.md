@@ -9,7 +9,7 @@ Interactive interface to test the Law-E thermodynamic governance API.
 
 **Option 2 — Local**: Open `index.html` in your browser.
 
-## Request a Test API Key
+## Request a test API key
 
 To request access:  
 📧 contact@neomundi.io
