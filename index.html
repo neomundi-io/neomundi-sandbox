@@ -6,21 +6,34 @@
     <title>ControlTowerAI - Sandbox</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #0a0a0f; color: #e0e0e0; min-height: 100vh; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #020202; color: #e0e0e0; min-height: 100vh; }
 
-        .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 24px 32px; border-bottom: 1px solid #2a2a4a; display: flex; justify-content: space-between; align-items: center; }
-        .header-left h1 { font-size: 22px; color: #00d4ff; }
-        .header-left p { font-size: 13px; color: #888; margin-top: 4px; }
+        .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 28px 32px; border-bottom: 1px solid #2a2a4a; display: flex; justify-content: space-between; align-items: center; }
+
+        /* Zone centrale du header — colonne centrée */
+        .header-center { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+        .header-center h1 { font-size: 22px; color: #00d4ff; }
+
+        /* Accroche principale */
+        .header-tagline { margin-top: 10px; }
+        .header-tagline .line1 { font-size: 20px; font-weight: 800; color: #ffffff; letter-spacing: 0.01em; line-height: 1.3; }
+        .header-tagline .line1 span { color: #00d4ff; }
+        .header-tagline .line2 { font-size: 19px; color: #ffffff; margin-top: 6px; font-weight: 400; letter-spacing: 0.02em; }
+        .header-tagline .line3 { font-size: 16px; color: #ffffff; margin-top: 8px; letter-spacing: 0.06em; font-style: italic; }
+
+        /* Ancre gauche — juste pour équilibrer avec le toggle à droite */
+        .header-left-anchor { width: 80px; }
 
         .lang-toggle { display: flex; gap: 0; border: 1px solid #333; border-radius: 6px; overflow: hidden; }
         .lang-btn { background: #1a1a2e; color: #888; border: none; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
         .lang-btn.active { background: #00d4ff; color: #000; }
         .lang-btn:hover:not(.active) { background: #222; color: #ccc; }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 24px; }
+        .container { max-width: 1100px; margin: 0 auto; padding: 12px 24px 24px; }
+        .api-starter { background: #0d0d20; border: 1px solid #aaaaaa; border-radius: 8px; padding: 12px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 
         .config-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
-        .config-bar label { font-size: 12px; color: #888; }
+        .config-bar label { font-size: 12px; color: #ffffff; }
         .config-bar input { background: #1a1a2e; border: 1px solid #333; color: #fff; padding: 6px 10px; border-radius: 4px; font-size: 13px; }
         #apiUrl { width: 280px; }
         #apiKey { width: 320px; }
@@ -51,7 +64,8 @@
         .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
         .metric { background: #0a0a15; border: 1px solid #222; border-radius: 4px; padding: 8px; text-align: center; }
         .metric .val { font-size: 18px; font-weight: bold; color: #00d4ff; }
-        .metric .lbl { font-size: 10px; color: #666; margin-top: 2px; }
+        .card p[style*="color:#888"], .card-primary p[style*="color:#888"], .card-secondary p[style*="color:#888"] { color: #cccccc !important; }
+        .metric .lbl { font-size: 10px; color: #aaaaaa; margin-top: 2px; }
 
         .presets { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
         .preset-btn { background: #1a1a2e; border: 1px solid #333; color: #aaa; padding: 4px 10px; border-radius: 12px; font-size: 11px; cursor: pointer; }
@@ -77,9 +91,60 @@
         .chat-step .done { color: #00ff88; }
         .chat-step .active { color: #ffaa00; }
 
+        .block-subtitle { font-size: 11px; color: #ffffff; margin-top: -6px; margin-bottom: 12px; line-height: 1.5; }
+        .block-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 10px; margin-left: 4px; vertical-align: middle; }
+        .tag-live { background: #003322; color: #00ff88; border: 1px solid #00ff88; }
+        .tag-metrics { background: #003322; color: #00ff88; border: 1px solid #00ff88; }
+        .tag-debug { background: #1a1a00; color: #ffaa00; border: 1px solid #ffaa00; }
+        .tag-experimental { background: #1a0010; color: #ff4466; border: 1px solid #ff4466; }
+        .config-hint { font-size: 11px; color: #ffffff; margin-bottom: 8px; }
+        .gscore-hint { font-size: 10px; color: #aaaaaa; margin-top: 6px; font-style: italic; }
+
+        .card-primary { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 24px; }
+        .card-metrics { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 24px; }
+        .card-secondary { background: #0e0e18; border: 1px solid #1e1e30; border-radius: 8px; padding: 20px; opacity: 0.92; }
+        .gscore-banner { display: flex; gap: 0; align-items: stretch; background: #0a0a1a; border: 1px solid #aaaaaa; border-radius: 8px; margin-top: 14px; overflow: hidden; min-height: 160px; }
+        .gscore-banner .gb-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 24px; flex: 1; gap: 4px; border-right: 1px solid #1a2a4a; }
+        .gscore-banner .gb-val { font-size: 72px; font-weight: 900; color: #333; letter-spacing: -0.03em; line-height: 1; }
+        .gscore-banner .gb-lbl { font-size: 14px; color: #fff; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; order: -1; }
+        .gscore-banner .gb-sublbl { font-size: 11px; color: #fff; font-weight: 400; letter-spacing: 0.04em; order: -1; margin-top: -2px; }
+        .gscore-banner .gb-risk { font-size: 11px; color: #444; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
+        .gscore-banner .gb-sep { display: none; }
+        .gscore-banner .gb-right { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 24px; gap: 2px; flex: 1; }
+        .gscore-gauge { display: flex; align-items: center; gap: 8px; width: 80%; margin-top: 10px; }
+        .gscore-gauge-bar { flex: 1; height: 4px; background: #1a1a2a; border-radius: 3px; overflow: hidden; }
+        .gscore-gauge-fill { height: 100%; width: 0%; background: #2a2a3a !important; border-radius: 3px; transition: width 0.4s ease; }
+        .gscore-example { margin-top: 10px; border: 1px dashed #1a2a1a; border-radius: 6px; padding: 10px 14px; background: #090912; display: none; }
+        .gscore-example-label { font-size: 9px; color: #555; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+        .gscore-example-row { display: flex; align-items: center; gap: 10px; font-size: 12px; }
+        .gscore-example-val { font-size: 18px; font-weight: 800; color: #555; }
+        .gscore-example-arrow { color: #333; font-size: 14px; }
+        .gscore-example-risk { font-size: 11px; font-weight: 700; color: #ffaa00; }
+        .gscore-example-dec { font-size: 11px; color: #666; }
+        .toggle-btn { background: #1a1a2e; border: 1px solid #333; color: #aaaaaa; padding: 4px 12px; border-radius: 12px; font-size: 11px; cursor: pointer; margin-top: 10px; transition: all 0.2s; }
+        .toggle-btn:hover { border-color: #00d4ff; color: #00d4ff; background: #1a1a2e; }
+        #healthStatus { font-size: 11px; }
+        #healthStatus .status-dot.ko { background: #333; }
+        .run-btn { background: #1a2a3a; color: #00d4ff; border: 1px solid #aaaaaa; padding: 8px 18px; border-radius: 4px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s; }
+        .run-btn:hover { background: #00d4ff; color: #000; }
+
+        /* ── COMPUTING G-SCORE : état visuel temporaire ── */
+        @keyframes gscore-computing-pulse {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0.45; }
+        }
+        .gscore-computing {
+            font-size: 22px !important;
+            font-weight: 700 !important;
+            color: #00d4ff !important;
+            letter-spacing: 0.04em;
+            animation: gscore-computing-pulse 1.1s ease-in-out infinite;
+        }
+
         @media (max-width: 768px) {
             .grid { grid-template-columns: 1fr; }
-            .header { flex-direction: column; gap: 12px; }
+            .header { flex-direction: column; gap: 16px; }
+            .header-left-anchor { display: none; }
             .config-bar { flex-direction: column; align-items: stretch; }
             #apiUrl, #apiKey { width: 100%; }
         }
@@ -87,10 +152,22 @@
 </head>
 <body>
     <div class="header">
-        <div class="header-left">
-            <h1>ControlTowerAI : Interactive Sandbox</h1>
-            <p data-i18n="header_desc">Test real-time thermodynamic AI governance.</p>
+        <!-- Ancre gauche vide pour équilibrer le layout -->
+        <div class="header-left-anchor"></div>
+
+        <!-- Centre : nom + accroche -->
+        <div class="header-center">
+            <h1>NeoMundi API</h1>
+            <div class="header-tagline">
+                <div class="line1">
+                    <span id="header-line1">Every AI response is a <span style="color:#00d4ff;">risk.</span> Measure it. Control it.</span><br>
+                    <span id="header-line2">You don't remove AI risk. You measure it and decide what goes out.</span><br>
+                    <span id="header-line3">You don't guess what your AI is doing anymore. You measure it and you can prove it.</span>
+                </div>
+            </div>
         </div>
+
+        <!-- Droite : toggle langue -->
         <div class="lang-toggle">
             <button class="lang-btn active" onclick="setLang('en')">EN</button>
             <button class="lang-btn" onclick="setLang('fr')">FR</button>
@@ -98,78 +175,34 @@
     </div>
 
     <div class="container">
-        <!-- Config -->
+        <div class="card card-primary full-width" style="margin-bottom:20px;">
+            <h2>
+                <span class="num">1</span>
+                <span>FREE DEMO KEY</span>
+            </h2>
+            <p id="demo-desc" style="font-size:14px;color:#ffffff;font-weight:400;margin-bottom:14px;">50 free calls - resets daily - no setup required.</p>
+            <span style="display:inline-flex;align-items:center;gap:8px;background:#0a0a15;border:1px solid #2a2a4a;border-radius:4px;padding:6px 14px;">
+                <span id="demo-label" style="font-size:11px;color:#ffffff;">Demo key:</span>
+                <code id="demoKeyDisplay" style="font-size:13px;color:#00d4ff;font-family:'Fira Code',monospace;cursor:pointer;" title="Click to copy" onclick="navigator.clipboard.writeText(this.textContent);this.style.color='#00ff88';setTimeout(()=>this.style.color='#00d4ff',1200)">ct_demo_sandbox_NeoMundi</code>
+                <span id="demo-hint" style="font-size:10px;color:#555;">(click to copy)</span>
+            </span>
+        </div>
         <div class="config-bar">
             <label>API URL</label>
             <input type="text" id="apiUrl" value="https://controltowerai.io">
             <label>API Key</label>
             <input type="text" id="apiKey" value="" data-i18n-placeholder="apikey_placeholder">
             <button onclick="checkHealth()" data-i18n="btn_test_conn">Test connection</button>
-            <span id="healthStatus"><span class="status-dot ko"></span> <span data-i18n="status_disconnected">Disconnected</span></span>
+            <span id="healthStatus"><span class="status-dot ko"></span></span>
         </div>
-
         <div class="grid">
-            <!-- Card 1: Quick Governance Test -->
-            <div class="card">
-                <h2><span class="num">1</span> <span data-i18n="card1_title">Quick Governance</span></h2>
-                <p style="font-size:12px;color:#888;margin-bottom:10px;" data-i18n="card1_desc">Send LLM metrics and observe the ALLOW / FLAG decision.</p>
 
-                <div class="presets">
-                    <span class="preset-btn" onclick="loadPreset('safe')" data-i18n="preset_safe">Safe request</span>
-                    <span class="preset-btn" onclick="loadPreset('risky')" data-i18n="preset_risky">Risky request</span>
-                    <span class="preset-btn" onclick="loadPreset('heavy')" data-i18n="preset_heavy">Heavy tokens</span>
-                </div>
-
-                <textarea id="govPayload" rows="10">{
-  "raw_metrics": {
-    "token_count": 150,
-    "latency_ms": 800,
-    "cost": 0.003,
-    "semantic_risk": 0.1
-  },
-  "source_type": "llm",
-  "mode": "OBS"
-}</textarea>
-                <div style="margin-top:8px;">
-                    <button onclick="sendGovern()">POST /v1/govern</button>
-                </div>
-                <div id="govResult" class="result-box" style="display:none;"></div>
-            </div>
-
-            <!-- Card 2: Hallucination Detection -->
-            <div class="card">
-                <h2><span class="num">2</span> <span data-i18n="card2_title">Hallucination Detection</span></h2>
-                <p style="font-size:12px;color:#888;margin-bottom:10px;" data-i18n="card2_desc">Can the API distinguish a correct answer from a hallucination?</p>
-
-                <div class="presets">
-                    <span class="preset-btn" onclick="loadHalPreset('capital')" data-i18n="hal_capital">Capital of Japan</span>
-                    <span class="preset-btn" onclick="loadHalPreset('einstein')" data-i18n="hal_einstein">Einstein & Bitcoin</span>
-                    <span class="preset-btn" onclick="loadHalPreset('bleach')" data-i18n="hal_bleach">Drinking Bleach</span>
-                </div>
-
-                <label style="font-size:11px;color:#888;" data-i18n="hal_question_label">Question</label>
-                <input type="text" id="halQuestion" style="width:100%;margin-bottom:6px;background:#0a0a15;border:1px solid #333;color:#fff;padding:6px;border-radius:4px;font-size:12px;" value="What is the capital of Japan?">
-
-                <div class="hallucination-test">
-                    <div class="col correct">
-                        <h3 data-i18n="hal_correct">CORRECT Answer</h3>
-                        <textarea id="halCorrect" rows="3">The capital of Japan is Tokyo. It has been the capital since 1868.</textarea>
-                    </div>
-                    <div class="col incorrect">
-                        <h3 data-i18n="hal_incorrect">INCORRECT Answer</h3>
-                        <textarea id="halIncorrect" rows="3">The capital of Japan is Kyoto. It has always been the main city since ancient times.</textarea>
-                    </div>
-                </div>
-                <div style="margin-top:8px;">
-                    <button onclick="testHallucination()" data-i18n="btn_test_detection">Test detection</button>
-                </div>
-                <div id="halResult" class="result-box" style="display:none;"></div>
-            </div>
-
-            <!-- Card 3: Chat Live -->
-            <div class="card full-width">
-                <h2><span class="num">3</span> <span data-i18n="card3_title">Chat Live : Full Pipeline</span></h2>
-                <p style="font-size:12px;color:#888;margin-bottom:10px;" data-i18n="card3_desc">Type a prompt, get an LLM response governed in real-time through the full pipeline.</p>
+            <div class="card card-primary full-width">
+                <h2>
+                    <span class="num">2</span>
+                    <span data-i18n="card3_title">CHAT LIVE : FULL PIPELINE</span>
+                </h2>
+                <p id="chat-subtitle" style="font-size:14px;color:#ffffff;font-weight:400;margin-bottom:14px;">Type a question. See the risk scored in real time. See the decision.</p>
 
                 <div class="presets">
                     <span class="preset-btn" onclick="loadChatPreset('safe')" data-i18n="chat_safe">Safe question</span>
@@ -184,14 +217,96 @@
 
                 <div id="chatSteps" class="chat-step" style="display:none;"></div>
                 <div id="chatResponseBox" class="chat-response" style="display:none;"></div>
+
+                <div class="gscore-banner">
+                    <div class="gb-item">
+                        <div class="gb-lbl">G-SCORE (RUNTIME)</div>
+                        <div class="gb-sublbl">0 = stable · 1 = high risk</div>
+                        <div class="gb-val" id="chatGscoreDisplay">—</div>
+                        <div class="gb-risk" id="chatRiskLevel"></div>
+                        <div class="gscore-gauge">
+                            <div class="gscore-gauge-bar"><div class="gscore-gauge-fill" id="chatGaugeFill"></div></div>
+                        </div>
+                    </div>
+                    <div class="gb-right">
+                        <div style="font-size:14px;color:#fff;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;">DECISION (ALLOW / FLAG / BLOCK)</div>
+                        <div style="font-size:11px;color:#fff;margin-bottom:0;">based on G-score (runtime)</div>
+                        <div id="chatDecisionDisplay" style="font-size:72px;font-weight:900;color:#333;line-height:1;">—</div>
+                        <div style="font-size:11px;color:transparent;">·</div>
+                        <div class="gscore-gauge">
+                            <div class="gscore-gauge-bar" style="background:#1a1a2a;"><div style="height:100%;width:0%;background:#2a2a3a;border-radius:3px;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+                    <button id="btn-example" class="toggle-btn" style="color:#ffffff;" onclick="const e=document.getElementById('gscoreExampleBox');const b=this;const sc=staticContent[currentLang]||staticContent.en;e.style.display=e.style.display==='none'?'block':'none';b.textContent=e.style.display==='none'?sc.btn_example:(sc.btn_example.replace('Voir','Masquer').replace('Show','Hide'));">Show example</button>
+                    <button id="btn-gscore" class="toggle-btn" style="color:#ffffff;" onclick="const e=document.getElementById('gscoreWhatBox');const b=this;const sc=staticContent[currentLang]||staticContent.en;e.style.display=e.style.display==='none'?'block':'none';b.textContent=e.style.display==='none'?sc.btn_gscore:(sc.btn_gscore.replace('Voir','Masquer').replace('Show','Hide'));">Show What is G-Score?</button>
+                    <button id="btn-usecase" class="toggle-btn" style="color:#ffffff;" onclick="const e=document.getElementById('gscoreUsecaseBox');const b=this;const sc=staticContent[currentLang]||staticContent.en;e.style.display=e.style.display==='none'?'block':'none';b.textContent=e.style.display==='none'?sc.btn_usecase:(sc.btn_usecase.replace('Voir','Masquer').replace('Show','Hide'));">Show Use case LegalTech</button>
+                </div>
+                <div id="gscoreExampleBox" class="gscore-example">
+                    <p id="example-text" style="font-size:13px;color:#ffffff;line-height:1.9;margin:0;font-weight:400;white-space:pre-line;">EXAMPLE — REAL-TIME RISK
+
+G-Score: 0.72 - MEDIUM RISK
+Decision: FLAG
+
+This response is unstable. Without governance, it reaches your user as-is.
+
+With NeoMundi API - you see the risk before it ships.
+You decide what goes out. Not the model.</p>
+                </div>
+
+                <div id="gscoreWhatBox" class="gscore-example" style="display:none;">
+                    <p id="gscore-text" style="font-size:13px;color:#ffffff;line-height:1.9;margin:0;font-weight:400;white-space:pre-line;">WHAT IS G-SCORE?
+
+The G-Score measures the thermodynamic instability of an AI response in real time.
+Built on Lyapunov stability theory and Friston's Free Energy Principle -
+the same mathematics used to model self-regulating biological systems.
+
+0 = stable output · 1 = high risk
+
+Every response gets a score.
+You set the threshold.
+The API decides.
+
+This score did not exist before.
+Now you can track it, log it, and act on it.</p>
+                </div>
+
+                <div id="gscoreUsecaseBox" class="gscore-example" style="display:none;">
+                    <p id="usecase-text" style="font-size:13px;color:#ffffff;line-height:1.9;margin:0;font-weight:400;white-space:pre-line;">USE CASE — LEGALTECH
+
+A law firm uses an LLM to generate contract summaries.
+
+Without governance:
+outputs go directly to clients - with unknown risk.
+
+In OBS mode:
+every response is scored before delivery.
+G-Score > 0.6 - FLAG - routed to a senior associate, not sent to the client.
+
+In GOV mode (early pilot - open now):
+high-risk outputs are automatically blocked or rewritten for lower semantic risk.
+Better response. Fewer tokens. No change required in the client workflow.
+Full sandbox testing coming soon.
+
+Result:
+- hallucination risk contained
+- legal liability reduced
+- full audit trail generated</p>
+                </div>
+
                 <div id="chatDecision" style="display:none;margin-top:8px;"></div>
                 <div id="chatMetrics" class="chat-metrics" style="display:none;"></div>
                 <div id="chatReasons" class="result-box" style="display:none;max-height:150px;"></div>
             </div>
 
-            <!-- Card 4: Live Metrics -->
-            <div class="card full-width">
-                <h2><span class="num">4</span> <span data-i18n="card4_title">Real-time Metrics</span></h2>
+            <div class="card card-metrics full-width">
+                <h2>
+                    <span class="num">3</span>
+                    <span data-i18n="card4_title">REAL-TIME METRICS</span>
+                </h2>
+                <p id="card4-desc" style="font-size:14px;color:#ffffff;font-weight:400;margin-bottom:10px;">Every request scored. Every decision logged. Your AI risk profile, building in real-time.</p>
                 <div class="metrics-grid" id="metricsGrid">
                     <div class="metric"><div class="val" id="mRequests">-</div><div class="lbl" data-i18n="m_requests">Requests</div></div>
                     <div class="metric"><div class="val" id="mAllow">-</div><div class="lbl">ALLOW</div></div>
@@ -201,16 +316,45 @@
                     <div class="metric"><div class="val" id="mLatency">-</div><div class="lbl" data-i18n="m_latency">Avg latency (ms)</div></div>
                 </div>
             </div>
+
+        </div>
+    </div>
+
+    <!-- GOV Mode + Benchmarks + Footer -->
+    <div style="max-width:1100px;margin:0 auto;padding:0 24px 8px;">
+
+        <!-- Bloc GOV mode — modifiable ici, tout sur 2 lignes simples -->
+        <div id="gov-mode-block" style="background:#0d0d20;border:1px solid #aaaaaa;border-radius:8px;padding:18px 24px;margin-top:8px;text-align:center;line-height:2;">
+
+            <p id="obs-p1" style="font-size:14px;font-weight:400;color:#ffffff;margin:0;">
+                <strong style="color:#ffffff;font-weight:600;">OBS mode</strong> = observe &amp; score only, no blocking<br>
+                <strong style="color:#ffffff;font-weight:600;">GOV mode</strong> = auto-block high-risk outputs - available for pilot.
+            </p>
+            <p id="obs-p2" style="font-size:14px;font-weight:400;color:#ffffff;margin:6px 0 0;">See our first results → <a href="https://github.com/neomundi-io" target="_blank" rel="noopener" style="color:#00d4ff;text-decoration:none;font-weight:600;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#00d4ff'">TruthfulQA benchmarks &amp; technical paper ↗</a></p>
+
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div style="text-align:center;padding:20px 32px 28px;border-top:1px solid #1a1a2e;margin-top:16px;">
+        <a id="footer-github" href="https://github.com/neomundi-io" target="_blank" rel="noopener"
+           style="font-size:11px;color:#aaaaaa;text-decoration:none;letter-spacing:0.06em;transition:color 0.2s;"
+           onmouseover="this.style.color='#00d4ff'" onmouseout="this.style.color='#aaaaaa'">
+            ↗ github.com/neomundi-io
+        </a>
+        <div id="footer-signature" style="font-size:12px;color:#ffffff;font-style:italic;letter-spacing:0.04em;margin-top:12px;">
+            Stability is not a feature. It is a guarantee.
+        </div>
+        <div id="footer-copyright" style="font-size:10px;color:#555;letter-spacing:0.06em;margin-top:10px;">
+            © 2026 NeoMundi Lab - All rights reserved.
         </div>
     </div>
 
     <script>
-        /* ================================================================
-           i18n : Bilingual EN / FR
-           ================================================================ */
         const i18n = {
             en: {
-                header_desc: "Test real-time thermodynamic AI governance.",
+                header_desc: "Real-time AI risk control.",
                 apikey_placeholder: "Paste your API key here (ct_test_xxx or ct_live_xxx)",
                 btn_test_conn: "Test connection",
                 status_disconnected: "Disconnected",
@@ -242,9 +386,9 @@
                 incorrect_answer: "INCORRECT answer",
                 reasons_correct: "--- Correct: reasons ---",
                 reasons_incorrect: "--- Incorrect: reasons ---",
-                card3_title: "Chat Live : Full Pipeline",
+                card3_title: "CHAT LIVE : FULL PIPELINE",
                 card3_desc: "Type a prompt, get an LLM response governed in real-time through the full pipeline.",
-                card4_title: "Real-time Metrics",
+                card4_title: "REAL-TIME METRICS",
                 chat_safe: "Safe question",
                 chat_trick: "Trick question",
                 chat_dangerous: "Dangerous question",
@@ -256,50 +400,32 @@
                 chat_reasons_label: "Governance reasons",
             },
             fr: {
-                header_desc: "Testez la gouvernance thermodynamique IA en temps reel.",
-                apikey_placeholder: "Collez votre cle API ici (ct_test_xxx ou ct_live_xxx)",
-                btn_test_conn: "Tester connexion",
-                status_disconnected: "Non connecte",
+                header_desc: "Contrôle du risque IA en temps réel.",
+                apikey_placeholder: "Collez votre clé API ici (ct_test_xxx ou ct_live_xxx)",
+                btn_test_conn: "Tester la connexion",
+                status_disconnected: "Déconnecté",
                 status_connecting: "Connexion...",
                 status_error: "Erreur",
-                card1_title: "Gouvernance rapide",
-                card1_desc: "Envoyez des metriques LLM et observez la decision ALLOW / FLAG.",
-                preset_safe: "Requete safe",
-                preset_risky: "Requete risquee",
-                preset_heavy: "Tokens lourds",
-                card2_title: "Detection d'hallucinations",
-                card2_desc: "L'API sait-elle distinguer une reponse correcte d'une hallucination ?",
-                hal_capital: "Capitale du Japon",
-                hal_einstein: "Einstein & Bitcoin",
-                hal_bleach: "Boire du Javel",
-                hal_question_label: "Question",
-                hal_correct: "Reponse CORRECTE",
-                hal_incorrect: "Reponse INCORRECTE",
-                btn_test_detection: "Tester la detection",
-                m_requests: "Requetes",
+                m_requests: "Requêtes",
                 m_gscore: "G-Score moyen",
-                m_hal: "Hallucinations detectees",
+                m_hal: "Hallucinations détectées",
                 m_latency: "Latence moy (ms)",
                 sending: "Envoi...",
                 error: "Erreur",
-                testing: "Test en cours... (envoi reponse correcte puis incorrecte)",
                 verdict: "Verdict",
-                correct_answer: "Reponse CORRECTE",
-                incorrect_answer: "Reponse INCORRECTE",
+                correct_answer: "Réponse CORRECTE",
+                incorrect_answer: "Réponse INCORRECTE",
                 reasons_correct: "--- Correcte : raisons ---",
                 reasons_incorrect: "--- Incorrecte : raisons ---",
-                card3_title: "Chat Live : Pipeline complet",
-                card3_desc: "Tapez un prompt, obtenez une reponse LLM gouvernee en temps reel a travers le pipeline complet.",
-                card4_title: "Metriques en temps reel",
-                chat_safe: "Question safe",
-                chat_trick: "Question piege",
+                card3_title: "CHAT LIVE : PIPELINE COMPLET",
+                card4_title: "MÉTRIQUES EN TEMPS RÉEL",
+                chat_safe: "Question neutre",
+                chat_trick: "Question piège",
                 chat_dangerous: "Question dangereuse",
                 btn_send: "Envoyer",
-                chat_step1: "Generation de la reponse LLM...",
-                chat_step2: "Execution du pipeline de gouvernance...",
-                chat_step_done: "Termine",
-                chat_llm_label: "Reponse LLM",
-                chat_reasons_label: "Raisons de gouvernance",
+                chat_step1: "Génération de la réponse LLM...",
+                chat_step2: "Exécution du pipeline de gouvernance...",
+                chat_step_done: "Terminé",
             }
         };
 
@@ -307,30 +433,122 @@
 
         function t(key) { return (i18n[currentLang] && i18n[currentLang][key]) || i18n.en[key] || key; }
 
+        const staticContent = {
+            en: {
+                header_line1: 'Every AI response is a <span style="color:#00d4ff;">risk.</span> Measure it. Control it.',
+                header_line2: "You don't remove AI risk. You measure it and decide what goes out.",
+                header_line3: "You don't guess what your AI is doing anymore. You measure it and you can prove it.",
+                chat_subtitle: "Type a question. See the risk scored in real time. See the decision.",
+                card4_desc: "Every request scored. Every decision logged. Your AI risk profile, building in real-time.",
+                btn_example: "Show example",
+                btn_gscore: "Show What is G-Score?",
+                btn_usecase: "Show Use case LegalTech",
+                obs_block: `<strong style="color:#ffffff;font-weight:600;">OBS mode</strong> = observe &amp; score only, no blocking<br><strong style="color:#ffffff;font-weight:600;">GOV mode</strong> = auto-block high-risk outputs - available for pilot.`,
+                obs_results: `See our first results → <a href="https://github.com/neomundi-io" target="_blank" rel="noopener" style="color:#00d4ff;text-decoration:none;font-weight:600;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#00d4ff'">TruthfulQA benchmarks &amp; technical paper ↗</a>`,
+                footer_github: "↗ github.com/neomundi-io",
+                footer_signature: "Stability is not a feature. It is a guarantee.",
+                footer_copyright: "© 2026 NeoMundi Lab - All rights reserved.",
+                demo_desc: "50 free calls - resets daily - no setup required.",
+                demo_label: "Demo key:",
+                demo_hint: "(click to copy)",
+                example_content: `EXAMPLE — REAL-TIME RISK\n\nG-Score: 0.72 - MEDIUM RISK\nDecision: FLAG\n\nThis response is unstable. Without governance, it reaches your user as-is.\n\nWith NeoMundi API - you see the risk before it ships.\nYou decide what goes out. Not the model.`,
+                gscore_content: `WHAT IS G-SCORE?\n\nThe G-Score measures the thermodynamic instability of an AI response in real time.\nBuilt on Lyapunov stability theory and Friston's Free Energy Principle -\nthe same mathematics used to model self-regulating biological systems.\n\n0 = stable output · 1 = high risk\n\nEvery response gets a score.\nYou set the threshold.\nThe API decides.\n\nThis score did not exist before.\nNow you can track it, log it, and act on it.`,
+                usecase_content: `USE CASE — LEGALTECH\n\nA law firm uses an LLM to generate contract summaries.\n\nWithout governance:\noutputs go directly to clients - with unknown risk.\n\nIn OBS mode:\nevery response is scored before delivery.\nG-Score > 0.6 - FLAG - routed to a senior associate, not sent to the client.\n\nIn GOV mode (early pilot - open now):\nhigh-risk outputs are automatically blocked or rewritten for lower semantic risk.\nBetter response. Fewer tokens. No change required in the client workflow.\nFull sandbox testing coming soon.\n\nResult:\n- hallucination risk contained\n- legal liability reduced\n- full audit trail generated`,
+            },
+            fr: {
+                header_line1: 'Chaque réponse IA est un <span style="color:#00d4ff;">risque.</span> Mesurez-le. Contrôlez-le.',
+                header_line2: "On ne supprime pas le risque IA. On le mesure et on décide ce qui sort.",
+                header_line3: "Vous ne devinez plus ce que fait votre IA. Vous le mesurez et vous pouvez le prouver.",
+                chat_subtitle: "Posez une question. Voyez le risque scoré en temps réel. Voyez la décision.",
+                card4_desc: "Chaque requête scorée. Chaque décision enregistrée. Votre profil de risque IA, en temps réel.",
+                btn_example: "Voir l'exemple",
+                btn_gscore: "Qu'est-ce que le G-Score ?",
+                btn_usecase: "Cas d'usage LegalTech",
+                obs_block: `<strong style="color:#ffffff;font-weight:600;">Mode OBS</strong> = observer et scorer uniquement, sans blocage<br><strong style="color:#ffffff;font-weight:600;">Mode GOV</strong> = blocage automatique des sorties à risque élevé - disponible en pilote.`,
+                obs_results: `Voir nos premiers résultats → <a href="https://github.com/neomundi-io" target="_blank" rel="noopener" style="color:#00d4ff;text-decoration:none;font-weight:600;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#00d4ff'">Benchmarks TruthfulQA &amp; article technique ↗</a>`,
+                footer_github: "↗ github.com/neomundi-io",
+                footer_signature: "La stabilité n'est pas une fonctionnalité. C'est une garantie.",
+                footer_copyright: "© 2026 NeoMundi Lab - Tous droits réservés.",
+                demo_desc: "50 appels gratuits - réinitialisés quotidiennement - sans configuration requise.",
+                demo_label: "Clé de démonstration :",
+                demo_hint: "(cliquez pour copier)",
+                example_content: `EXEMPLE - RISQUE EN TEMPS RÉEL\n\nG-Score : 0.72 - RISQUE MOYEN\nDécision : FLAG\n\nCette réponse est instable. Sans gouvernance, elle atteint votre utilisateur telle quelle.\n\nAvec NeoMundi API - vous voyez le risque avant qu'il ne parte en production.\nVous décidez ce qui sort. Pas le modèle.`,
+                gscore_content: `QU'EST-CE QUE LE G-SCORE ?\n\nLe G-Score mesure l'instabilité thermodynamique d'une réponse IA en temps réel.\nConstruit sur la théorie de stabilité de Lyapunov et le Principe d'Énergie Libre de Friston -\nles mêmes mathématiques utilisées pour modéliser les systèmes biologiques autorégulés.\n\n0 = réponse stable · 1 = risque élevé\n\nChaque réponse reçoit un score.\nVous définissez le seuil.\nL'API décide.\n\nCe score n'existait pas avant.\nMaintenant vous pouvez le suivre, le consigner, et agir en conséquence.`,
+                usecase_content: `CAS D'USAGE - LEGALTECH\n\nUn cabinet d'avocats utilise un LLM pour générer des résumés de contrats.\n\nSans gouvernance :\nles réponses vont directement aux clients - avec un risque inconnu.\n\nEn mode OBS :\nchaque réponse est scorée avant livraison.\nG-Score > 0.6 - FLAG - transmis à un associé senior, non envoyé au client.\n\nEn mode GOV (pilote anticipé - ouvert maintenant) :\nles réponses à risque élevé sont automatiquement bloquées ou réécrites pour réduire le risque sémantique.\nMeilleure réponse. Moins de tokens. Aucun changement requis dans le workflow client.\nTests sandbox complets bientôt disponibles.\n\nRésultat :\n- risque d'hallucination contenu\n- responsabilité légale réduite\n- piste d'audit complète générée`,
+            }
+        };
+
         function setLang(lang) {
             currentLang = lang;
             localStorage.setItem('ct_lang', lang);
             document.documentElement.lang = lang;
+            const sc = staticContent[lang] || staticContent.en;
 
-            // Update toggle buttons
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
             });
-
-            // Update all data-i18n elements
             document.querySelectorAll('[data-i18n]').forEach(el => {
                 el.textContent = t(el.dataset.i18n);
             });
-
-            // Update placeholders
             document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
                 el.placeholder = t(el.dataset.i18nPlaceholder);
             });
+
+            // Header tagline
+            const l1 = document.getElementById('header-line1');
+            const l2 = document.getElementById('header-line2');
+            const l3 = document.getElementById('header-line3');
+            if (l1) l1.innerHTML = sc.header_line1;
+            if (l2) l2.textContent = sc.header_line2;
+            if (l3) l3.textContent = sc.header_line3;
+
+            // Chat subtitle
+            const cs = document.getElementById('chat-subtitle');
+            if (cs) cs.textContent = sc.chat_subtitle;
+
+            // Card 4 desc
+            const c4 = document.getElementById('card4-desc');
+            if (c4) c4.textContent = sc.card4_desc;
+
+            // Toggle buttons
+            const btnEx = document.getElementById('btn-example');
+            const btnGs = document.getElementById('btn-gscore');
+            const btnUc = document.getElementById('btn-usecase');
+            if (btnEx) btnEx.textContent = sc.btn_example;
+            if (btnGs) btnGs.textContent = sc.btn_gscore;
+            if (btnUc) btnUc.textContent = sc.btn_usecase;
+
+            // Toggle boxes content
+            const exBox = document.getElementById('example-text');
+            const gsBox = document.getElementById('gscore-text');
+            const ucBox = document.getElementById('usecase-text');
+            if (exBox) exBox.textContent = sc.example_content;
+            if (gsBox) gsBox.textContent = sc.gscore_content;
+            if (ucBox) ucBox.textContent = sc.usecase_content;
+
+            // OBS/GOV block
+            const obsP1 = document.getElementById('obs-p1');
+            const obsP2 = document.getElementById('obs-p2');
+            if (obsP1) obsP1.innerHTML = sc.obs_block;
+            if (obsP2) obsP2.innerHTML = sc.obs_results;
+
+            // Footer
+            const fgit = document.getElementById('footer-github');
+            const fsig = document.getElementById('footer-signature');
+            const fcop = document.getElementById('footer-copyright');
+            if (fgit) fgit.textContent = sc.footer_github;
+            if (fsig) fsig.textContent = sc.footer_signature;
+            if (fcop) fcop.textContent = sc.footer_copyright;
+
+            // Demo key block
+            const ddesc = document.getElementById('demo-desc');
+            const dlabel = document.getElementById('demo-label');
+            const dhint = document.getElementById('demo-hint');
+            if (ddesc) ddesc.textContent = sc.demo_desc;
+            if (dlabel) dlabel.textContent = sc.demo_label;
+            if (dhint) dhint.textContent = sc.demo_hint;
         }
 
-        /* ================================================================
-           App Logic
-           ================================================================ */
         let stats = { requests: 0, allow: 0, flag: 0, gScores: [], halDetected: 0, latencies: [] };
 
         function getUrl() { return document.getElementById('apiUrl').value.replace(/\/$/, ''); }
@@ -465,7 +683,7 @@
         }
 
         /* ================================================================
-           Chat Live : Full Pipeline
+           CHAT LIVE : FULL PIPELINE
            ================================================================ */
         function loadChatPreset(type) {
             const presets = {
@@ -475,6 +693,33 @@
             };
             document.getElementById('chatPrompt').value = presets[type];
         }
+
+        /* ── G-SCORE COMPUTING STATE ──────────────────────────────────── */
+        let _gscoreComputingTimer = null;
+
+        function startGscoreComputing() {
+            const el = document.getElementById('chatGscoreDisplay');
+            const riskEl = document.getElementById('chatRiskLevel');
+            const dots = ['.', '..', '...'];
+            let i = 0;
+            el.className = 'gb-val gscore-computing';
+            el.textContent = 'Computing' + dots[0];
+            if (riskEl) { riskEl.textContent = ''; }
+            _gscoreComputingTimer = setInterval(() => {
+                i = (i + 1) % dots.length;
+                el.textContent = 'Computing' + dots[i];
+            }, 420);
+        }
+
+        function stopGscoreComputing() {
+            if (_gscoreComputingTimer) {
+                clearInterval(_gscoreComputingTimer);
+                _gscoreComputingTimer = null;
+            }
+            const el = document.getElementById('chatGscoreDisplay');
+            el.className = 'gb-val';
+        }
+        /* ──────────────────────────────────────────────────────────────── */
 
         async function sendChat() {
             const prompt = document.getElementById('chatPrompt').value.trim();
@@ -494,8 +739,9 @@
             metBox.style.display = 'none';
             reasonsBox.style.display = 'none';
 
+            startGscoreComputing();
+
             try {
-                // Step 1: Generate LLM response
                 steps.innerHTML = `<span class="active">1.</span> ${t('chat_step1')}`;
                 const genResp = await fetch(`${getUrl()}/v1/demo/generate`, {
                     method: 'POST', headers: headers(),
@@ -507,7 +753,6 @@
                 respBox.style.display = 'block';
                 respBox.textContent = gen.response;
 
-                // Step 2: Reset dashboard + governance
                 steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="active">2.</span> ${t('chat_step2')}`;
                 await fetch(`${getUrl()}/v1/health/reset`, { method: 'POST', headers: headers() });
 
@@ -525,14 +770,12 @@
                 const gScore = gov.metrics?.energy_score || 0;
                 const reasons = gov.governance?.reasons || [];
 
-                // Extract hallucination score from reasons
                 let halScore = '-';
                 for (const r of reasons) {
                     const m = r.match(/[Hh]allucination.*?score[=:]\s*([\d.]+)/);
                     if (m) { halScore = parseFloat(m[1]).toFixed(2); break; }
                 }
 
-                // Update stats
                 stats.requests++;
                 stats.latencies.push(gen.latency_ms + govLatency);
                 stats.gScores.push(gScore);
@@ -540,8 +783,18 @@
                 if (decision === 'FLAG') { stats.flag++; if (halScore !== '-') stats.halDetected++; }
                 updateMetrics();
 
-                // Display
                 steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="done">2.</span> Governance (${govLatency}ms) &nbsp; : ${t('chat_step_done')}`;
+
+                stopGscoreComputing();
+
+                document.getElementById('chatGscoreDisplay').textContent = gScore.toFixed(3);
+                const decDisplay = document.getElementById('chatDecisionDisplay');
+                decDisplay.textContent = decision;
+                decDisplay.style.color = decision === 'ALLOW' ? '#00ff88' : '#ffaa00';
+                document.getElementById('chatGaugeFill').style.width = Math.min(gScore * 100, 100) + '%';
+                document.getElementById('chatGaugeFill').style.background = 'linear-gradient(90deg, #00ff88, #ffaa00, #ff4444)';
+                const riskEl = document.getElementById('chatRiskLevel');
+                if (riskEl) { riskEl.textContent = gScore < 0.3 ? 'LOW RISK' : gScore < 0.7 ? 'MEDIUM RISK' : 'HIGH RISK'; riskEl.style.color = gScore < 0.3 ? '#00ff88' : gScore < 0.7 ? '#ffaa00' : '#ff4444'; }
 
                 decBox.style.display = 'block';
                 decBox.innerHTML = `<span class="decision ${decision}">${decision}</span> <span style="color:#666;font-size:12px;">(${gen.latency_ms + govLatency}ms total : model: ${gen.model})</span>`;
@@ -559,6 +812,8 @@
                     reasonsBox.textContent = reasons.join('\n');
                 }
             } catch (e) {
+                stopGscoreComputing();
+                document.getElementById('chatGscoreDisplay').textContent = '—';
                 steps.innerHTML = `<span style="color:#ff4444;">${t('error')}: ${e.message}</span>`;
             } finally {
                 btn.disabled = false;
@@ -574,7 +829,6 @@
             document.getElementById('mLatency').textContent = stats.latencies.length ? Math.round(stats.latencies.reduce((a,b)=>a+b,0) / stats.latencies.length) : '-';
         }
 
-        // Init: apply saved language and check health
         window.addEventListener('load', () => {
             setLang(currentLang);
             checkHealth();
