@@ -9,20 +9,14 @@
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #020202; color: #e0e0e0; min-height: 100vh; }
 
         .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 28px 32px; border-bottom: 1px solid #2a2a4a; display: flex; justify-content: space-between; align-items: center; }
-
-        /* Zone centrale du header — colonne centrée */
         .header-center { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
         .header-center h1 { font-size: 22px; color: #00d4ff; }
-
-        /* Accroche principale */
         .header-tagline { margin-top: 10px; }
         .header-tagline .line1 { font-size: 20px; font-weight: 800; color: #ffffff; letter-spacing: 0.01em; line-height: 1.3; }
         .header-tagline .line1 span { color: #00d4ff; }
         .header-tagline .line2 { font-size: 19px; color: #ffffff; margin-top: 6px; font-weight: 400; letter-spacing: 0.02em; }
         .header-tagline .line3 { font-size: 16px; color: #ffffff; margin-top: 8px; letter-spacing: 0.06em; font-style: italic; }
         .header-tagline .line4 { font-size: 13px; color: #ffffff; margin-top: 10px; letter-spacing: 0.04em; font-weight: 500; opacity: 0.9; }
-
-        /* Ancre gauche — juste pour équilibrer avec le toggle à droite */
         .header-left-anchor { width: 80px; }
 
         .lang-toggle { display: flex; gap: 0; border: 1px solid #333; border-radius: 6px; overflow: hidden; }
@@ -31,7 +25,6 @@
         .lang-btn:hover:not(.active) { background: #222; color: #ccc; }
 
         .container { max-width: 1100px; margin: 0 auto; padding: 12px 24px 24px; }
-        .api-starter { background: #0d0d20; border: 1px solid #aaaaaa; border-radius: 8px; padding: 12px 16px; margin-bottom: 14px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
 
         .config-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
         .config-bar label { font-size: 12px; color: #ffffff; }
@@ -45,19 +38,16 @@
         @keyframes pulse { 50% { opacity: 0.3; } }
 
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-
         .card { background: #12121f; border: 1px solid #2a2a4a; border-radius: 8px; padding: 20px; }
         .card h2 { font-size: 15px; color: #00d4ff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
         .card h2 .num { background: #00d4ff; color: #000; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
 
         textarea { width: 100%; background: #0a0a15; border: 1px solid #333; color: #e0e0e0; padding: 10px; border-radius: 4px; font-family: 'Fira Code', monospace; font-size: 12px; resize: vertical; }
-
         button { background: #00d4ff; color: #000; border: none; padding: 8px 18px; border-radius: 4px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s; }
         button:hover { background: #00b8e6; }
         button:disabled { background: #555; cursor: not-allowed; }
 
         .result-box { background: #0a0a15; border: 1px solid #333; border-radius: 4px; padding: 12px; margin-top: 12px; font-family: monospace; font-size: 12px; max-height: 300px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; }
-
         .decision { display: inline-block; padding: 2px 10px; border-radius: 12px; font-weight: 700; font-size: 13px; }
         .decision.ALLOW { background: #00331a; color: #00ff88; border: 1px solid #00ff88; }
         .decision.FLAG { background: #332200; color: #ffaa00; border: 1px solid #ffaa00; }
@@ -65,7 +55,6 @@
         .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
         .metric { background: #0a0a15; border: 1px solid #222; border-radius: 4px; padding: 8px; text-align: center; }
         .metric .val { font-size: 18px; font-weight: bold; color: #00d4ff; }
-        .card p[style*="color:#888"], .card-primary p[style*="color:#888"], .card-secondary p[style*="color:#888"] { color: #cccccc !important; }
         .metric .lbl { font-size: 10px; color: #aaaaaa; margin-top: 2px; }
 
         .presets { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
@@ -73,12 +62,6 @@
         .preset-btn:hover { border-color: #00d4ff; color: #00d4ff; }
 
         .full-width { grid-column: 1 / -1; }
-
-        .hallucination-test { display: flex; gap: 10px; margin-top: 10px; }
-        .hallucination-test .col { flex: 1; }
-        .hallucination-test .col h3 { font-size: 12px; margin-bottom: 6px; }
-        .hallucination-test .col.correct h3 { color: #00ff88; }
-        .hallucination-test .col.incorrect h3 { color: #ff4466; }
 
         .chat-response { background: #111122; border: 1px solid #2a2a4a; border-radius: 6px; padding: 14px; margin-top: 10px; font-size: 13px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; max-height: 200px; overflow-y: auto; }
         .chat-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-top: 10px; }
@@ -92,55 +75,37 @@
         .chat-step .done { color: #00ff88; }
         .chat-step .active { color: #ffaa00; }
 
-        .block-subtitle { font-size: 11px; color: #ffffff; margin-top: -6px; margin-bottom: 12px; line-height: 1.5; }
-        .block-tag { font-size: 10px; font-weight: 600; letter-spacing: 0.05em; padding: 2px 8px; border-radius: 10px; margin-left: 4px; vertical-align: middle; }
-        .tag-live { background: #003322; color: #00ff88; border: 1px solid #00ff88; }
-        .tag-metrics { background: #003322; color: #00ff88; border: 1px solid #00ff88; }
-        .tag-debug { background: #1a1a00; color: #ffaa00; border: 1px solid #ffaa00; }
-        .tag-experimental { background: #1a0010; color: #ff4466; border: 1px solid #ff4466; }
-        .config-hint { font-size: 11px; color: #ffffff; margin-bottom: 8px; }
-        .gscore-hint { font-size: 10px; color: #aaaaaa; margin-top: 6px; font-style: italic; }
-
         .card-primary { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 24px; }
         .card-metrics { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 24px; }
-        .card-secondary { background: #0e0e18; border: 1px solid #1e1e30; border-radius: 8px; padding: 20px; opacity: 0.92; }
+        .card-cta { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 24px; }
+
         .gscore-banner { display: flex; gap: 0; align-items: stretch; background: #0a0a1a; border: 1px solid #aaaaaa; border-radius: 8px; margin-top: 14px; overflow: hidden; min-height: 160px; }
         .gscore-banner .gb-item { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 24px; flex: 1; gap: 4px; border-right: 1px solid #1a2a4a; }
         .gscore-banner .gb-val { font-size: 72px; font-weight: 900; color: #333; letter-spacing: -0.03em; line-height: 1; }
         .gscore-banner .gb-lbl { font-size: 14px; color: #fff; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; order: -1; }
         .gscore-banner .gb-sublbl { font-size: 11px; color: #fff; font-weight: 400; letter-spacing: 0.04em; order: -1; margin-top: -2px; }
         .gscore-banner .gb-risk { font-size: 11px; color: #444; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px; }
-        .gscore-banner .gb-sep { display: none; }
         .gscore-banner .gb-right { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px 24px; gap: 2px; flex: 1; }
         .gscore-gauge { display: flex; align-items: center; gap: 8px; width: 80%; margin-top: 10px; }
         .gscore-gauge-bar { flex: 1; height: 4px; background: #1a1a2a; border-radius: 3px; overflow: hidden; }
         .gscore-gauge-fill { height: 100%; width: 0%; background: #2a2a3a !important; border-radius: 3px; transition: width 0.4s ease; }
+
         .gscore-example { margin-top: 10px; border: 1px dashed #1a2a1a; border-radius: 6px; padding: 10px 14px; background: #090912; display: none; }
-        .gscore-example-label { font-size: 9px; color: #555; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
-        .gscore-example-row { display: flex; align-items: center; gap: 10px; font-size: 12px; }
-        .gscore-example-val { font-size: 18px; font-weight: 800; color: #555; }
-        .gscore-example-arrow { color: #333; font-size: 14px; }
-        .gscore-example-risk { font-size: 11px; font-weight: 700; color: #ffaa00; }
-        .gscore-example-dec { font-size: 11px; color: #666; }
         .toggle-btn { background: #1a1a2e; border: 1px solid #333; color: #aaaaaa; padding: 4px 12px; border-radius: 12px; font-size: 11px; cursor: pointer; margin-top: 10px; transition: all 0.2s; }
         .toggle-btn:hover { border-color: #00d4ff; color: #00d4ff; background: #1a1a2e; }
+
         #healthStatus { font-size: 11px; }
         #healthStatus .status-dot.ko { background: #333; }
-        .run-btn { background: #1a2a3a; color: #00d4ff; border: 1px solid #aaaaaa; padding: 8px 18px; border-radius: 4px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s; }
-        .run-btn:hover { background: #00d4ff; color: #000; }
 
-        /* ── COMPUTING G-SCORE : état visuel temporaire ── */
+        .docker-block { background: #0a0a15; border: 1px solid #2a2a4a; border-radius: 6px; padding: 12px 16px; margin: 14px 0; font-family: 'Fira Code', monospace; font-size: 13px; color: #00ff88; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        .docker-copy { background: #1a1a2e; border: 1px solid #333; color: #aaa; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; font-family: sans-serif; transition: all 0.2s; white-space: nowrap; }
+        .docker-copy:hover { border-color: #00d4ff; color: #00d4ff; }
+
         @keyframes gscore-computing-pulse {
             0%, 100% { opacity: 1; }
             50%       { opacity: 0.45; }
         }
-        .gscore-computing {
-            font-size: 22px !important;
-            font-weight: 700 !important;
-            color: #00d4ff !important;
-            letter-spacing: 0.04em;
-            animation: gscore-computing-pulse 1.1s ease-in-out infinite;
-        }
+        .gscore-computing { font-size: 22px !important; font-weight: 700 !important; color: #00d4ff !important; letter-spacing: 0.04em; animation: gscore-computing-pulse 1.1s ease-in-out infinite; }
 
         @media (max-width: 768px) {
             .grid { grid-template-columns: 1fr; }
@@ -154,7 +119,6 @@
 <body>
     <div class="header">
         <div class="header-left-anchor"></div>
-
         <div class="header-center">
             <h1>NeoMundi API</h1>
             <div class="header-tagline">
@@ -163,7 +127,6 @@
                 </div>
             </div>
         </div>
-
         <div class="lang-toggle">
             <button class="lang-btn active" onclick="setLang('en')">EN</button>
             <button class="lang-btn" onclick="setLang('fr')">FR</button>
@@ -172,10 +135,7 @@
 
     <div class="container">
         <div class="card card-primary full-width" style="margin-bottom:20px;">
-            <h2>
-                <span class="num">1</span>
-                <span>FREE DEMO KEY</span>
-            </h2>
+            <h2><span class="num">1</span><span>FREE DEMO KEY</span></h2>
             <p id="demo-desc" style="font-size:14px;color:#ffffff;font-weight:400;margin-bottom:14px;">50 free calls - resets daily - no setup required.</p>
             <span style="display:inline-flex;align-items:center;gap:8px;background:#0a0a15;border:1px solid #2a2a4a;border-radius:4px;padding:6px 14px;">
                 <span id="demo-label" style="font-size:11px;color:#ffffff;">Demo key:</span>
@@ -183,6 +143,7 @@
                 <span id="demo-hint" style="font-size:10px;color:#555;">(click to copy)</span>
             </span>
         </div>
+
         <div class="config-bar">
             <label>API URL</label>
             <input type="text" id="apiUrl" value="https://controltowerai.io">
@@ -191,13 +152,10 @@
             <button onclick="checkHealth()" data-i18n="btn_test_conn">Test connection</button>
             <span id="healthStatus"><span class="status-dot ko"></span></span>
         </div>
-        <div class="grid">
 
+        <div class="grid">
             <div class="card card-primary full-width">
-                <h2>
-                    <span class="num">2</span>
-                    <span data-i18n="card3_title">CHAT LIVE : FULL PIPELINE</span>
-                </h2>
+                <h2><span class="num">2</span><span data-i18n="card3_title">CHAT LIVE : FULL PIPELINE</span></h2>
                 <p id="chat-subtitle" style="font-size:14px;color:#ffffff;font-weight:400;margin-bottom:14px;">Type a question. See the risk scored in real time. See the decision.</p>
 
                 <div class="presets">
@@ -244,6 +202,7 @@
                     <button id="btn-gscore" class="toggle-btn" style="color:#ffffff;" onclick="const e=document.getElementById('gscoreWhatBox');const b=this;const sc=staticContent[currentLang]||staticContent.en;e.style.display=e.style.display==='none'?'block':'none';b.textContent=e.style.display==='none'?sc.btn_gscore:(sc.btn_gscore.replace('What','Hide').replace('Qu','Masquer'));">What is G-Score?</button>
                     <button id="btn-usecase" class="toggle-btn" style="color:#ffffff;" onclick="const e=document.getElementById('gscoreUsecaseBox');const b=this;const sc=staticContent[currentLang]||staticContent.en;e.style.display=e.style.display==='none'?'block':'none';b.textContent=e.style.display==='none'?sc.btn_usecase:(sc.btn_usecase.replace('See','Hide').replace('Voir','Masquer'));">See legal use case</button>
                 </div>
+
                 <div id="gscoreExampleBox" class="gscore-example">
                     <p id="example-text" style="font-size:13px;color:#ffffff;line-height:1.9;margin:0;font-weight:400;white-space:pre-line;">EXAMPLE — REAL-TIME RISK
 
@@ -288,12 +247,16 @@ G-Score > 0.6 - FLAG - routed to a senior associate, not sent to the client.
 In GOV mode (early pilot - open now):
 high-risk outputs are automatically blocked or rewritten for lower semantic risk.
 Better response. Fewer tokens. No change required in the client workflow.
-Full sandbox testing coming soon.
+
+EU AI Act compliance:
+every response is scored, traced, and auditable — by design.
+You don't prepare for compliance. You deploy it.
 
 Result:
 - hallucination risk contained
 - legal liability reduced
-- full audit trail generated</p>
+- full audit trail generated
+- EU AI Act compliance — built in, not bolted on</p>
                 </div>
 
                 <div id="chatDecision" style="display:none;margin-top:8px;"></div>
@@ -302,10 +265,7 @@ Result:
             </div>
 
             <div class="card card-metrics full-width">
-                <h2>
-                    <span class="num">3</span>
-                    <span data-i18n="card4_title">REAL-TIME METRICS</span>
-                </h2>
+                <h2><span class="num">3</span><span data-i18n="card4_title">REAL-TIME METRICS</span></h2>
                 <p id="card4-desc" style="font-size:14px;color:#ffffff;font-weight:400;margin-bottom:10px;">Every request scored. Every decision logged. Your AI risk profile, building in real-time.</p>
                 <div class="metrics-grid" id="metricsGrid">
                     <div class="metric"><div class="val" id="mRequests">-</div><div class="lbl" data-i18n="m_requests">Requests</div></div>
@@ -317,6 +277,14 @@ Result:
                 </div>
             </div>
 
+            <!-- ── BLOC 4 : CTA ── -->
+            <div class="card card-cta full-width">
+                <h2><span class="num">4</span><span id="cta-title">READY TO GOVERN YOUR AI?</span></h2>
+                <p id="cta-desc" style="font-size:14px;color:#ffffff;font-weight:400;margin-bottom:14px;">Start in minutes with an API key. Test your first requests immediately. No code changes. No risk. Full auditability and visibility from day one.</p>
+                <p id="cta-contact" style="font-size:14px;color:#ffffff;">
+                    → <a href="mailto:contact@neomundi.io" style="color:#00d4ff;text-decoration:none;font-weight:600;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#00d4ff'">Get your API key: contact@neomundi.io</a>
+                </p>
+            </div>
         </div>
     </div>
 
@@ -347,40 +315,17 @@ Result:
     <script>
         const i18n = {
             en: {
-                header_desc: "Real-time AI risk control.",
                 apikey_placeholder: "Paste your API key here (ct_test_xxx or ct_live_xxx)",
                 btn_test_conn: "Test connection",
-                status_disconnected: "Disconnected",
                 status_connecting: "Connecting...",
                 status_error: "Error",
-                card1_title: "Quick Governance",
-                card1_desc: "Send LLM metrics and observe the ALLOW / FLAG decision.",
-                preset_safe: "Safe request",
-                preset_risky: "Risky request",
-                preset_heavy: "Heavy tokens",
-                card2_title: "Hallucination Detection",
-                card2_desc: "Can the API distinguish a correct answer from a hallucination?",
-                hal_capital: "Capital of Japan",
-                hal_einstein: "Einstein & Bitcoin",
-                hal_bleach: "Drinking Bleach",
-                hal_question_label: "Question",
-                hal_correct: "CORRECT Answer",
-                hal_incorrect: "INCORRECT Answer",
-                btn_test_detection: "Test detection",
                 m_requests: "Requests",
                 m_gscore: "Avg G-Score",
                 m_hal: "Hallucinations detected",
                 m_latency: "Avg latency (ms)",
                 sending: "Sending...",
                 error: "Error",
-                testing: "Testing... (sending correct then incorrect answer)",
-                verdict: "Verdict",
-                correct_answer: "CORRECT answer",
-                incorrect_answer: "INCORRECT answer",
-                reasons_correct: "--- Correct: reasons ---",
-                reasons_incorrect: "--- Incorrect: reasons ---",
                 card3_title: "CHAT LIVE : FULL PIPELINE",
-                card3_desc: "Type a prompt, get an LLM response governed in real-time through the full pipeline.",
                 card4_title: "REAL-TIME METRICS",
                 chat_safe: "Safe question",
                 chat_trick: "Trick question",
@@ -389,14 +334,10 @@ Result:
                 chat_step1: "Generating LLM response...",
                 chat_step2: "Running governance pipeline...",
                 chat_step_done: "Done",
-                chat_llm_label: "LLM Response",
-                chat_reasons_label: "Governance reasons",
             },
             fr: {
-                header_desc: "Contrôle du risque IA en temps réel.",
                 apikey_placeholder: "Collez votre clé API ici (ct_test_xxx ou ct_live_xxx)",
                 btn_test_conn: "Tester la connexion",
-                status_disconnected: "Déconnecté",
                 status_connecting: "Connexion...",
                 status_error: "Erreur",
                 m_requests: "Requêtes",
@@ -405,11 +346,6 @@ Result:
                 m_latency: "Latence moy (ms)",
                 sending: "Envoi...",
                 error: "Erreur",
-                verdict: "Verdict",
-                correct_answer: "Réponse CORRECTE",
-                incorrect_answer: "Réponse INCORRECTE",
-                reasons_correct: "--- Correcte : raisons ---",
-                reasons_incorrect: "--- Incorrecte : raisons ---",
                 card3_title: "CHAT LIVE : PIPELINE COMPLET",
                 card4_title: "MÉTRIQUES EN TEMPS RÉEL",
                 chat_safe: "Question neutre",
@@ -423,20 +359,20 @@ Result:
         };
 
         let currentLang = localStorage.getItem('ct_lang') || 'en';
-
         function t(key) { return (i18n[currentLang] && i18n[currentLang][key]) || i18n.en[key] || key; }
 
         const staticContent = {
             en: {
                 header_line1: "Every AI response is a risk. Measure it. Control it. Prove it.",
-                header_line2: "You don't remove AI risk. You measure it and decide what goes out.",
-                header_line3: "You don't guess what your AI is doing anymore. You measure it and you can prove it.",
                 eu_act_line: '<span style="color:#00d4ff;">EU AI Act ready</span> — every response is scored and auditable in real time',
                 chat_subtitle: "Type a question. See the risk scored in real time. See the decision.",
                 card4_desc: "Every request scored. Every decision logged. Your AI risk profile, building in real-time.",
                 btn_example: "Try example",
                 btn_gscore: "What is G-Score?",
                 btn_usecase: "See legal use case",
+                cta_title: "READY TO GOVERN YOUR AI?",
+                cta_desc: "Start in minutes with an API key. Test your first requests immediately. No code changes. No risk. Full auditability and visibility from day one.",
+                cta_contact: '→ <a href="mailto:contact@neomundi.io" style="color:#00d4ff;text-decoration:none;font-weight:600;" onmouseover="this.style.color=\'#00ff88\'" onmouseout="this.style.color=\'#00d4ff\'">Get your API key: contact@neomundi.io</a>',
                 obs_block: `<strong style="color:#ffffff;font-weight:600;">OBS mode</strong> = observe &amp; score only, no blocking<br><strong style="color:#ffffff;font-weight:600;">GOV mode</strong> = auto-block high-risk outputs - available for pilot.`,
                 obs_results: `See our first results → <a href="https://github.com/neomundi-io" target="_blank" rel="noopener" style="color:#00d4ff;text-decoration:none;font-weight:600;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#00d4ff'">TruthfulQA benchmarks &amp; technical paper ↗</a>`,
                 footer_github: "↗ github.com/neomundi-io",
@@ -451,14 +387,15 @@ Result:
             },
             fr: {
                 header_line1: "Chaque réponse IA est un risque. Mesurez-le. Contrôlez-le. Prouvez-le.",
-                header_line2: "On ne supprime pas le risque IA. On le mesure et on décide ce qui sort.",
-                header_line3: "Vous ne devinez plus ce que fait votre IA. Vous le mesurez et vous pouvez le prouver.",
                 eu_act_line: '<span style="color:#00d4ff;">Conforme EU AI Act</span> — chaque réponse est scorée et auditable en temps réel',
                 chat_subtitle: "Posez une question. Voyez le risque scoré en temps réel. Voyez la décision.",
                 card4_desc: "Chaque requête scorée. Chaque décision enregistrée. Votre profil de risque IA, en temps réel.",
                 btn_example: "Voir l'exemple",
                 btn_gscore: "Qu'est-ce que le G-Score ?",
                 btn_usecase: "Voir le cas LegalTech",
+                cta_title: "PRÊT À GOUVERNER VOTRE IA ?",
+                cta_desc: "Démarrez en quelques minutes avec une clé API. Testez vos premières requêtes immédiatement. Aucun changement de code. Zéro risque. Auditabilité et visibilité totales dès le premier jour.",
+                cta_contact: '→ <a href="mailto:contact@neomundi.io" style="color:#00d4ff;text-decoration:none;font-weight:600;" onmouseover="this.style.color=\'#00ff88\'" onmouseout="this.style.color=\'#00d4ff\'">Obtenez votre clé API : contact@neomundi.io</a>',
                 obs_block: `<strong style="color:#ffffff;font-weight:600;">Mode OBS</strong> = observer et scorer uniquement, sans blocage<br><strong style="color:#ffffff;font-weight:600;">Mode GOV</strong> = blocage automatique des sorties à risque élevé - disponible en pilote.`,
                 obs_results: `Voir nos premiers résultats → <a href="https://github.com/neomundi-io" target="_blank" rel="noopener" style="color:#00d4ff;text-decoration:none;font-weight:600;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#00d4ff'">Benchmarks TruthfulQA &amp; article technique ↗</a>`,
                 footer_github: "↗ github.com/neomundi-io",
@@ -482,21 +419,17 @@ Result:
             document.querySelectorAll('.lang-btn').forEach(btn => {
                 btn.classList.toggle('active', btn.textContent.trim().toLowerCase() === lang);
             });
-            document.querySelectorAll('[data-i18n]').forEach(el => {
-                el.textContent = t(el.dataset.i18n);
-            });
-            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-                el.placeholder = t(el.dataset.i18nPlaceholder);
-            });
+            document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+            document.querySelectorAll('[data-i18n-placeholder]').forEach(el => { el.placeholder = t(el.dataset.i18nPlaceholder); });
 
             const l1 = document.getElementById('header-line1');
             if (l1) l1.textContent = sc.header_line1;
+
             const euLine = document.getElementById('eu-act-line');
             if (euLine) euLine.innerHTML = sc.eu_act_line;
 
             const cs = document.getElementById('chat-subtitle');
             if (cs) cs.textContent = sc.chat_subtitle;
-
             const c4 = document.getElementById('card4-desc');
             if (c4) c4.textContent = sc.card4_desc;
 
@@ -513,6 +446,14 @@ Result:
             if (exBox) exBox.textContent = sc.example_content;
             if (gsBox) gsBox.textContent = sc.gscore_content;
             if (ucBox) ucBox.textContent = sc.usecase_content;
+
+            // CTA block
+            const ctaTitle = document.getElementById('cta-title');
+            const ctaDesc = document.getElementById('cta-desc');
+            const ctaContact = document.getElementById('cta-contact');
+            if (ctaTitle) ctaTitle.textContent = sc.cta_title;
+            if (ctaDesc) ctaDesc.textContent = sc.cta_desc;
+            if (ctaContact) ctaContact.innerHTML = sc.cta_contact;
 
             const obsP1 = document.getElementById('obs-p1');
             const obsP2 = document.getElementById('obs-p2');
@@ -535,7 +476,6 @@ Result:
         }
 
         let stats = { requests: 0, allow: 0, flag: 0, gScores: [], halDetected: 0, latencies: [] };
-
         function getUrl() { return document.getElementById('apiUrl').value.replace(/\/$/, ''); }
         function getKey() { return document.getElementById('apiKey').value; }
         function headers() { return { 'Content-Type': 'application/json', 'X-API-Key': getKey() }; }
@@ -562,7 +502,6 @@ Result:
         }
 
         let _gscoreComputingTimer = null;
-
         function startGscoreComputing() {
             const el = document.getElementById('chatGscoreDisplay');
             const riskEl = document.getElementById('chatRiskLevel');
@@ -570,26 +509,17 @@ Result:
             let i = 0;
             el.className = 'gb-val gscore-computing';
             el.textContent = 'Computing' + dots[0];
-            if (riskEl) { riskEl.textContent = ''; }
-            _gscoreComputingTimer = setInterval(() => {
-                i = (i + 1) % dots.length;
-                el.textContent = 'Computing' + dots[i];
-            }, 420);
+            if (riskEl) riskEl.textContent = '';
+            _gscoreComputingTimer = setInterval(() => { i = (i + 1) % dots.length; el.textContent = 'Computing' + dots[i]; }, 420);
         }
-
         function stopGscoreComputing() {
-            if (_gscoreComputingTimer) {
-                clearInterval(_gscoreComputingTimer);
-                _gscoreComputingTimer = null;
-            }
-            const el = document.getElementById('chatGscoreDisplay');
-            el.className = 'gb-val';
+            if (_gscoreComputingTimer) { clearInterval(_gscoreComputingTimer); _gscoreComputingTimer = null; }
+            document.getElementById('chatGscoreDisplay').className = 'gb-val';
         }
 
         async function sendChat() {
             const prompt = document.getElementById('chatPrompt').value.trim();
             if (!prompt) return;
-
             const btn = document.getElementById('chatBtn');
             const steps = document.getElementById('chatSteps');
             const respBox = document.getElementById('chatResponseBox');
@@ -603,29 +533,20 @@ Result:
             decBox.style.display = 'none';
             metBox.style.display = 'none';
             reasonsBox.style.display = 'none';
-
             startGscoreComputing();
 
             try {
                 steps.innerHTML = `<span class="active">1.</span> ${t('chat_step1')}`;
-                const genResp = await fetch(`${getUrl()}/v1/demo/generate`, {
-                    method: 'POST', headers: headers(),
-                    body: JSON.stringify({ prompt })
-                });
+                const genResp = await fetch(`${getUrl()}/v1/demo/generate`, { method: 'POST', headers: headers(), body: JSON.stringify({ prompt }) });
                 if (!genResp.ok) throw new Error(`LLM error: ${genResp.status}`);
                 const gen = await genResp.json();
-
                 respBox.style.display = 'block';
                 respBox.textContent = gen.response;
 
                 steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="active">2.</span> ${t('chat_step2')}`;
                 await fetch(`${getUrl()}/v1/health/reset`, { method: 'POST', headers: headers() });
 
-                const govPayload = {
-                    raw_metrics: { token_count: gen.token_count, latency_ms: gen.latency_ms, cost: gen.token_count * 0.00001, semantic_risk: 0.0 },
-                    source_type: "llm", mode: "OBS",
-                    llm_response: gen.response, llm_prompt: prompt
-                };
+                const govPayload = { raw_metrics: { token_count: gen.token_count, latency_ms: gen.latency_ms, cost: gen.token_count * 0.00001, semantic_risk: 0.0 }, source_type: "llm", mode: "OBS", llm_response: gen.response, llm_prompt: prompt };
                 const t0 = performance.now();
                 const govResp = await fetch(`${getUrl()}/v1/govern`, { method: 'POST', headers: headers(), body: JSON.stringify(govPayload) });
                 const govLatency = Math.round(performance.now() - t0);
@@ -634,12 +555,8 @@ Result:
                 const decision = gov.governance?.decision || '?';
                 const gScore = gov.metrics?.energy_score || 0;
                 const reasons = gov.governance?.reasons || [];
-
                 let halScore = '-';
-                for (const r of reasons) {
-                    const m = r.match(/[Hh]allucination.*?score[=:]\s*([\d.]+)/);
-                    if (m) { halScore = parseFloat(m[1]).toFixed(2); break; }
-                }
+                for (const r of reasons) { const m = r.match(/[Hh]allucination.*?score[=:]\s*([\d.]+)/); if (m) { halScore = parseFloat(m[1]).toFixed(2); break; } }
 
                 stats.requests++;
                 stats.latencies.push(gen.latency_ms + govLatency);
@@ -649,7 +566,6 @@ Result:
                 updateMetrics();
 
                 steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="done">2.</span> Governance (${govLatency}ms) &nbsp; : ${t('chat_step_done')}`;
-
                 stopGscoreComputing();
 
                 document.getElementById('chatGscoreDisplay').textContent = gScore.toFixed(3);
@@ -663,7 +579,6 @@ Result:
 
                 decBox.style.display = 'block';
                 decBox.innerHTML = `<span class="decision ${decision}">${decision}</span> <span style="color:#666;font-size:12px;">(${gen.latency_ms + govLatency}ms total : model: ${gen.model})</span>`;
-
                 metBox.style.display = 'grid';
                 metBox.innerHTML = `
                     <div class="cm"><div class="cv cyan">${gScore.toFixed(3)}</div><div class="cl">G-Score</div></div>
@@ -671,11 +586,7 @@ Result:
                     <div class="cm"><div class="cv cyan">${gen.token_count}</div><div class="cl">Tokens</div></div>
                     <div class="cm"><div class="cv cyan">${(gov.governance?.confidence || 0).toFixed(2)}</div><div class="cl">Confidence</div></div>
                 `;
-
-                if (reasons.length) {
-                    reasonsBox.style.display = 'block';
-                    reasonsBox.textContent = reasons.join('\n');
-                }
+                if (reasons.length) { reasonsBox.style.display = 'block'; reasonsBox.textContent = reasons.join('\n'); }
             } catch (e) {
                 stopGscoreComputing();
                 document.getElementById('chatGscoreDisplay').textContent = '—';
@@ -694,10 +605,7 @@ Result:
             document.getElementById('mLatency').textContent = stats.latencies.length ? Math.round(stats.latencies.reduce((a,b)=>a+b,0) / stats.latencies.length) : '-';
         }
 
-        window.addEventListener('load', () => {
-            setLang(currentLang);
-            checkHealth();
-        });
+        window.addEventListener('load', () => { setLang(currentLang); checkHealth(); });
     </script>
 </body>
 </html>
