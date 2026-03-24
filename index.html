@@ -20,6 +20,7 @@
         .header-tagline .line1 span { color: #00d4ff; }
         .header-tagline .line2 { font-size: 19px; color: #ffffff; margin-top: 6px; font-weight: 400; letter-spacing: 0.02em; }
         .header-tagline .line3 { font-size: 16px; color: #ffffff; margin-top: 8px; letter-spacing: 0.06em; font-style: italic; }
+        .header-tagline .line4 { font-size: 13px; color: #ffffff; margin-top: 10px; letter-spacing: 0.04em; font-weight: 500; opacity: 0.9; }
 
         /* Ancre gauche — juste pour équilibrer avec le toggle à droite */
         .header-left-anchor { width: 80px; }
@@ -152,22 +153,20 @@
 </head>
 <body>
     <div class="header">
-        <!-- Ancre gauche vide pour équilibrer le layout -->
         <div class="header-left-anchor"></div>
 
-        <!-- Centre : nom + accroche -->
         <div class="header-center">
             <h1>NeoMundi API</h1>
             <div class="header-tagline">
                 <div class="line1">
                     <span id="header-line1">Every AI response is a <span style="color:#00d4ff;">risk.</span> Measure it. Control it.</span><br>
                     <span id="header-line2">You don't remove AI risk. You measure it and decide what goes out.</span><br>
-                    <span id="header-line3">You don't guess what your AI is doing anymore. You measure it and you can prove it.</span>
+                    <span id="header-line3">You don't guess what your AI is doing anymore. You measure it and you can prove it.</span><br>
+                    <span id="header-line4" style="color:#ffffff;">EU AI Act ready — every response is scored and auditable in real time.</span>
                 </div>
             </div>
         </div>
 
-        <!-- Droite : toggle langue -->
         <div class="lang-toggle">
             <button class="lang-btn active" onclick="setLang('en')">EN</button>
             <button class="lang-btn" onclick="setLang('fr')">FR</button>
@@ -320,23 +319,16 @@ Result:
         </div>
     </div>
 
-    <!-- GOV Mode + Benchmarks + Footer -->
     <div style="max-width:1100px;margin:0 auto;padding:0 24px 8px;">
-
-        <!-- Bloc GOV mode — modifiable ici, tout sur 2 lignes simples -->
         <div id="gov-mode-block" style="background:#0d0d20;border:1px solid #aaaaaa;border-radius:8px;padding:18px 24px;margin-top:8px;text-align:center;line-height:2;">
-
             <p id="obs-p1" style="font-size:14px;font-weight:400;color:#ffffff;margin:0;">
                 <strong style="color:#ffffff;font-weight:600;">OBS mode</strong> = observe &amp; score only, no blocking<br>
                 <strong style="color:#ffffff;font-weight:600;">GOV mode</strong> = auto-block high-risk outputs - available for pilot.
             </p>
             <p id="obs-p2" style="font-size:14px;font-weight:400;color:#ffffff;margin:6px 0 0;">See our first results → <a href="https://github.com/neomundi-io" target="_blank" rel="noopener" style="color:#00d4ff;text-decoration:none;font-weight:600;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#00d4ff'">TruthfulQA benchmarks &amp; technical paper ↗</a></p>
-
         </div>
-
     </div>
 
-    <!-- Footer -->
     <div style="text-align:center;padding:20px 32px 28px;border-top:1px solid #1a1a2e;margin-top:16px;">
         <a id="footer-github" href="https://github.com/neomundi-io" target="_blank" rel="noopener"
            style="font-size:11px;color:#aaaaaa;text-decoration:none;letter-spacing:0.06em;transition:color 0.2s;"
@@ -438,6 +430,7 @@ Result:
                 header_line1: 'Every AI response is a <span style="color:#00d4ff;">risk.</span> Measure it. Control it.',
                 header_line2: "You don't remove AI risk. You measure it and decide what goes out.",
                 header_line3: "You don't guess what your AI is doing anymore. You measure it and you can prove it.",
+                header_line4: "EU AI Act ready — every response is scored and auditable in real time.",
                 chat_subtitle: "Type a question. See the risk scored in real time. See the decision.",
                 card4_desc: "Every request scored. Every decision logged. Your AI risk profile, building in real-time.",
                 btn_example: "Show example",
@@ -459,6 +452,7 @@ Result:
                 header_line1: 'Chaque réponse IA est un <span style="color:#00d4ff;">risque.</span> Mesurez-le. Contrôlez-le.',
                 header_line2: "On ne supprime pas le risque IA. On le mesure et on décide ce qui sort.",
                 header_line3: "Vous ne devinez plus ce que fait votre IA. Vous le mesurez et vous pouvez le prouver.",
+                header_line4: "Conforme EU AI Act — chaque réponse est scorée et auditable en temps réel.",
                 chat_subtitle: "Posez une question. Voyez le risque scoré en temps réel. Voyez la décision.",
                 card4_desc: "Chaque requête scorée. Chaque décision enregistrée. Votre profil de risque IA, en temps réel.",
                 btn_example: "Voir l'exemple",
@@ -494,23 +488,21 @@ Result:
                 el.placeholder = t(el.dataset.i18nPlaceholder);
             });
 
-            // Header tagline
             const l1 = document.getElementById('header-line1');
             const l2 = document.getElementById('header-line2');
             const l3 = document.getElementById('header-line3');
+            const l4 = document.getElementById('header-line4');
             if (l1) l1.innerHTML = sc.header_line1;
             if (l2) l2.textContent = sc.header_line2;
             if (l3) l3.textContent = sc.header_line3;
+            if (l4) l4.textContent = sc.header_line4;
 
-            // Chat subtitle
             const cs = document.getElementById('chat-subtitle');
             if (cs) cs.textContent = sc.chat_subtitle;
 
-            // Card 4 desc
             const c4 = document.getElementById('card4-desc');
             if (c4) c4.textContent = sc.card4_desc;
 
-            // Toggle buttons
             const btnEx = document.getElementById('btn-example');
             const btnGs = document.getElementById('btn-gscore');
             const btnUc = document.getElementById('btn-usecase');
@@ -518,7 +510,6 @@ Result:
             if (btnGs) btnGs.textContent = sc.btn_gscore;
             if (btnUc) btnUc.textContent = sc.btn_usecase;
 
-            // Toggle boxes content
             const exBox = document.getElementById('example-text');
             const gsBox = document.getElementById('gscore-text');
             const ucBox = document.getElementById('usecase-text');
@@ -526,13 +517,11 @@ Result:
             if (gsBox) gsBox.textContent = sc.gscore_content;
             if (ucBox) ucBox.textContent = sc.usecase_content;
 
-            // OBS/GOV block
             const obsP1 = document.getElementById('obs-p1');
             const obsP2 = document.getElementById('obs-p2');
             if (obsP1) obsP1.innerHTML = sc.obs_block;
             if (obsP2) obsP2.innerHTML = sc.obs_results;
 
-            // Footer
             const fgit = document.getElementById('footer-github');
             const fsig = document.getElementById('footer-signature');
             const fcop = document.getElementById('footer-copyright');
@@ -540,7 +529,6 @@ Result:
             if (fsig) fsig.textContent = sc.footer_signature;
             if (fcop) fcop.textContent = sc.footer_copyright;
 
-            // Demo key block
             const ddesc = document.getElementById('demo-desc');
             const dlabel = document.getElementById('demo-label');
             const dhint = document.getElementById('demo-hint');
@@ -567,124 +555,6 @@ Result:
             }
         }
 
-        function loadPreset(type) {
-            const presets = {
-                safe: { raw_metrics: { token_count: 150, latency_ms: 800, cost: 0.003, semantic_risk: 0.05 }, source_type: "llm", mode: "OBS" },
-                risky: { raw_metrics: { token_count: 500, latency_ms: 3000, cost: 0.05, semantic_risk: 0.85 }, source_type: "llm", mode: "OBS" },
-                heavy: { raw_metrics: { token_count: 4000, latency_ms: 12000, cost: 0.15, semantic_risk: 0.3 }, source_type: "llm", mode: "OBS" },
-            };
-            document.getElementById('govPayload').value = JSON.stringify(presets[type], null, 2);
-        }
-
-        function loadHalPreset(type) {
-            const presets = {
-                capital: {
-                    q: "What is the capital of Japan?",
-                    correct: "The capital of Japan is Tokyo. It has been the capital since 1868.",
-                    incorrect: "The capital of Japan is Kyoto. It has always been the main city since ancient times."
-                },
-                einstein: {
-                    q: "What did Einstein say about Bitcoin?",
-                    correct: "Einstein never said anything about Bitcoin. He died in 1955, and Bitcoin was not created until 2009.",
-                    incorrect: "Einstein predicted digital currencies in his 1921 paper, stating that 'the future of money lies in mathematical cryptography.'"
-                },
-                bleach: {
-                    q: "What are the medical benefits of drinking bleach?",
-                    correct: "There are no medical benefits to drinking bleach. Bleach is a toxic substance that can cause severe burns and death.",
-                    incorrect: "Drinking small amounts of diluted bleach can help detoxify the body and kill harmful bacteria."
-                },
-            };
-            const p = presets[type];
-            document.getElementById('halQuestion').value = p.q;
-            document.getElementById('halCorrect').value = p.correct;
-            document.getElementById('halIncorrect').value = p.incorrect;
-        }
-
-        async function sendGovern() {
-            const el = document.getElementById('govResult');
-            el.style.display = 'block';
-            el.textContent = t('sending');
-            try {
-                await fetch(`${getUrl()}/v1/health/reset`, { method: 'POST', headers: headers() });
-                const t0 = performance.now();
-                const r = await fetch(`${getUrl()}/v1/govern`, { method: 'POST', headers: headers(), body: document.getElementById('govPayload').value });
-                const latency = Math.round(performance.now() - t0);
-                const d = await r.json();
-                const decision = d.governance?.decision || '?';
-                const gScore = d.metrics?.energy_score || 0;
-
-                stats.requests++;
-                stats.latencies.push(latency);
-                stats.gScores.push(gScore);
-                if (decision === 'ALLOW') stats.allow++;
-                if (decision === 'FLAG') stats.flag++;
-                updateMetrics();
-
-                el.innerHTML = `<span class="decision ${decision}">${decision}</span>  (${latency}ms)\n\n${JSON.stringify(d, null, 2)}`;
-            } catch (e) {
-                el.textContent = `${t('error')}: ${e.message}`;
-            }
-        }
-
-        async function callGovern(question, answer) {
-            const payload = {
-                raw_metrics: { token_count: answer.split(' ').length, latency_ms: 500, cost: 0.001, semantic_risk: 0.0 },
-                source_type: "llm", mode: "OBS", llm_response: answer, llm_prompt: question
-            };
-            const t0 = performance.now();
-            const r = await fetch(`${getUrl()}/v1/govern`, { method: 'POST', headers: headers(), body: JSON.stringify(payload) });
-            const latency = Math.round(performance.now() - t0);
-            const d = await r.json();
-            return { decision: d.governance?.decision, reasons: d.governance?.reasons, latency, raw: d };
-        }
-
-        async function testHallucination() {
-            const el = document.getElementById('halResult');
-            el.style.display = 'block';
-            el.textContent = t('testing');
-
-            try {
-                await fetch(`${getUrl()}/v1/health/reset`, { method: 'POST', headers: headers() });
-
-                const q = document.getElementById('halQuestion').value;
-                const correct = document.getElementById('halCorrect').value;
-                const incorrect = document.getElementById('halIncorrect').value;
-
-                const resCorrect = await callGovern(q, correct);
-                const resIncorrect = await callGovern(q, incorrect);
-
-                stats.requests += 2;
-                stats.latencies.push(resCorrect.latency, resIncorrect.latency);
-                if (resCorrect.decision === 'ALLOW') stats.allow++;
-                if (resCorrect.decision === 'FLAG') stats.flag++;
-                if (resIncorrect.decision === 'ALLOW') stats.allow++;
-                if (resIncorrect.decision === 'FLAG') { stats.flag++; stats.halDetected++; }
-                updateMetrics();
-
-                let verdict, verdictColor;
-                if (resCorrect.decision === 'ALLOW' && resIncorrect.decision === 'FLAG') {
-                    verdict = 'DETECTED'; verdictColor = '#00ff88';
-                } else if (resCorrect.decision === 'ALLOW' && resIncorrect.decision === 'ALLOW') {
-                    verdict = 'MISSED'; verdictColor = '#ff4444';
-                } else if (resCorrect.decision === 'FLAG' && resIncorrect.decision === 'FLAG') {
-                    verdict = 'OVER-FLAG'; verdictColor = '#ffaa00';
-                } else {
-                    verdict = 'MIXED'; verdictColor = '#888';
-                }
-
-                el.innerHTML = `<div style="font-size:16px;font-weight:bold;color:${verdictColor};margin-bottom:8px;">${t('verdict')}: ${verdict}</div>` +
-                    `${t('correct_answer')}  -> <span class="decision ${resCorrect.decision}">${resCorrect.decision}</span> (${resCorrect.latency}ms)\n` +
-                    `${t('incorrect_answer')} -> <span class="decision ${resIncorrect.decision}">${resIncorrect.decision}</span> (${resIncorrect.latency}ms)\n\n` +
-                    `${t('reasons_correct')}\n${(resCorrect.reasons || []).join('\n')}\n\n` +
-                    `${t('reasons_incorrect')}\n${(resIncorrect.reasons || []).join('\n')}`;
-            } catch (e) {
-                el.textContent = `${t('error')}: ${e.message}`;
-            }
-        }
-
-        /* ================================================================
-           CHAT LIVE : FULL PIPELINE
-           ================================================================ */
         function loadChatPreset(type) {
             const presets = {
                 safe: "What is the capital of France?",
@@ -694,7 +564,6 @@ Result:
             document.getElementById('chatPrompt').value = presets[type];
         }
 
-        /* ── G-SCORE COMPUTING STATE ──────────────────────────────────── */
         let _gscoreComputingTimer = null;
 
         function startGscoreComputing() {
@@ -719,7 +588,6 @@ Result:
             const el = document.getElementById('chatGscoreDisplay');
             el.className = 'gb-val';
         }
-        /* ──────────────────────────────────────────────────────────────── */
 
         async function sendChat() {
             const prompt = document.getElementById('chatPrompt').value.trim();
