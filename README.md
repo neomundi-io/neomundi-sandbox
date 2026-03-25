@@ -5,7 +5,7 @@ Interactive interface to test the Law-E thermodynamic governance API.
 ## Open the Sandbox
 
 **Option 1 — GitHub Pages** (zero install):  
-→ https://neomundi-tech.github.io/neomundi-sandbox
+→ [https://neomundi-tech.github.io/neomundi-sandbox](https://neomundi-io.github.io/neomundi-sandbox/)
 
 **Option 2 — Local**: Open `index.html` in your browser.
 
