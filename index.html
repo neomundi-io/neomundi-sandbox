@@ -79,6 +79,7 @@
         .signals-toggle:hover { color: #00d4ff; }
         .signals-toggle .arrow { transition: transform 0.2s; }
         .signals-toggle.open .arrow { transform: rotate(180deg); }
+        .signals-hint { margin-left: auto; font-size: 9px; color: #333; letter-spacing: 0.06em; font-style: italic; text-transform: none; }
 
         .signals-block { display: none; padding: 16px 20px 12px; border-top: 1px solid #111; }
         .gauge-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
@@ -216,10 +217,11 @@
                 </div>
             </div>
 
-            <!-- Détail signaux dépliable -->
+            <!-- Signaux techniques dépliables -->
             <div class="signals-toggle" id="signalsToggle" onclick="toggleSignals()">
                 <span class="arrow">↓</span>
-                <span>Détail des signaux</span>
+                <span>Signaux techniques</span>
+                <span class="signals-hint">Pour analyse technique uniquement</span>
             </div>
             <div class="signals-block" id="signalsBlock">
                 <div class="gauge-row g-idle" id="gauge-coh">
@@ -387,21 +389,27 @@ Résultat :
     }
 
     /* ── Stability Score UI ── */
+    let _globalScore = null;
+
     function gClass(v) {
         if (v === null || isNaN(v)) return 'g-idle';
         return v < 0.35 ? 'g-stable' : v < 0.65 ? 'g-warn' : 'g-danger';
     }
 
-    const micro = {
-        coh:   { stable: 'Réponse cohérente', warn: 'Cohérence partielle', danger: 'Incohérence détectée' },
-        drift: { stable: 'Aucune dérive', warn: 'Dérive légère détectée', danger: 'Dérive significative' },
-        stab:  { stable: 'Structure stable', warn: 'Tension structurelle', danger: 'Instabilité structurelle' }
-    };
-
     function getMicro(type, v) {
         if (v === null || isNaN(v)) return '';
         const lvl = v < 0.35 ? 'stable' : v < 0.65 ? 'warn' : 'danger';
-        return micro[type][lvl];
+        const labels = {
+            coh:   { stable: 'Réponse cohérente', warn: 'Cohérence partielle', danger: 'Incohérence détectée' },
+            drift: { stable: 'Aucune dérive', warn: 'Dérive légère détectée', danger: 'Dérive significative' },
+            stab:  { stable: 'Structure stable', warn: 'Tension structurelle', danger: 'Instabilité structurelle' }
+        };
+        let label = labels[type][lvl];
+        /* Contextualiser la dérive si elle est élevée mais le score global est STABLE */
+        if (type === 'drift' && v >= 0.65 && _globalScore !== null && _globalScore < 0.35) {
+            label = 'Signal local — non déterminant sur le score global';
+        }
+        return label;
     }
 
     function setGauge(prefix, type, v) {
@@ -427,11 +435,12 @@ Résultat :
             return;
         }
 
+        _globalScore = score;
         let color, status, interp;
         if (score < 0.35) {
-            color = '#00ff88'; status = 'STABLE'; interp = 'Réponse stable';
+            color = '#00ff88'; status = 'STABLE'; interp = 'Réponse cohérente';
         } else if (score < 0.65) {
-            color = '#ffaa00'; status = 'SIGNAL'; interp = 'Signal d\'instabilité faible';
+            color = '#ffaa00'; status = 'SIGNAL'; interp = 'Signal d\'instabilité détecté';
         } else {
             color = '#ff4444'; status = 'INSTABLE'; interp = 'Instabilité structurelle détectée';
         }
