@@ -88,7 +88,9 @@
         .gauges-block { padding: 20px 24px 16px; }
         .gauge-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
         .gauge-row:last-child { margin-bottom: 0; }
-        .gauge-name { font-size: 12px; color: #ffffff; font-weight: 500; min-width: 90px; }
+        .gauge-name-block { display: flex; flex-direction: column; gap: 2px; min-width: 200px; }
+        .gauge-name { font-size: 12px; color: #ffffff; font-weight: 500; }
+        .gauge-sub { font-size: 10px; color: rgba(255,255,255,0.35); font-style: italic; }
         .gauge-bar-wrap { flex: 1; height: 4px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
         .gauge-bar-fill { height: 100%; width: 0%; border-radius: 3px; transition: width 0.5s ease; }
         .gauge-score { font-size: 12px; font-family: 'Fira Code', monospace; min-width: 36px; text-align: right; }
@@ -218,19 +220,28 @@
                     <!-- 3 jauges -->
                     <div class="gauges-block">
                         <div class="gauge-row gauge-idle" id="gauge-coh">
-                            <span class="gauge-name" id="g-coh-label">Cohérence</span>
+                            <div class="gauge-name-block">
+                                <span class="gauge-name">Cohérence</span>
+                                <span class="gauge-sub">la logique interne tient-elle ?</span>
+                            </div>
                             <div class="gauge-bar-wrap"><div class="gauge-bar-fill" id="g-coh-bar"></div></div>
                             <span class="gauge-score" id="g-coh-val">—</span>
                             <span class="gauge-micro" id="g-coh-micro"></span>
                         </div>
                         <div class="gauge-row gauge-idle" id="gauge-drift">
-                            <span class="gauge-name" id="g-drift-label">Dérive</span>
+                            <div class="gauge-name-block">
+                                <span class="gauge-name">Dérive</span>
+                                <span class="gauge-sub">le texte reste-t-il sur le sujet ?</span>
+                            </div>
                             <div class="gauge-bar-wrap"><div class="gauge-bar-fill" id="g-drift-bar"></div></div>
                             <span class="gauge-score" id="g-drift-val">—</span>
                             <span class="gauge-micro" id="g-drift-micro"></span>
                         </div>
                         <div class="gauge-row gauge-idle" id="gauge-stab">
-                            <span class="gauge-name" id="g-stab-label">Stabilité</span>
+                            <div class="gauge-name-block">
+                                <span class="gauge-name">Stabilité</span>
+                                <span class="gauge-sub">les affirmations se contredisent-elles ?</span>
+                            </div>
                             <div class="gauge-bar-wrap"><div class="gauge-bar-fill" id="g-stab-bar"></div></div>
                             <span class="gauge-score" id="g-stab-val">—</span>
                             <span class="gauge-micro" id="g-stab-micro"></span>
