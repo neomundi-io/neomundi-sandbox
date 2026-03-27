@@ -6,20 +6,19 @@
     <title>Neomundi — Sandbox</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #020202; color: #ffffff; min-height: 100vh; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #020202; color: #e0e0e0; min-height: 100vh; }
 
         .header { background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); padding: 28px 32px; border-bottom: 1px solid #2a2a4a; display: flex; justify-content: space-between; align-items: center; }
         .header-center { flex: 1; display: flex; flex-direction: column; align-items: center; text-align: center; gap: 6px; }
         .header-center h1 { font-size: 22px; color: #00d4ff; }
         .header-tagline .line1 { font-size: 20px; font-weight: 800; color: #ffffff; letter-spacing: 0.01em; line-height: 1.3; margin-top: 10px; }
-        .header-tagline .line2 { font-size: 15px; color: #ffffff; margin-top: 8px; font-weight: 400; }
-        .header-tagline .line3 { font-size: 12px; color: #00d4ff; margin-top: 6px; font-weight: 400; letter-spacing: 0.06em; opacity: 0.85; }
+        .header-tagline .line2 { font-size: 15px; color: rgba(255,255,255,0.6); margin-top: 8px; font-weight: 400; }
         .header-left-anchor { width: 80px; }
 
         .container { max-width: 900px; margin: 0 auto; padding: 24px 24px 48px; }
 
         .config-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
-        .config-bar label { font-size: 12px; color: #ffffff; }
+        .config-bar label { font-size: 12px; color: #aaa; }
         .config-bar input { background: #1a1a2e; border: 1px solid #333; color: #fff; padding: 6px 10px; border-radius: 4px; font-size: 13px; }
         #apiUrl { width: 260px; }
         #apiKey { width: 300px; }
@@ -30,17 +29,17 @@
         @keyframes blink { 50% { opacity: 0.3; } }
 
         .demo-card { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 18px 24px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-        .demo-card-label { font-size: 13px; color: #ffffff; }
+        .demo-card-label { font-size: 13px; color: rgba(255,255,255,0.6); }
         .demo-key-wrap { display: flex; align-items: center; gap: 10px; background: #0a0a15; border: 1px solid #2a2a4a; border-radius: 4px; padding: 6px 14px; }
         .demo-key { font-size: 13px; color: #00d4ff; font-family: 'Fira Code', monospace; cursor: pointer; }
-        .demo-hint { font-size: 10px; color: #ffffff; }
+        .demo-hint { font-size: 10px; color: #555; }
 
         .main-card { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 28px; margin-bottom: 20px; }
         .card-title { font-size: 13px; color: #00d4ff; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
-        .card-sub { font-size: 14px; color: #ffffff; margin-bottom: 20px; }
+        .card-sub { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 20px; }
 
         .presets { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
-        .preset-btn { background: #111830; border: 1px solid #2a2a4a; color: #ffffff; padding: 5px 12px; border-radius: 12px; font-size: 11px; cursor: pointer; transition: all 0.15s; }
+        .preset-btn { background: #111830; border: 1px solid #2a2a4a; color: #aaa; padding: 5px 12px; border-radius: 12px; font-size: 11px; cursor: pointer; transition: all 0.15s; }
         .preset-btn:hover { border-color: #00d4ff; color: #00d4ff; }
 
         .input-row { display: flex; gap: 10px; align-items: flex-end; }
@@ -49,17 +48,17 @@
         .btn-send:hover { background: #00b8e6; }
         .btn-send:disabled { background: #333; color: #666; cursor: not-allowed; }
 
-        .step-line { font-size: 11px; color: #ffffff; margin-top: 10px; display: none; }
+        .step-line { font-size: 11px; color: #555; margin-top: 10px; display: none; }
         .step-line .done { color: #00ff88; }
         .step-line .active { color: #ffaa00; }
-        .response-box { background: #0d0d1e; border: 1px solid #2a2a4a; border-radius: 6px; padding: 14px; margin-top: 14px; font-size: 13px; line-height: 1.7; color: #ffffff; display: none; max-height: 180px; overflow-y: auto; }
+        .response-box { background: #0d0d1e; border: 1px solid #2a2a4a; border-radius: 6px; padding: 14px; margin-top: 14px; font-size: 13px; line-height: 1.7; color: #ccc; display: none; max-height: 180px; overflow-y: auto; }
 
         /* STABILITY PANEL */
         .stability-panel { background: #0a0a1a; border: 1px solid #555; border-radius: 8px; margin-top: 18px; overflow: hidden; }
         .stability-summary { display: grid; grid-template-columns: repeat(3, 1fr); }
         .ss-item { padding: 20px; text-align: center; border-right: 1px solid #1a2a4a; }
         .ss-item:last-child { border-right: none; }
-        .ss-label { font-size: 10px; color: #ffffff; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+        .ss-label { font-size: 10px; color: #666; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
         .ss-val { font-size: 32px; font-weight: 900; color: #333; line-height: 1; letter-spacing: -0.02em; transition: color 0.3s; }
         .ss-interp { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; margin-top: 6px; color: #444; text-transform: uppercase; transition: color 0.3s; }
 
@@ -71,24 +70,24 @@
         .computing { animation: computing-pulse 1.1s ease-in-out infinite; color: #00d4ff !important; font-size: 18px !important; letter-spacing: 0.05em; }
 
         /* SIGNAUX TECHNIQUES */
-        .signals-toggle { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-top: 1px solid #1a2a4a; cursor: pointer; font-size: 10px; color: #ffffff; letter-spacing: 0.1em; text-transform: uppercase; user-select: none; transition: color 0.15s; }
+        .signals-toggle { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-top: 1px solid #1a2a4a; cursor: pointer; font-size: 10px; color: #444; letter-spacing: 0.1em; text-transform: uppercase; user-select: none; transition: color 0.15s; }
         .signals-toggle:hover { color: #00d4ff; }
         .signals-toggle .arrow { transition: transform 0.2s; }
         .signals-toggle.open .arrow { transform: rotate(180deg); }
-        .signals-hint { margin-left: auto; font-size: 9px; color: #ffffff; letter-spacing: 0.04em; font-style: italic; text-transform: none; }
+        .signals-hint { margin-left: auto; font-size: 9px; color: #333; letter-spacing: 0.04em; font-style: italic; text-transform: none; }
 
         .signals-block { display: none; padding: 16px 20px 12px; border-top: 1px solid #111; }
 
-        /* Bandeau alerte dérive — blanc neutre, sans rouge */
-        .drift-alert { display: none; margin-bottom: 14px; padding: 9px 14px; border-radius: 4px; background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.15); font-size: 11px; color: #ffffff; line-height: 1.6; }
-        .drift-alert strong { color: #ffffff; font-size: 12px; }
-        .drift-alert .obs-note { display: block; margin-top: 4px; font-size: 10px; color: #ffffff; font-style: italic; }
+        /* [MODIF 2] Bandeau alerte dérive */
+        .drift-alert { display: none; margin-bottom: 14px; padding: 9px 14px; border-radius: 4px; background: rgba(255,68,68,0.07); border: 1px solid rgba(255,68,68,0.3); font-size: 11px; color: #ff8888; line-height: 1.6; }
+        .drift-alert strong { color: #ff4444; font-size: 12px; }
+        .drift-alert .obs-note { display: block; margin-top: 4px; font-size: 10px; color: #888; font-style: italic; }
 
         .gauge-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
         .gauge-row:last-child { margin-bottom: 0; }
         .gauge-name-block { min-width: 210px; }
         .gauge-name { font-size: 12px; color: #fff; font-weight: 500; }
-        .gauge-sub { font-size: 10px; color: #ffffff; font-style: italic; margin-top: 2px; }
+        .gauge-sub { font-size: 10px; color: rgba(255,255,255,0.3); font-style: italic; margin-top: 2px; }
         .gauge-bar-wrap { flex: 1; height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
         .gauge-bar-fill { height: 100%; width: 0%; border-radius: 2px; transition: width 0.5s ease; }
         .gauge-score { font-size: 11px; font-family: 'Fira Code', monospace; min-width: 32px; text-align: right; }
@@ -103,28 +102,28 @@
         .g-idle .gauge-score { color: #333; }
 
         .gauges-legend { display: flex; gap: 16px; padding-top: 12px; border-top: 1px solid #111; margin-top: 12px; }
-        .leg { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #ffffff; }
+        .leg { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #444; }
         .leg-dot { width: 5px; height: 5px; border-radius: 50%; }
 
         /* [MODIF 1] Audit — toujours visible, en-tête fixe */
         .audit-header { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding: 7px 14px; background: #07080f; border: 1px solid #1a2a4a; border-bottom: none; border-radius: 4px 4px 0 0; }
         .audit-header-label { font-size: 10px; color: #00d4ff; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
-        .audit-header-mode { font-size: 9px; color: #ffffff; letter-spacing: 0.05em; font-style: italic; }
-        .audit-box { background: #050510; border: 1px solid #1a2a4a; border-radius: 0 0 4px 4px; padding: 12px; font-family: 'Fira Code', monospace; font-size: 11px; color: #ffffff; max-height: 140px; overflow-y: auto; white-space: pre-wrap; line-height: 1.8; }
+        .audit-header-mode { font-size: 9px; color: #445; letter-spacing: 0.05em; font-style: italic; }
+        .audit-box { background: #050510; border: 1px solid #1a2a4a; border-radius: 0 0 4px 4px; padding: 12px; font-family: 'Fira Code', monospace; font-size: 11px; color: #9aaabb; max-height: 140px; overflow-y: auto; white-space: pre-wrap; line-height: 1.8; }
 
         .info-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
-        .info-btn { background: #111830; border: 1px solid #2a2a4a; color: #ffffff; padding: 4px 12px; border-radius: 10px; font-size: 11px; cursor: pointer; transition: all 0.15s; }
+        .info-btn { background: #111830; border: 1px solid #2a2a4a; color: #666; padding: 4px 12px; border-radius: 10px; font-size: 11px; cursor: pointer; transition: all 0.15s; }
         .info-btn:hover { border-color: #00d4ff; color: #00d4ff; }
-        .info-box { display: none; margin-top: 10px; border: 1px dashed #1a2a3a; border-radius: 6px; padding: 14px; background: #080812; font-size: 13px; color: #ffffff; line-height: 1.9; white-space: pre-line; }
+        .info-box { display: none; margin-top: 10px; border: 1px dashed #1a2a3a; border-radius: 6px; padding: 14px; background: #080812; font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.9; white-space: pre-line; }
 
-        .mode-block { background: #0d0d20; border: 1px solid #2a2a4a; border-radius: 8px; padding: 18px 24px; margin-bottom: 20px; text-align: center; font-size: 14px; color: #ffffff; line-height: 2; }
+        .mode-block { background: #0d0d20; border: 1px solid #2a2a4a; border-radius: 8px; padding: 18px 24px; margin-bottom: 20px; text-align: center; font-size: 14px; color: rgba(255,255,255,0.7); line-height: 2; }
         .mode-block strong { color: #fff; }
         .mode-block a { color: #00d4ff; text-decoration: none; font-weight: 600; }
         .mode-block a:hover { color: #00ff88; }
 
         .cta-card { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 24px 28px; }
         .cta-card h2 { font-size: 13px; color: #00d4ff; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
-        .cta-card p { font-size: 14px; color: #ffffff; line-height: 1.6; margin-bottom: 12px; }
+        .cta-card p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 12px; }
         .cta-card a { color: #00d4ff; text-decoration: none; font-weight: 600; }
         .cta-card a:hover { color: #00ff88; }
 
@@ -153,7 +152,6 @@
         <div class="header-tagline">
             <div class="line1">Votre IA n'est pas fausse. Elle est <span style="color:#00d4ff;">instable.</span></div>
             <div class="line2">Neomundi mesure la stabilité interne de chaque réponse IA en temps réel.</div>
-            <div class="line3">Chaque réponse scorée, tracée, auditable.</div>
         </div>
     </div>
     <div class="header-left-anchor"></div>
@@ -164,7 +162,7 @@
     <div class="demo-card">
         <span class="demo-card-label">50 appels gratuits — réinitialisés quotidiennement — sans configuration.</span>
         <div class="demo-key-wrap">
-            <span style="font-size:11px;color:#ffffff;">Clé démo :</span>
+            <span style="font-size:11px;color:#666;">Clé démo :</span>
             <code class="demo-key" onclick="navigator.clipboard.writeText(this.textContent);this.style.color='#00ff88';setTimeout(()=>this.style.color='#00d4ff',1400)">ct_test_demo_sandbox_NeoMundi</code>
             <span class="demo-hint">(cliquer pour copier)</span>
         </div>
@@ -203,6 +201,8 @@
                 <div class="ss-item">
                     <div class="ss-label">Stability Score</div>
                     <div class="ss-val" id="stabScore">—</div>
+                    <!-- [MODIF 3] Légende compliance -->
+                    <div class="ss-compliance" id="stabCompliance">Traçabilité · EU AI Act Art. 13</div>
                 </div>
                 <div class="ss-item">
                     <div class="ss-label">Statut</div>
@@ -223,8 +223,8 @@
 
                 <!-- [MODIF 2] Bandeau alerte dérive — conditionnel -->
                 <div class="drift-alert" id="driftAlert">
-                    <strong>⚡ Dérive locale détectée (impact non critique)</strong> — le score global reste stable.<br>
-                    <span class="obs-note">En mode GOV, ce signal déclencherait une action corrective automatique.</span>
+                    <strong>⚠ Dérive sémantique détectée</strong> — signal local élevé sur cette réponse.<br>
+                    <span class="obs-note">Mode OBS actif : la réponse est observée, scorée et tracée — non bloquée. En mode GOV, ce signal déclencherait une action corrective automatique.</span>
                 </div>
 
                 <div class="gauge-row g-idle" id="gauge-coh">
@@ -333,7 +333,7 @@ Résultat :
     <div class="cta-card">
         <h2>Prêt à gouverner votre IA ?</h2>
         <p>Démarrez en quelques minutes avec une clé API. Aucun changement d'infrastructure. Auditabilité complète dès le premier appel.</p>
-        <p>→ <a href="/cdn-cgi/l/email-protection#82e1edecf6e3e1f6c2ece7edeff7ece6ebacebed">Obtenez votre clé API : <span class="__cf_email__" data-cfemail="385b57564c595b4c78565d57554d565c51165157">[email&#160;protected]</span></a></p>
+        <p>→ <a href="mailto:contact@neomundi.io">Obtenez votre clé API : contact@neomundi.io</a></p>
     </div>
 
 </div>
@@ -344,7 +344,7 @@ Résultat :
     <div class="copy">© 2026 NeoMundi Lab — Tous droits réservés.</div>
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
     /* ── API ── */
     function getUrl() { return document.getElementById('apiUrl').value.replace(/\/$/, ''); }
     function getKey() { return document.getElementById('apiKey').value; }
@@ -439,18 +439,20 @@ Résultat :
         const scoreEl = document.getElementById('stabScore');
         const statusEl = document.getElementById('stabStatus');
         const interpEl = document.getElementById('stabInterp');
+        const complianceEl = document.getElementById('stabCompliance');
 
         if (score === null) {
             scoreEl.textContent = '—'; scoreEl.style.color = '#333';
             statusEl.textContent = '—'; statusEl.style.color = '#333';
             interpEl.textContent = '—'; interpEl.style.color = '#444';
+            complianceEl.className = 'ss-compliance';
             return;
         }
 
         _globalScore = score;
         let color, status, interp;
         if (score < 0.35) {
-            color = '#00ff88'; status = 'STABLE'; interp = 'Réponse stable';
+            color = '#00ff88'; status = 'STABLE'; interp = 'Réponse cohérente';
         } else if (score < 0.65) {
             color = '#ffaa00'; status = 'SIGNAL'; interp = 'Signal d\'instabilité détecté';
         } else {
@@ -463,6 +465,9 @@ Résultat :
         statusEl.style.color = color;
         interpEl.textContent = interp;
         interpEl.style.color = color;
+
+        /* [MODIF 3] Activer la légende compliance dès qu'un score est produit */
+        complianceEl.className = 'ss-compliance active';
     }
 
     /* ── Computing animation ── */
@@ -547,13 +552,22 @@ Résultat :
 
             steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="done">2.</span> Gouvernance (${govLatency}ms) &nbsp; : Terminé`;
 
-            /* Audit toujours visible — mise à jour du contenu + mention conformité */
-            const auditBase = reasons.length
+            /* [MODIF 1] Audit toujours visible — mise à jour du contenu */
+            auditBox.textContent = reasons.length
                 ? reasons.join('\n')
                 : `G=${gScore.toFixed(3)}, regime=${gScore < 0.35 ? 'STABLE' : gScore < 0.65 ? 'SIGNAL' : 'INSTABLE'} -- pipeline terminé`;
-            auditBox.textContent = auditBase + '\n[OBS] Réponse tracée et auditée — conforme EU AI Act Art. 13';
 
         } catch (e) {
             stopComputing();
             setSummary(null);
-            auditBox.textContent = `Erreur pipeline : ${e.messag
+            auditBox.textContent = `Erreur pipeline : ${e.message}`;
+            steps.innerHTML = `<span style="color:#ff4444;">Erreur : ${e.message}</span>`;
+        } finally {
+            btn.disabled = false;
+        }
+    }
+
+    window.addEventListener('load', checkHealth);
+</script>
+</body>
+</html>
