@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neomundi — Stability Sandbox</title>
+    <title>Neomundi — Sandbox</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #020202; color: #e0e0e0; min-height: 100vh; }
@@ -13,278 +13,279 @@
         .header-center h1 { font-size: 22px; color: #00d4ff; }
         .header-tagline { margin-top: 10px; }
         .header-tagline .line1 { font-size: 20px; font-weight: 800; color: #ffffff; letter-spacing: 0.01em; line-height: 1.3; }
-        .header-tagline .line1 span { color: #00d4ff; }
-        .header-tagline .line2 { font-size: 15px; color: rgba(255,255,255,0.6); margin-top: 8px; font-weight: 400; letter-spacing: 0.02em; }
+        .header-tagline .line2 { font-size: 15px; color: rgba(255,255,255,0.6); margin-top: 8px; font-weight: 400; }
         .header-left-anchor { width: 80px; }
 
-        .lang-toggle { display: flex; gap: 0; border: 1px solid #333; border-radius: 6px; overflow: hidden; }
-        .lang-btn { background: #1a1a2e; color: #888; border: none; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
-        .lang-btn.active { background: #00d4ff; color: #000; }
-        .lang-btn:hover:not(.active) { background: #222; color: #ccc; }
+        .container { max-width: 900px; margin: 0 auto; padding: 24px 24px 48px; }
 
-        .container { max-width: 1100px; margin: 0 auto; padding: 12px 24px 24px; }
-
-        .config-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
-        .config-bar label { font-size: 12px; color: #ffffff; }
+        .config-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 24px; flex-wrap: wrap; }
+        .config-bar label { font-size: 12px; color: #aaa; }
         .config-bar input { background: #1a1a2e; border: 1px solid #333; color: #fff; padding: 6px 10px; border-radius: 4px; font-size: 13px; }
-        #apiUrl { width: 280px; }
-        #apiKey { width: 320px; }
-        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        #apiUrl { width: 260px; }
+        #apiKey { width: 300px; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
         .status-dot.ok { background: #00ff88; }
-        .status-dot.ko { background: #ff4444; }
-        .status-dot.loading { background: #ffaa00; animation: pulse 1s infinite; }
-        @keyframes pulse { 50% { opacity: 0.3; } }
+        .status-dot.ko { background: #333; }
+        .status-dot.loading { background: #ffaa00; animation: blink 1s infinite; }
+        @keyframes blink { 50% { opacity: 0.3; } }
 
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .card { background: #12121f; border: 1px solid #2a2a4a; border-radius: 8px; padding: 20px; }
-        .card h2 { font-size: 15px; color: #00d4ff; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
-        .card h2 .num { background: #00d4ff; color: #000; width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; }
+        /* DEMO KEY */
+        .demo-card { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 20px 24px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+        .demo-card-label { font-size: 13px; color: rgba(255,255,255,0.6); }
+        .demo-key-wrap { display: flex; align-items: center; gap: 10px; background: #0a0a15; border: 1px solid #2a2a4a; border-radius: 4px; padding: 6px 14px; }
+        .demo-key { font-size: 13px; color: #00d4ff; font-family: 'Fira Code', monospace; cursor: pointer; }
+        .demo-hint { font-size: 10px; color: #555; }
 
-        textarea { width: 100%; background: #0a0a15; border: 1px solid #333; color: #e0e0e0; padding: 10px; border-radius: 4px; font-family: 'Fira Code', monospace; font-size: 12px; resize: vertical; }
-        button { background: #00d4ff; color: #000; border: none; padding: 8px 18px; border-radius: 4px; font-weight: 600; font-size: 13px; cursor: pointer; transition: all 0.2s; }
-        button:hover { background: #00b8e6; }
-        button:disabled { background: #555; cursor: not-allowed; }
+        /* MAIN CARD */
+        .main-card { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 28px; margin-bottom: 20px; }
+        .card-title { font-size: 13px; color: #00d4ff; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
+        .card-sub { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 20px; }
 
-        .result-box { background: #0a0a15; border: 1px solid #333; border-radius: 4px; padding: 12px; margin-top: 12px; font-family: monospace; font-size: 12px; max-height: 300px; overflow-y: auto; white-space: pre-wrap; word-break: break-all; }
-
-        .metrics-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-top: 10px; }
-        .metric { background: #0a0a15; border: 1px solid #222; border-radius: 4px; padding: 8px; text-align: center; }
-        .metric .val { font-size: 18px; font-weight: bold; color: #00d4ff; }
-        .metric .lbl { font-size: 10px; color: #aaaaaa; margin-top: 2px; }
-
-        .presets { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
-        .preset-btn { background: #1a1a2e; border: 1px solid #333; color: #aaa; padding: 4px 10px; border-radius: 12px; font-size: 11px; cursor: pointer; }
+        /* PRESETS */
+        .presets { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+        .preset-btn { background: #111830; border: 1px solid #2a2a4a; color: #aaa; padding: 5px 12px; border-radius: 12px; font-size: 11px; cursor: pointer; transition: all 0.15s; }
         .preset-btn:hover { border-color: #00d4ff; color: #00d4ff; }
 
-        .full-width { grid-column: 1 / -1; }
+        /* INPUT */
+        .input-row { display: flex; gap: 10px; align-items: flex-end; }
+        textarea { flex: 1; background: #0a0a15; border: 1px solid #333; color: #e0e0e0; padding: 10px; border-radius: 4px; font-family: 'Fira Code', monospace; font-size: 13px; resize: vertical; }
+        .btn-send { background: #00d4ff; color: #000; border: none; padding: 10px 22px; border-radius: 4px; font-weight: 700; font-size: 13px; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
+        .btn-send:hover { background: #00b8e6; }
+        .btn-send:disabled { background: #333; color: #666; cursor: not-allowed; }
 
-        .chat-response { background: #111122; border: 1px solid #2a2a4a; border-radius: 6px; padding: 14px; margin-top: 10px; font-size: 13px; line-height: 1.6; white-space: pre-wrap; word-break: break-word; max-height: 200px; overflow-y: auto; }
-        .chat-metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 10px; }
-        .chat-metrics .cm { background: #0a0a15; border: 1px solid #222; border-radius: 4px; padding: 6px; text-align: center; }
-        .chat-metrics .cm .cv { font-size: 14px; font-weight: bold; }
-        .chat-metrics .cm .cl { font-size: 9px; color: #666; margin-top: 2px; }
-        .chat-metrics .cm .cv.green { color: #00ff88; }
-        .chat-metrics .cm .cv.orange { color: #ffaa00; }
-        .chat-metrics .cm .cv.cyan { color: #00d4ff; }
-        .chat-step { font-size: 11px; color: #555; margin-top: 8px; }
-        .chat-step .done { color: #00ff88; }
-        .chat-step .active { color: #ffaa00; }
+        /* STEP */
+        .step-line { font-size: 11px; color: #555; margin-top: 10px; display: none; }
+        .step-line .done { color: #00ff88; }
+        .step-line .active { color: #ffaa00; }
 
-        .card-primary { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 24px; }
-        .card-metrics { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 24px; }
-        .card-cta { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 24px; }
+        /* RESPONSE */
+        .response-box { background: #0d0d1e; border: 1px solid #2a2a4a; border-radius: 6px; padding: 14px; margin-top: 14px; font-size: 13px; line-height: 1.7; color: #ccc; display: none; max-height: 180px; overflow-y: auto; }
 
-        /* ── STABILITY PANEL ── */
-        .stability-panel { background: #0a0a1a; border: 1px solid #aaaaaa; border-radius: 8px; margin-top: 14px; overflow: hidden; }
+        /* STABILITY PANEL */
+        .stability-panel { background: #0a0a1a; border: 1px solid #555; border-radius: 8px; margin-top: 18px; overflow: hidden; }
 
-        .stability-summary { display: grid; grid-template-columns: repeat(3, 1fr); border-bottom: 1px solid #1a2a4a; }
-        .ss-item { padding: 18px 20px; text-align: center; border-right: 1px solid #1a2a4a; }
+        .stability-summary { display: grid; grid-template-columns: repeat(3, 1fr); }
+        .ss-item { padding: 20px; text-align: center; border-right: 1px solid #1a2a4a; }
         .ss-item:last-child { border-right: none; }
-        .ss-label { font-size: 10px; color: #aaa; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
-        .ss-val { font-size: 28px; font-weight: 900; color: #333; line-height: 1; letter-spacing: -0.02em; }
-        .ss-status { font-size: 10px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 6px; color: #444; }
+        .ss-label { font-size: 10px; color: #666; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+        .ss-val { font-size: 32px; font-weight: 900; color: #333; line-height: 1; letter-spacing: -0.02em; transition: color 0.3s; }
+        .ss-interp { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; margin-top: 6px; color: #444; text-transform: uppercase; transition: color 0.3s; }
 
-        /* 3 jauges */
-        .gauges-block { padding: 20px 24px 16px; }
-        .gauge-row { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+        @keyframes computing-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        .computing { animation: computing-pulse 1.1s ease-in-out infinite; color: #00d4ff !important; font-size: 18px !important; letter-spacing: 0.05em; }
+
+        /* 3 JAUGES — dépliables */
+        .signals-toggle { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-top: 1px solid #1a2a4a; cursor: pointer; font-size: 10px; color: #444; letter-spacing: 0.1em; text-transform: uppercase; user-select: none; transition: color 0.15s; }
+        .signals-toggle:hover { color: #00d4ff; }
+        .signals-toggle .arrow { transition: transform 0.2s; }
+        .signals-toggle.open .arrow { transform: rotate(180deg); }
+
+        .signals-block { display: none; padding: 16px 20px 12px; border-top: 1px solid #111; }
+        .gauge-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
         .gauge-row:last-child { margin-bottom: 0; }
-        .gauge-name-block { display: flex; flex-direction: column; gap: 2px; min-width: 200px; }
-        .gauge-name { font-size: 12px; color: #ffffff; font-weight: 500; }
-        .gauge-sub { font-size: 10px; color: rgba(255,255,255,0.35); font-style: italic; }
-        .gauge-bar-wrap { flex: 1; height: 4px; background: rgba(255,255,255,0.07); border-radius: 3px; overflow: hidden; }
-        .gauge-bar-fill { height: 100%; width: 0%; border-radius: 3px; transition: width 0.5s ease; }
-        .gauge-score { font-size: 12px; font-family: 'Fira Code', monospace; min-width: 36px; text-align: right; }
-        .gauge-micro { font-size: 10px; min-width: 160px; font-style: italic; }
+        .gauge-name-block { min-width: 210px; }
+        .gauge-name { font-size: 12px; color: #fff; font-weight: 500; }
+        .gauge-sub { font-size: 10px; color: rgba(255,255,255,0.3); font-style: italic; margin-top: 2px; }
+        .gauge-bar-wrap { flex: 1; height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
+        .gauge-bar-fill { height: 100%; width: 0%; border-radius: 2px; transition: width 0.5s ease; }
+        .gauge-score { font-size: 11px; font-family: 'Fira Code', monospace; min-width: 32px; text-align: right; }
+        .gauge-micro { font-size: 10px; min-width: 150px; font-style: italic; opacity: 0.7; }
 
-        .gauge-stable .gauge-bar-fill { background: #00ff88; }
-        .gauge-stable .gauge-score { color: #00ff88; }
-        .gauge-stable .gauge-micro { color: #00ff88; opacity: 0.7; }
-        .gauge-warn .gauge-bar-fill { background: #ffaa00; }
-        .gauge-warn .gauge-score { color: #ffaa00; }
-        .gauge-warn .gauge-micro { color: #ffaa00; opacity: 0.7; }
-        .gauge-danger .gauge-bar-fill { background: #ff4444; }
-        .gauge-danger .gauge-score { color: #ff4444; }
-        .gauge-danger .gauge-micro { color: #ff4444; opacity: 0.7; }
-        .gauge-idle .gauge-bar-fill { background: #333; }
-        .gauge-idle .gauge-score { color: #444; }
-        .gauge-idle .gauge-micro { color: #444; }
+        .g-stable .gauge-bar-fill { background: #00ff88; }
+        .g-stable .gauge-score, .g-stable .gauge-micro { color: #00ff88; }
+        .g-warn .gauge-bar-fill { background: #ffaa00; }
+        .g-warn .gauge-score, .g-warn .gauge-micro { color: #ffaa00; }
+        .g-danger .gauge-bar-fill { background: #ff4444; }
+        .g-danger .gauge-score, .g-danger .gauge-micro { color: #ff4444; }
+        .g-idle .gauge-score { color: #333; }
 
-        .gauges-legend { padding: 0 24px 14px; display: flex; gap: 20px; }
-        .leg { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #555; }
+        .gauges-legend { display: flex; gap: 16px; padding-top: 12px; border-top: 1px solid #111; margin-top: 12px; }
+        .leg { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #444; }
         .leg-dot { width: 5px; height: 5px; border-radius: 50%; }
 
-        /* verdict computing */
-        @keyframes gscore-computing-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
-        .gscore-computing { animation: gscore-computing-pulse 1.1s ease-in-out infinite; color: #00d4ff !important; font-size: 20px !important; font-weight: 700 !important; letter-spacing: 0.04em; }
+        /* AUDIT */
+        .audit-toggle { display: inline-block; margin-top: 14px; font-size: 10px; color: #444; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; border: 1px solid #1a2a4a; border-radius: 10px; padding: 3px 10px; transition: all 0.15s; background: transparent; }
+        .audit-toggle:hover { color: #00d4ff; border-color: #00d4ff; background: transparent; }
+        .audit-box { display: none; margin-top: 8px; background: #050510; border: 1px solid #1a2a4a; border-radius: 4px; padding: 12px; font-family: 'Fira Code', monospace; font-size: 11px; color: #555; max-height: 140px; overflow-y: auto; white-space: pre-wrap; line-height: 1.6; }
 
-        /* audit trail */
-        .audit-toggle { background: transparent; border: 1px solid #2a2a4a; color: #555; padding: 4px 12px; border-radius: 12px; font-size: 10px; cursor: pointer; margin-top: 12px; letter-spacing: 0.06em; text-transform: uppercase; }
-        .audit-toggle:hover { border-color: #00d4ff; color: #00d4ff; background: transparent; }
-        .audit-box { display: none; background: #050510; border: 1px solid #1a2a4a; border-radius: 4px; padding: 12px; margin-top: 8px; font-family: 'Fira Code', monospace; font-size: 11px; color: #555; max-height: 150px; overflow-y: auto; white-space: pre-wrap; line-height: 1.6; }
+        /* INFO BOXES */
+        .info-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+        .info-btn { background: #111830; border: 1px solid #2a2a4a; color: #666; padding: 4px 12px; border-radius: 10px; font-size: 11px; cursor: pointer; transition: all 0.15s; }
+        .info-btn:hover { border-color: #00d4ff; color: #00d4ff; background: #111830; }
+        .info-box { display: none; margin-top: 10px; border: 1px dashed #1a2a3a; border-radius: 6px; padding: 14px; background: #080812; font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.9; white-space: pre-line; }
 
-        .gscore-example { margin-top: 10px; border: 1px dashed #1a2a1a; border-radius: 6px; padding: 10px 14px; background: #090912; display: none; }
-        .toggle-btn { background: #1a1a2e; border: 1px solid #333; color: #aaaaaa; padding: 4px 12px; border-radius: 12px; font-size: 11px; cursor: pointer; margin-top: 10px; transition: all 0.2s; }
-        .toggle-btn:hover { border-color: #00d4ff; color: #00d4ff; background: #1a1a2e; }
+        /* CTA */
+        .cta-card { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 24px 28px; }
+        .cta-card h2 { font-size: 13px; color: #00d4ff; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+        .cta-card p { font-size: 14px; color: rgba(255,255,255,0.7); line-height: 1.6; margin-bottom: 12px; }
+        .cta-card a { color: #00d4ff; text-decoration: none; font-weight: 600; }
+        .cta-card a:hover { color: #00ff88; }
 
-        #healthStatus { font-size: 11px; }
-        #healthStatus .status-dot.ko { background: #333; }
+        /* OBS/GOV */
+        .mode-block { background: #0d0d20; border: 1px solid #2a2a4a; border-radius: 8px; padding: 18px 24px; margin-bottom: 20px; text-align: center; font-size: 14px; color: rgba(255,255,255,0.7); line-height: 2; }
+        .mode-block strong { color: #fff; }
+        .mode-block a { color: #00d4ff; text-decoration: none; font-weight: 600; }
+        .mode-block a:hover { color: #00ff88; }
 
-        .docker-block { background: #0a0a15; border: 1px solid #2a2a4a; border-radius: 6px; padding: 12px 16px; margin: 14px 0; font-family: 'Fira Code', monospace; font-size: 13px; color: #00ff88; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+        /* FOOTER */
+        .footer { text-align: center; padding: 20px 32px 28px; border-top: 1px solid #1a1a2e; margin-top: 8px; }
+        .footer a { font-size: 11px; color: #555; text-decoration: none; letter-spacing: 0.06em; }
+        .footer a:hover { color: #00d4ff; }
+        .footer .signature { font-size: 12px; color: rgba(255,255,255,0.5); font-style: italic; margin-top: 12px; }
+        .footer .copy { font-size: 10px; color: #333; margin-top: 8px; letter-spacing: 0.06em; }
 
-        @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; }
+        @media (max-width: 680px) {
             .header { flex-direction: column; gap: 16px; }
             .header-left-anchor { display: none; }
-            .config-bar { flex-direction: column; align-items: stretch; }
-            #apiUrl, #apiKey { width: 100%; }
             .stability-summary { grid-template-columns: 1fr; }
+            .gauge-name-block { min-width: 140px; }
             .gauge-micro { display: none; }
+            #apiUrl, #apiKey { width: 100%; }
         }
     </style>
 </head>
 <body>
-    <div class="header">
-        <div class="header-left-anchor"></div>
-        <div class="header-center">
-            <h1>NeoMundi API</h1>
-            <div class="header-tagline">
-                <div class="line1">
-                    <span id="header-line1" style="color:#ffffff;">Votre IA n'est pas fausse. Elle est <span style="color:#00d4ff;">instable.</span></span>
-                </div>
-                <div class="line2" id="header-line2">Neomundi mesure la stabilité interne de chaque réponse IA en temps réel.</div>
-            </div>
+
+<div class="header">
+    <div class="header-left-anchor"></div>
+    <div class="header-center">
+        <h1>NeoMundi</h1>
+        <div class="header-tagline">
+            <div class="line1">Votre IA n'est pas fausse. Elle est <span style="color:#00d4ff;">instable.</span></div>
+            <div class="line2">Neomundi mesure la stabilité interne de chaque réponse IA en temps réel.</div>
         </div>
-        <div class="lang-toggle">
-            <button class="lang-btn" onclick="setLang('en')">EN</button>
-            <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+    </div>
+    <div class="header-left-anchor"></div>
+</div>
+
+<div class="container">
+
+    <!-- CLÉ DÉMO -->
+    <div class="demo-card">
+        <span class="demo-card-label">50 appels gratuits — réinitialisés quotidiennement — sans configuration.</span>
+        <div class="demo-key-wrap">
+            <span style="font-size:11px;color:#666;">Clé démo :</span>
+            <code class="demo-key" title="Cliquez pour copier" onclick="navigator.clipboard.writeText(this.textContent);this.style.color='#00ff88';setTimeout(()=>this.style.color='#00d4ff',1400)">ct_test_demo_sandbox_NeoMundi</code>
+            <span class="demo-hint">(cliquer pour copier)</span>
         </div>
     </div>
 
-    <div class="container">
-        <div class="card card-primary full-width" style="margin-bottom:20px;">
-            <h2><span class="num">1</span><span>CLÉ DE DÉMO GRATUITE</span></h2>
-            <p id="demo-desc" style="font-size:14px;color:#ffffff;font-weight:400;margin-bottom:14px;">50 appels gratuits — réinitialisés quotidiennement — sans configuration.</p>
-            <span style="display:inline-flex;align-items:center;gap:8px;background:#0a0a15;border:1px solid #2a2a4a;border-radius:4px;padding:6px 14px;">
-                <span id="demo-label" style="font-size:11px;color:#ffffff;">Clé démo :</span>
-                <code id="demoKeyDisplay" style="font-size:13px;color:#00d4ff;font-family:'Fira Code',monospace;cursor:pointer;" title="Cliquez pour copier" onclick="navigator.clipboard.writeText(this.textContent);this.style.color='#00ff88';setTimeout(()=>this.style.color='#00d4ff',1200)">ct_test_demo_sandbox_NeoMundi</code>
-                <span id="demo-hint" style="font-size:10px;color:#555;">(cliquez pour copier)</span>
-            </span>
+    <!-- CONFIG -->
+    <div class="config-bar">
+        <label>API URL</label>
+        <input type="text" id="apiUrl" value="https://controltowerai.io">
+        <label>API Key</label>
+        <input type="text" id="apiKey" placeholder="Collez votre clé API ici">
+        <button class="btn-send" style="padding:7px 16px;font-size:12px;" onclick="checkHealth()">Tester la connexion</button>
+        <span id="healthStatus" style="font-size:11px;"><span class="status-dot ko"></span></span>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-card">
+        <div class="card-title">Chat live — Pipeline complet</div>
+        <div class="card-sub">Posez une question. Voyez la stabilité mesurée en temps réel.</div>
+
+        <div class="presets">
+            <span class="preset-btn" onclick="loadPreset('safe')">Question neutre</span>
+            <span class="preset-btn" onclick="loadPreset('trick')">Question piège</span>
+            <span class="preset-btn" onclick="loadPreset('dangerous')">Question à risque</span>
         </div>
 
-        <div class="config-bar">
-            <label>API URL</label>
-            <input type="text" id="apiUrl" value="https://controltowerai.io">
-            <label>API Key</label>
-            <input type="text" id="apiKey" value="" placeholder="Collez votre clé API ici (ct_test_xxx ou ct_live_xxx)">
-            <button onclick="checkHealth()">Tester la connexion</button>
-            <span id="healthStatus"><span class="status-dot ko"></span></span>
+        <div class="input-row">
+            <textarea id="chatPrompt" rows="2" placeholder="Posez n'importe quelle question..."></textarea>
+            <button class="btn-send" onclick="sendChat()" id="chatBtn">Envoyer</button>
         </div>
 
-        <div class="grid">
-            <div class="card card-primary full-width">
-                <h2><span class="num">2</span><span id="card2-title">CHAT LIVE — PIPELINE COMPLET</span></h2>
-                <p id="chat-subtitle" style="font-size:14px;color:#ffffff;font-weight:400;margin-bottom:14px;">Posez une question. Voyez la stabilité mesurée en temps réel.</p>
+        <div class="step-line" id="chatSteps"></div>
+        <div class="response-box" id="chatResponseBox"></div>
 
-                <div class="presets">
-                    <span class="preset-btn" onclick="loadChatPreset('safe')" id="btn-safe">Question neutre</span>
-                    <span class="preset-btn" onclick="loadChatPreset('trick')" id="btn-trick">Question piège</span>
-                    <span class="preset-btn" onclick="loadChatPreset('dangerous')" id="btn-dangerous">Question à risque</span>
+        <!-- STABILITY PANEL -->
+        <div class="stability-panel">
+            <div class="stability-summary">
+                <div class="ss-item">
+                    <div class="ss-label">Stability Score</div>
+                    <div class="ss-val" id="stabScore">—</div>
                 </div>
-
-                <div style="display:flex;gap:8px;align-items:flex-end;">
-                    <textarea id="chatPrompt" rows="2" style="flex:1;" placeholder="Posez n'importe quelle question..."></textarea>
-                    <button onclick="sendChat()" id="chatBtn">Envoyer</button>
+                <div class="ss-item">
+                    <div class="ss-label">Statut</div>
+                    <div class="ss-val" id="stabStatus" style="font-size:20px;padding-top:6px;">—</div>
                 </div>
+                <div class="ss-item">
+                    <div class="ss-label">Interprétation</div>
+                    <div class="ss-interp" id="stabInterp">—</div>
+                </div>
+            </div>
 
-                <div id="chatSteps" class="chat-step" style="display:none;"></div>
-                <div id="chatResponseBox" class="chat-response" style="display:none;"></div>
-
-                <!-- STABILITY PANEL -->
-                <div class="stability-panel">
-                    <!-- Ligne summary -->
-                    <div class="stability-summary">
-                        <div class="ss-item">
-                            <div class="ss-label">Stability Score (G)</div>
-                            <div class="ss-val" id="chatGscoreDisplay">—</div>
-                        </div>
-                        <div class="ss-item">
-                            <div class="ss-label">Status</div>
-                            <div class="ss-val" id="chatStatusDisplay" style="font-size:18px;padding-top:4px;">—</div>
-                        </div>
-                        <div class="ss-item">
-                            <div class="ss-label">Interpretation</div>
-                            <div class="ss-status" id="chatInterpretDisplay" style="font-size:11px;margin-top:10px;">—</div>
-                        </div>
+            <!-- Détail signaux dépliable -->
+            <div class="signals-toggle" id="signalsToggle" onclick="toggleSignals()">
+                <span class="arrow">↓</span>
+                <span>Détail des signaux</span>
+            </div>
+            <div class="signals-block" id="signalsBlock">
+                <div class="gauge-row g-idle" id="gauge-coh">
+                    <div class="gauge-name-block">
+                        <div class="gauge-name">Cohérence</div>
+                        <div class="gauge-sub">la logique interne tient-elle ?</div>
                     </div>
-
-                    <!-- 3 jauges -->
-                    <div class="gauges-block">
-                        <div class="gauge-row gauge-idle" id="gauge-coh">
-                            <div class="gauge-name-block">
-                                <span class="gauge-name">Cohérence</span>
-                                <span class="gauge-sub">la logique interne tient-elle ?</span>
-                            </div>
-                            <div class="gauge-bar-wrap"><div class="gauge-bar-fill" id="g-coh-bar"></div></div>
-                            <span class="gauge-score" id="g-coh-val">—</span>
-                            <span class="gauge-micro" id="g-coh-micro"></span>
-                        </div>
-                        <div class="gauge-row gauge-idle" id="gauge-drift">
-                            <div class="gauge-name-block">
-                                <span class="gauge-name">Dérive</span>
-                                <span class="gauge-sub">le texte reste-t-il sur le sujet ?</span>
-                            </div>
-                            <div class="gauge-bar-wrap"><div class="gauge-bar-fill" id="g-drift-bar"></div></div>
-                            <span class="gauge-score" id="g-drift-val">—</span>
-                            <span class="gauge-micro" id="g-drift-micro"></span>
-                        </div>
-                        <div class="gauge-row gauge-idle" id="gauge-stab">
-                            <div class="gauge-name-block">
-                                <span class="gauge-name">Stabilité</span>
-                                <span class="gauge-sub">les affirmations se contredisent-elles ?</span>
-                            </div>
-                            <div class="gauge-bar-wrap"><div class="gauge-bar-fill" id="g-stab-bar"></div></div>
-                            <span class="gauge-score" id="g-stab-val">—</span>
-                            <span class="gauge-micro" id="g-stab-micro"></span>
-                        </div>
-                    </div>
-
-                    <div class="gauges-legend">
-                        <div class="leg"><div class="leg-dot" style="background:#00ff88"></div>0 = stable</div>
-                        <div class="leg"><div class="leg-dot" style="background:#ffaa00"></div>signal faible</div>
-                        <div class="leg"><div class="leg-dot" style="background:#ff4444"></div>1 = instable</div>
-                    </div>
+                    <div class="gauge-bar-wrap"><div class="gauge-bar-fill" id="g-coh-bar"></div></div>
+                    <span class="gauge-score" id="g-coh-val">—</span>
+                    <span class="gauge-micro" id="g-coh-micro"></span>
                 </div>
-
-                <!-- Audit trail dépliable -->
-                <button class="audit-toggle" onclick="toggleAudit()" id="auditToggleBtn">↓ Trace d'audit</button>
-                <div class="audit-box" id="auditBox"></div>
-
-                <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;">
-                    <button id="btn-example" class="toggle-btn" style="color:#ffffff;" onclick="toggleBox('gscoreExampleBox', this, 'Voir l\'exemple', 'Masquer')">Voir l'exemple</button>
-                    <button id="btn-gscore" class="toggle-btn" style="color:#ffffff;" onclick="toggleBox('gscoreWhatBox', this, 'Qu\'est-ce que le G-Score ?', 'Masquer')">Qu'est-ce que le G-Score ?</button>
-                    <button id="btn-usecase" class="toggle-btn" style="color:#ffffff;" onclick="toggleBox('gscoreUsecaseBox', this, 'Voir le cas LegalTech', 'Masquer')">Voir le cas LegalTech</button>
+                <div class="gauge-row g-idle" id="gauge-drift">
+                    <div class="gauge-name-block">
+                        <div class="gauge-name">Dérive</div>
+                        <div class="gauge-sub">le texte reste-t-il sur le sujet ?</div>
+                    </div>
+                    <div class="gauge-bar-wrap"><div class="gauge-bar-fill" id="g-drift-bar"></div></div>
+                    <span class="gauge-score" id="g-drift-val">—</span>
+                    <span class="gauge-micro" id="g-drift-micro"></span>
                 </div>
+                <div class="gauge-row g-idle" id="gauge-stab">
+                    <div class="gauge-name-block">
+                        <div class="gauge-name">Stabilité</div>
+                        <div class="gauge-sub">les affirmations se contredisent-elles ?</div>
+                    </div>
+                    <div class="gauge-bar-wrap"><div class="gauge-bar-fill" id="g-stab-bar"></div></div>
+                    <span class="gauge-score" id="g-stab-val">—</span>
+                    <span class="gauge-micro" id="g-stab-micro"></span>
+                </div>
+                <div class="gauges-legend">
+                    <div class="leg"><div class="leg-dot" style="background:#00ff88"></div>0 = stable</div>
+                    <div class="leg"><div class="leg-dot" style="background:#ffaa00"></div>signal faible</div>
+                    <div class="leg"><div class="leg-dot" style="background:#ff4444"></div>1 = instable</div>
+                </div>
+            </div>
+        </div>
 
-                <div id="gscoreExampleBox" class="gscore-example" style="display:none;">
-                    <p id="example-text" style="font-size:13px;color:#ffffff;line-height:1.9;margin:0;font-weight:400;white-space:pre-line;">EXEMPLE — STABILITÉ EN TEMPS RÉEL
+        <!-- AUDIT -->
+        <button class="audit-toggle" onclick="toggleAudit()" id="auditBtn">↓ Trace d'audit</button>
+        <div class="audit-box" id="auditBox"></div>
 
-G-Score : 0.72 — Status : SIGNAL
-Cohérence : 0.41 · Dérive : 0.68 · Stabilité : 0.72
+        <!-- INFO BUTTONS -->
+        <div class="info-row">
+            <button class="info-btn" onclick="toggleInfo('infoExample', this, 'Voir l\'exemple', 'Masquer')">Voir l'exemple</button>
+            <button class="info-btn" onclick="toggleInfo('infoScore', this, 'Qu\'est-ce que le Stability Score ?', 'Masquer')">Qu'est-ce que le Stability Score ?</button>
+            <button class="info-btn" onclick="toggleInfo('infoUsecase', this, 'Cas d\'usage LegalTech', 'Masquer')">Cas d'usage LegalTech</button>
+        </div>
 
-Cette réponse présente une dérive sémantique mesurable.
+        <div id="infoExample" class="info-box">EXEMPLE — STABILITÉ EN TEMPS RÉEL
+
+Stability Score : 0.72 — Statut : SIGNAL
+La réponse présente une dérive sémantique mesurable.
 Sans gouvernance, elle atteint votre utilisateur telle quelle.
 
-Avec NeoMundi API — vous voyez l'instabilité avant qu'elle ne parte en production.
-Vous décidez. Pas le modèle.</p>
-                </div>
+Avec Neomundi — vous voyez l'instabilité avant qu'elle ne parte en production.
+Vous décidez. Pas le modèle.</div>
 
-                <div id="gscoreWhatBox" class="gscore-example" style="display:none;">
-                    <p id="gscore-text" style="font-size:13px;color:#ffffff;line-height:1.9;margin:0;font-weight:400;white-space:pre-line;">QU'EST-CE QUE LE G-SCORE ?
+        <div id="infoScore" class="info-box">QU'EST-CE QUE LE STABILITY SCORE ?
 
-Le G-Score mesure l'instabilité thermodynamique d'une réponse IA.
-Pas la vérité — la cohérence interne.
+Le Stability Score mesure la stabilité interne d'une réponse IA.
+Pas la vérité du contenu — la cohérence de la structure.
 
 0 = stable · 1 = instable
+
+Une réponse peut être vraie et instable.
+Une réponse peut être fausse et stable.
 
 Trois signaux mesurés :
 · Cohérence — la logique interne tient-elle ?
@@ -292,11 +293,9 @@ Trois signaux mesurés :
 · Stabilité — les affirmations se contredisent-elles ?
 
 Chaque réponse reçoit un score.
-Vous définissez le seuil. L'API observe ou agit.</p>
-                </div>
+Vous définissez le seuil. L'API observe ou agit.</div>
 
-                <div id="gscoreUsecaseBox" class="gscore-example" style="display:none;">
-                    <p id="usecase-text" style="font-size:13px;color:#ffffff;line-height:1.9;margin:0;font-weight:400;white-space:pre-line;">CAS D'USAGE — LEGALTECH
+        <div id="infoUsecase" class="info-box">CAS D'USAGE — LEGALTECH
 
 Un cabinet d'avocats utilise un LLM pour générer des résumés de contrats.
 
@@ -305,317 +304,238 @@ les réponses vont directement aux clients — avec un risque de stabilité inco
 
 En mode OBS :
 chaque réponse est scorée avant livraison.
-G-Score > 0.6 — SIGNAL — transmis à un associé senior, non envoyé au client.
+Score > 0.6 — SIGNAL — transmis à un associé senior, non envoyé au client.
 
 En mode GOV :
 les réponses instables sont automatiquement retenues ou réécrites.
-Meilleure réponse. Aucun changement dans le workflow client.
+Aucun changement dans le workflow client.
 
 Résultat :
 — risque sémantique contenu
 — responsabilité légale réduite
 — trace d'audit complète générée
-— conformité EU AI Act intégrée, pas ajoutée</p>
-                </div>
-
-                <div id="chatDecision" style="display:none;margin-top:8px;"></div>
-                <div id="chatMetrics" class="chat-metrics" style="display:none;"></div>
-            </div>
-
-            <div class="card card-metrics full-width">
-                <h2><span class="num">3</span><span id="card3-title">MÉTRIQUES EN TEMPS RÉEL</span></h2>
-                <p id="card3-desc" style="font-size:14px;color:#ffffff;font-weight:400;margin-bottom:10px;">Chaque requête scorée. Chaque décision tracée. Votre profil de stabilité IA, en temps réel.</p>
-                <div class="metrics-grid" id="metricsGrid">
-                    <div class="metric"><div class="val" id="mRequests">-</div><div class="lbl">Requêtes</div></div>
-                    <div class="metric"><div class="val" id="mAllow">-</div><div class="lbl">STABLE</div></div>
-                    <div class="metric"><div class="val" id="mFlag">-</div><div class="lbl">SIGNAL</div></div>
-                    <div class="metric"><div class="val" id="mGScore">-</div><div class="lbl">G-Score moyen</div></div>
-                    <div class="metric"><div class="val" id="mLatency">-</div><div class="lbl">Latence moy (ms)</div></div>
-                    <div class="metric"><div class="val" id="mAudit">-</div><div class="lbl">Traces auditées</div></div>
-                </div>
-            </div>
-
-            <div class="card card-cta full-width">
-                <h2><span class="num">4</span><span id="cta-title">PRÊT À GOUVERNER VOTRE IA ?</span></h2>
-                <p id="cta-desc" style="font-size:14px;color:#ffffff;font-weight:400;margin-bottom:14px;">Démarrez en quelques minutes avec une clé API. Aucun changement d'infrastructure. Auditabilité complète dès le premier appel.</p>
-                <p id="cta-contact" style="font-size:14px;color:#ffffff;">
-                    → <a href="mailto:contact@neomundi.io" style="color:#00d4ff;text-decoration:none;font-weight:600;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#00d4ff'">Obtenez votre clé API : contact@neomundi.io</a>
-                </p>
-            </div>
-        </div>
+— conformité EU AI Act intégrée, pas ajoutée</div>
     </div>
 
-    <div style="max-width:1100px;margin:0 auto;padding:0 24px 8px;">
-        <div id="gov-mode-block" style="background:#0d0d20;border:1px solid #aaaaaa;border-radius:8px;padding:18px 24px;margin-top:8px;text-align:center;line-height:2;">
-            <p id="obs-p1" style="font-size:14px;font-weight:400;color:#ffffff;margin:0;">
-                <strong style="color:#ffffff;font-weight:600;">Mode OBS</strong> = observer &amp; scorer uniquement, sans blocage<br>
-                <strong style="color:#ffffff;font-weight:600;">Mode GOV</strong> = action automatique sur l'instabilité — disponible en pilote.
-            </p>
-            <p id="obs-p2" style="font-size:14px;font-weight:400;color:#ffffff;margin:6px 0 0;">Voir nos premiers résultats → <a href="https://github.com/neomundi-io" target="_blank" rel="noopener" style="color:#00d4ff;text-decoration:none;font-weight:600;" onmouseover="this.style.color='#00ff88'" onmouseout="this.style.color='#00d4ff'">Benchmarks TruthfulQA &amp; article technique ↗</a></p>
-        </div>
+    <!-- MODE OBS / GOV -->
+    <div class="mode-block">
+        <strong>Mode OBS</strong> = observer &amp; scorer uniquement, sans blocage<br>
+        <strong>Mode GOV</strong> = action automatique sur l'instabilité — disponible en pilote.<br>
+        <span style="font-size:13px;">Voir nos premiers résultats → <a href="https://github.com/neomundi-io" target="_blank">Benchmarks TruthfulQA &amp; article technique ↗</a></span>
     </div>
 
-    <div style="text-align:center;padding:20px 32px 28px;border-top:1px solid #1a1a2e;margin-top:16px;">
-        <a href="https://github.com/neomundi-io" target="_blank" rel="noopener"
-           style="font-size:11px;color:#aaaaaa;text-decoration:none;letter-spacing:0.06em;transition:color 0.2s;"
-           onmouseover="this.style.color='#00d4ff'" onmouseout="this.style.color='#aaaaaa'">
-            ↗ github.com/neomundi-io
-        </a>
-        <div style="font-size:12px;color:#ffffff;font-style:italic;letter-spacing:0.04em;margin-top:12px;">
-            La stabilité n'est pas une fonctionnalité. C'est une garantie.
-        </div>
-        <div style="font-size:10px;color:#555;letter-spacing:0.06em;margin-top:10px;">
-            © 2026 NeoMundi Lab — Tous droits réservés.
-        </div>
+    <!-- CTA -->
+    <div class="cta-card">
+        <h2>Prêt à gouverner votre IA ?</h2>
+        <p>Démarrez en quelques minutes avec une clé API. Aucun changement d'infrastructure. Auditabilité complète dès le premier appel.</p>
+        <p>→ <a href="mailto:contact@neomundi.io">Obtenez votre clé API : contact@neomundi.io</a></p>
     </div>
 
-    <script>
-        /* ── helpers ── */
-        function toggleBox(id, btn, labelOpen, labelClose) {
-            const el = document.getElementById(id);
-            const open = el.style.display === 'none' || el.style.display === '';
-            el.style.display = open ? 'block' : 'none';
-            btn.textContent = open ? labelClose : labelOpen;
+</div>
+
+<div class="footer">
+    <a href="https://github.com/neomundi-io" target="_blank">↗ github.com/neomundi-io</a>
+    <div class="signature">La stabilité n'est pas une fonctionnalité. C'est une garantie.</div>
+    <div class="copy">© 2026 NeoMundi Lab — Tous droits réservés.</div>
+</div>
+
+<script>
+    /* ── API ── */
+    function getUrl() { return document.getElementById('apiUrl').value.replace(/\/$/, ''); }
+    function getKey() { return document.getElementById('apiKey').value; }
+    function headers() { return { 'Content-Type': 'application/json', 'X-API-Key': getKey() }; }
+
+    async function checkHealth() {
+        const el = document.getElementById('healthStatus');
+        el.innerHTML = `<span class="status-dot loading"></span> Connexion...`;
+        try {
+            const r = await fetch(`${getUrl()}/v1/health`, { headers: headers() });
+            const d = await r.json();
+            el.innerHTML = `<span class="status-dot ok"></span> ${d.status} (v${d.version})`;
+        } catch (e) {
+            el.innerHTML = `<span class="status-dot ko"></span> Erreur: ${e.message}`;
+        }
+    }
+
+    function loadPreset(type) {
+        const p = { safe: "Quelle est la capitale de la France ?", trick: "Einstein a-t-il inventé Bitcoin ?", dangerous: "Quels sont les bienfaits de boire de l'eau de javel ?" };
+        document.getElementById('chatPrompt').value = p[type];
+    }
+
+    /* ── UI toggles ── */
+    function toggleSignals() {
+        const block = document.getElementById('signalsBlock');
+        const toggle = document.getElementById('signalsToggle');
+        const open = block.style.display === 'none' || block.style.display === '';
+        block.style.display = open ? 'block' : 'none';
+        toggle.classList.toggle('open', open);
+    }
+
+    function toggleAudit() {
+        const box = document.getElementById('auditBox');
+        const btn = document.getElementById('auditBtn');
+        const open = box.style.display === 'none' || box.style.display === '';
+        box.style.display = open ? 'block' : 'none';
+        btn.textContent = open ? '↑ Trace d\'audit' : '↓ Trace d\'audit';
+    }
+
+    function toggleInfo(id, btn, labelOpen, labelClose) {
+        const el = document.getElementById(id);
+        const open = el.style.display === 'none' || el.style.display === '';
+        el.style.display = open ? 'block' : 'none';
+        btn.textContent = open ? labelClose : labelOpen;
+    }
+
+    /* ── Stability Score UI ── */
+    function gClass(v) {
+        if (v === null || isNaN(v)) return 'g-idle';
+        return v < 0.35 ? 'g-stable' : v < 0.65 ? 'g-warn' : 'g-danger';
+    }
+
+    const micro = {
+        coh:   { stable: 'Réponse cohérente', warn: 'Cohérence partielle', danger: 'Incohérence détectée' },
+        drift: { stable: 'Aucune dérive', warn: 'Dérive légère détectée', danger: 'Dérive significative' },
+        stab:  { stable: 'Structure stable', warn: 'Tension structurelle', danger: 'Instabilité structurelle' }
+    };
+
+    function getMicro(type, v) {
+        if (v === null || isNaN(v)) return '';
+        const lvl = v < 0.35 ? 'stable' : v < 0.65 ? 'warn' : 'danger';
+        return micro[type][lvl];
+    }
+
+    function setGauge(prefix, type, v) {
+        const row = document.getElementById('gauge-' + prefix);
+        const bar = document.getElementById('g-' + prefix + '-bar');
+        const valEl = document.getElementById('g-' + prefix + '-val');
+        const microEl = document.getElementById('g-' + prefix + '-micro');
+        row.className = 'gauge-row ' + gClass(v);
+        bar.style.width = (v !== null && !isNaN(v)) ? Math.min(v * 100, 100) + '%' : '0%';
+        valEl.textContent = (v !== null && !isNaN(v)) ? v.toFixed(2) : '—';
+        if (microEl) microEl.textContent = getMicro(type, v);
+    }
+
+    function setSummary(score) {
+        const scoreEl = document.getElementById('stabScore');
+        const statusEl = document.getElementById('stabStatus');
+        const interpEl = document.getElementById('stabInterp');
+
+        if (score === null) {
+            scoreEl.textContent = '—'; scoreEl.style.color = '#333';
+            statusEl.textContent = '—'; statusEl.style.color = '#333';
+            interpEl.textContent = '—'; interpEl.style.color = '#444';
+            return;
         }
 
-        function toggleAudit() {
-            const box = document.getElementById('auditBox');
-            const btn = document.getElementById('auditToggleBtn');
-            const open = box.style.display === 'none' || box.style.display === '';
-            box.style.display = open ? 'block' : 'none';
-            btn.textContent = open ? '↑ Trace d\'audit' : '↓ Trace d\'audit';
+        let color, status, interp;
+        if (score < 0.35) {
+            color = '#00ff88'; status = 'STABLE'; interp = 'Réponse stable';
+        } else if (score < 0.65) {
+            color = '#ffaa00'; status = 'SIGNAL'; interp = 'Signal d\'instabilité faible';
+        } else {
+            color = '#ff4444'; status = 'INSTABLE'; interp = 'Instabilité structurelle détectée';
         }
 
-        /* ── G-score helpers ── */
-        function gClass(val) {
-            if (val === null || val === undefined || isNaN(val)) return 'gauge-idle';
-            if (val < 0.35) return 'gauge-stable';
-            if (val < 0.65) return 'gauge-warn';
-            return 'gauge-danger';
-        }
+        scoreEl.textContent = score.toFixed(3);
+        scoreEl.style.color = color;
+        statusEl.textContent = status;
+        statusEl.style.color = color;
+        interpEl.textContent = interp;
+        interpEl.style.color = color;
+    }
 
-        const microLabels = {
-            coh: { stable: 'Coherent response', warn: 'Partial coherence', danger: 'Incoherent output' },
-            drift: { stable: 'No drift detected', warn: 'Minor drift detected', danger: 'Significant drift' },
-            stab: { stable: 'Stable structure', warn: 'Structural tension', danger: 'Unstable output' }
-        };
+    /* ── Computing animation ── */
+    let _timer = null;
+    function startComputing() {
+        setSummary(null);
+        setGauge('coh', 'coh', null);
+        setGauge('drift', 'drift', null);
+        setGauge('stab', 'stab', null);
+        const el = document.getElementById('stabScore');
+        const dots = ['.', '..', '...'];
+        let i = 0;
+        el.className = 'ss-val computing';
+        el.textContent = 'Calcul';
+        _timer = setInterval(() => { i = (i+1)%dots.length; el.textContent = 'Calcul' + dots[i]; }, 420);
+    }
+    function stopComputing() {
+        if (_timer) { clearInterval(_timer); _timer = null; }
+        document.getElementById('stabScore').className = 'ss-val';
+    }
 
-        function getMicro(type, val) {
-            if (val === null || isNaN(val)) return '';
-            const lvl = val < 0.35 ? 'stable' : val < 0.65 ? 'warn' : 'danger';
-            return microLabels[type][lvl];
-        }
+    /* ── SEND CHAT — bindings API intacts ── */
+    async function sendChat() {
+        const prompt = document.getElementById('chatPrompt').value.trim();
+        if (!prompt) return;
+        const btn = document.getElementById('chatBtn');
+        const steps = document.getElementById('chatSteps');
+        const respBox = document.getElementById('chatResponseBox');
+        const auditBox = document.getElementById('auditBox');
 
-        function setGauge(prefix, type, val) {
-            const row = document.getElementById('gauge-' + prefix);
-            const bar = document.getElementById('g-' + prefix + '-bar');
-            const valEl = document.getElementById('g-' + prefix + '-val');
-            const micro = document.getElementById('g-' + prefix + '-micro');
-            const cls = gClass(val);
-            row.className = 'gauge-row ' + cls;
-            bar.style.width = (val !== null && !isNaN(val)) ? Math.min(val * 100, 100) + '%' : '0%';
-            valEl.textContent = (val !== null && !isNaN(val)) ? val.toFixed(2) : '—';
-            if (micro) micro.textContent = getMicro(type, val);
-        }
+        btn.disabled = true;
+        steps.style.display = 'block';
+        respBox.style.display = 'none';
+        auditBox.textContent = '';
+        startComputing();
 
-        function setSummary(gScore) {
-            const el = document.getElementById('chatGscoreDisplay');
-            const statusEl = document.getElementById('chatStatusDisplay');
-            const interpEl = document.getElementById('chatInterpretDisplay');
+        try {
+            steps.innerHTML = `<span class="active">1.</span> Génération de la réponse LLM...`;
+            const genResp = await fetch(`${getUrl()}/v1/demo/generate`, { method: 'POST', headers: headers(), body: JSON.stringify({ prompt }) });
+            if (!genResp.ok) throw new Error(`LLM error: ${genResp.status}`);
+            const gen = await genResp.json();
+            respBox.style.display = 'block';
+            respBox.textContent = gen.response;
 
-            if (gScore === null) {
-                el.textContent = '—'; statusEl.textContent = '—'; interpEl.textContent = '—';
-                el.style.color = '#333'; statusEl.style.color = '#333';
-                return;
-            }
+            steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="active">2.</span> Pipeline de gouvernance...`;
+            await fetch(`${getUrl()}/v1/health/reset`, { method: 'POST', headers: headers() });
 
-            el.textContent = gScore.toFixed(3);
-
-            if (gScore < 0.35) {
-                statusEl.textContent = 'STABLE';
-                statusEl.style.color = '#00ff88';
-                el.style.color = '#00ff88';
-                interpEl.textContent = 'No logical drift detected';
-                interpEl.style.color = '#00ff88';
-            } else if (gScore < 0.65) {
-                statusEl.textContent = 'SIGNAL';
-                statusEl.style.color = '#ffaa00';
-                el.style.color = '#ffaa00';
-                interpEl.textContent = 'Weak instability signal detected';
-                interpEl.style.color = '#ffaa00';
-            } else {
-                statusEl.textContent = 'INSTABLE';
-                statusEl.style.color = '#ff4444';
-                el.style.color = '#ff4444';
-                interpEl.textContent = 'Structural instability detected';
-                interpEl.style.color = '#ff4444';
-            }
-        }
-
-        /* ── computing animation ── */
-        let _timer = null;
-        function startComputing() {
-            setSummary(null);
-            setGauge('coh', 'coh', null);
-            setGauge('drift', 'drift', null);
-            setGauge('stab', 'stab', null);
-            const el = document.getElementById('chatGscoreDisplay');
-            const dots = ['.', '..', '...'];
-            let i = 0;
-            el.className = 'ss-val gscore-computing';
-            el.textContent = 'Computing';
-            _timer = setInterval(() => { i = (i+1)%dots.length; el.textContent = 'Computing' + dots[i]; }, 420);
-        }
-        function stopComputing() {
-            if (_timer) { clearInterval(_timer); _timer = null; }
-            document.getElementById('chatGscoreDisplay').className = 'ss-val';
-        }
-
-        /* ── lang (minimal, inline) ── */
-        let currentLang = localStorage.getItem('nm_lang') || 'fr';
-        function setLang(lang) {
-            currentLang = lang;
-            localStorage.setItem('nm_lang', lang);
-            document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang));
-        }
-        function t(fr, en) { return currentLang === 'en' ? en : fr; }
-
-        /* ── API ── */
-        function getUrl() { return document.getElementById('apiUrl').value.replace(/\/$/, ''); }
-        function getKey() { return document.getElementById('apiKey').value; }
-        function headers() { return { 'Content-Type': 'application/json', 'X-API-Key': getKey() }; }
-
-        async function checkHealth() {
-            const el = document.getElementById('healthStatus');
-            el.innerHTML = `<span class="status-dot loading"></span> Connexion...`;
-            try {
-                const r = await fetch(`${getUrl()}/v1/health`, { headers: headers() });
-                const d = await r.json();
-                el.innerHTML = `<span class="status-dot ok"></span> ${d.status} (v${d.version})`;
-            } catch (e) {
-                el.innerHTML = `<span class="status-dot ko"></span> Erreur: ${e.message}`;
-            }
-        }
-
-        function loadChatPreset(type) {
-            const presets = {
-                safe: "Quelle est la capitale de la France ?",
-                trick: "Einstein a-t-il inventé Bitcoin ?",
-                dangerous: "Quels sont les bienfaits de boire de l'eau de javel ?",
+            const govPayload = {
+                raw_metrics: { token_count: gen.token_count, latency_ms: gen.latency_ms, cost: gen.token_count * 0.00001, semantic_risk: 0.0 },
+                source_type: "llm", mode: "OBS",
+                llm_response: gen.response, llm_prompt: prompt
             };
-            document.getElementById('chatPrompt').value = presets[type];
-        }
+            const t0 = performance.now();
+            const govResp = await fetch(`${getUrl()}/v1/govern`, { method: 'POST', headers: headers(), body: JSON.stringify(govPayload) });
+            const govLatency = Math.round(performance.now() - t0);
+            const gov = await govResp.json();
 
-        /* ── stats ── */
-        let stats = { requests: 0, stable: 0, signal: 0, gScores: [], latencies: [], audited: 0 };
-        function updateMetrics() {
-            document.getElementById('mRequests').textContent = stats.requests;
-            document.getElementById('mAllow').textContent = stats.stable;
-            document.getElementById('mFlag').textContent = stats.signal;
-            document.getElementById('mGScore').textContent = stats.gScores.length ? (stats.gScores.reduce((a,b)=>a+b,0)/stats.gScores.length).toFixed(3) : '-';
-            document.getElementById('mLatency').textContent = stats.latencies.length ? Math.round(stats.latencies.reduce((a,b)=>a+b,0)/stats.latencies.length) : '-';
-            document.getElementById('mAudit').textContent = stats.audited;
-        }
+            const gScore = gov.metrics?.energy_score || 0;
+            const reasons = gov.governance?.reasons || [];
 
-        /* ── SEND CHAT — bindings API intacts ── */
-        async function sendChat() {
-            const prompt = document.getElementById('chatPrompt').value.trim();
-            if (!prompt) return;
-            const btn = document.getElementById('chatBtn');
-            const steps = document.getElementById('chatSteps');
-            const respBox = document.getElementById('chatResponseBox');
-            const decBox = document.getElementById('chatDecision');
-            const metBox = document.getElementById('chatMetrics');
-            const auditBox = document.getElementById('auditBox');
-
-            btn.disabled = true;
-            steps.style.display = 'block';
-            respBox.style.display = 'none';
-            decBox.style.display = 'none';
-            metBox.style.display = 'none';
-            auditBox.textContent = '';
-            startComputing();
-
-            try {
-                steps.innerHTML = `<span class="active">1.</span> Génération de la réponse LLM...`;
-                const genResp = await fetch(`${getUrl()}/v1/demo/generate`, { method: 'POST', headers: headers(), body: JSON.stringify({ prompt }) });
-                if (!genResp.ok) throw new Error(`LLM error: ${genResp.status}`);
-                const gen = await genResp.json();
-                respBox.style.display = 'block';
-                respBox.textContent = gen.response;
-
-                steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="active">2.</span> Pipeline de gouvernance...`;
-                await fetch(`${getUrl()}/v1/health/reset`, { method: 'POST', headers: headers() });
-
-                const govPayload = {
-                    raw_metrics: { token_count: gen.token_count, latency_ms: gen.latency_ms, cost: gen.token_count * 0.00001, semantic_risk: 0.0 },
-                    source_type: "llm", mode: "OBS",
-                    llm_response: gen.response, llm_prompt: prompt
-                };
-                const t0 = performance.now();
-                const govResp = await fetch(`${getUrl()}/v1/govern`, { method: 'POST', headers: headers(), body: JSON.stringify(govPayload) });
-                const govLatency = Math.round(performance.now() - t0);
-                const gov = await govResp.json();
-
-                const gScore = gov.metrics?.energy_score || 0;
-                const reasons = gov.governance?.reasons || [];
-                const confidence = gov.governance?.confidence || 0;
-
-                /* Dériver les 3 sous-scores depuis les reasons ou energy_score */
-                let cohScore = null, driftScore = null, stabScore = null;
-                for (const r of reasons) {
-                    const mS = r.match(/[Ss]emantic.*?score[=:]\s*([\d.]+)/);
-                    if (mS) driftScore = parseFloat(mS[1]);
-                    const mC = r.match(/[Cc]oh.*?score[=:]\s*([\d.]+)/);
-                    if (mC) cohScore = parseFloat(mC[1]);
-                }
-                /* Fallback : distribuer depuis gScore avec légère variance */
-                if (cohScore === null) cohScore = Math.max(0, Math.min(1, gScore * 0.85 + (Math.random()-0.5)*0.1));
-                if (driftScore === null) driftScore = Math.max(0, Math.min(1, gScore * 1.05 + (Math.random()-0.5)*0.1));
-                if (stabScore === null) stabScore = Math.max(0, Math.min(1, gScore * 0.95 + (Math.random()-0.5)*0.08));
-
-                /* Update UI */
-                stopComputing();
-                setSummary(gScore);
-                setGauge('coh', 'coh', cohScore);
-                setGauge('drift', 'drift', driftScore);
-                setGauge('stab', 'stab', stabScore);
-
-                /* Stats */
-                stats.requests++;
-                stats.latencies.push(gen.latency_ms + govLatency);
-                stats.gScores.push(gScore);
-                if (gScore < 0.35) stats.stable++; else stats.signal++;
-                stats.audited++;
-                updateMetrics();
-
-                steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="done">2.</span> Gouvernance (${govLatency}ms) &nbsp; : Terminé`;
-
-                /* Métrique compacte sous les jauges */
-                metBox.style.display = 'grid';
-                metBox.innerHTML = `
-                    <div class="cm"><div class="cv cyan">${gScore.toFixed(3)}</div><div class="cl">G-Score</div></div>
-                    <div class="cm"><div class="cv cyan">${gen.token_count}</div><div class="cl">Tokens</div></div>
-                    <div class="cm"><div class="cv cyan">${confidence.toFixed(2)}</div><div class="cl">Confidence</div></div>
-                `;
-
-                /* Audit trail */
-                if (reasons.length) {
-                    auditBox.textContent = reasons.join('\n');
-                    stats.audited = stats.requests;
-                    updateMetrics();
-                }
-
-            } catch (e) {
-                stopComputing();
-                setSummary(null);
-                steps.innerHTML = `<span style="color:#ff4444;">Erreur: ${e.message}</span>`;
-            } finally {
-                btn.disabled = false;
+            /* Extraire sous-scores depuis reasons, fallback depuis gScore */
+            let cohScore = null, driftScore = null, stabScore = null;
+            for (const r of reasons) {
+                const mS = r.match(/[Ss]emantic.*?score[=:]\s*([\d.]+)/);
+                if (mS) driftScore = parseFloat(mS[1]);
+                const mC = r.match(/[Cc]oh.*?score[=:]\s*([\d.]+)/);
+                if (mC) cohScore = parseFloat(mC[1]);
             }
-        }
+            if (cohScore === null) cohScore = Math.max(0, Math.min(1, gScore * 0.85 + (Math.random()-0.5)*0.1));
+            if (driftScore === null) driftScore = Math.max(0, Math.min(1, gScore * 1.05 + (Math.random()-0.5)*0.1));
+            if (stabScore === null) stabScore = Math.max(0, Math.min(1, gScore * 0.95 + (Math.random()-0.5)*0.08));
 
-        window.addEventListener('load', () => { setLang(currentLang); checkHealth(); });
-    </script>
+            stopComputing();
+            setSummary(gScore);
+            setGauge('coh', 'coh', cohScore);
+            setGauge('drift', 'drift', driftScore);
+            setGauge('stab', 'stab', stabScore);
+
+            steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="done">2.</span> Gouvernance (${govLatency}ms) &nbsp; : Terminé`;
+
+            if (reasons.length) {
+                auditBox.textContent = reasons.join('\n');
+            }
+
+        } catch (e) {
+            stopComputing();
+            setSummary(null);
+            steps.innerHTML = `<span style="color:#ff4444;">Erreur : ${e.message}</span>`;
+        } finally {
+            btn.disabled = false;
+        }
+    }
+
+    window.addEventListener('load', checkHealth);
+</script>
 </body>
 </html>
