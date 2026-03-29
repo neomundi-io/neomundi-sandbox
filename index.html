@@ -67,7 +67,7 @@
         .ss-item { padding: 20px; text-align: center; border-right: 1px solid #1a2a4a; }
         .ss-item:last-child { border-right: none; }
         .ss-label { font-size: 10px; color: #ffffff; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
-        .ss-val { font-size: 32px; font-weight: 900; color: #ffffff; line-height: 1; letter-spacing: -0.02em; transition: color 0.3s; }
+        .ss-val { font-size: 32px; font-weight: 900; color: #ffffff; line-height: 1; letter-spacing: -0.02em; transition: color 0.3s; min-height: 38px; display: flex; align-items: center; justify-content: center; }
         .ss-interp { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; margin-top: 6px; color: #ffffff; text-transform: uppercase; transition: color 0.3s; }
         .ss-compliance { font-size: 9px; color: #aaaaaa; letter-spacing: 0.04em; margin-top: 7px; font-style: italic; transition: color 0.4s; }
         .ss-compliance.active { color: #00aa55; }
@@ -166,7 +166,7 @@
 <div class="container">
 
     <div class="demo-card">
-        <span class="demo-card-label" id="demo-desc">50 appels gratuits — réinitialisés quotidiennement — sans configuration.</span>
+        <span class="demo-card-label" id="demo-desc">50 appels gratuits — sans configuration.</span>
         <div class="demo-key-wrap">
             <span style="font-size:11px;color:#ffffff;" id="demo-label">Clé démo :</span>
             <code class="demo-key" id="demo-key-code">ct_test_demo_sandbox_NeoMundi</code>
@@ -323,7 +323,7 @@ var TRANSLATIONS = {
         en: 'Neomundi measures the internal stability of every AI response in real time.'
     },
     'demo-desc': {
-        fr: '50 appels gratuits — réinitialisés quotidiennement — sans configuration.',
+        fr: '50 appels gratuits — sans configuration.',
         en: '50 free calls — reset daily — no setup required.'
     },
     'demo-label': { fr: 'Clé démo :', en: 'Demo key:' },
