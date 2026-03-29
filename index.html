@@ -15,6 +15,12 @@
         .header-tagline .line2 { font-size: 15px; color: rgba(255,255,255,0.6); margin-top: 8px; font-weight: 400; }
         .header-left-anchor { width: 80px; }
 
+        /* ── LANG TOGGLE ── */
+        .lang-toggle { display: flex; gap: 0; border: 1px solid #333; border-radius: 6px; overflow: hidden; width: 80px; justify-content: center; }
+        .lang-btn { background: #1a1a2e; color: #888; border: none; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
+        .lang-btn.active { background: #00d4ff; color: #000; }
+        .lang-btn:hover:not(.active) { background: #222; color: #ccc; }
+
         .container { max-width: 900px; margin: 0 auto; padding: 24px 24px 48px; }
 
         .config-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
@@ -61,8 +67,6 @@
         .ss-label { font-size: 10px; color: #666; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
         .ss-val { font-size: 32px; font-weight: 900; color: #333; line-height: 1; letter-spacing: -0.02em; transition: color 0.3s; }
         .ss-interp { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; margin-top: 6px; color: #444; text-transform: uppercase; transition: color 0.3s; }
-
-        /* [MODIF 3] Légende compliance */
         .ss-compliance { font-size: 9px; color: #2a3a2a; letter-spacing: 0.04em; margin-top: 7px; font-style: italic; transition: color 0.4s; }
         .ss-compliance.active { color: #00aa55; }
 
@@ -78,7 +82,6 @@
 
         .signals-block { display: none; padding: 16px 20px 12px; border-top: 1px solid #111; }
 
-        /* [MODIF 2] Bandeau alerte dérive */
         .drift-alert { display: none; margin-bottom: 14px; padding: 9px 14px; border-radius: 4px; background: rgba(255,68,68,0.07); border: 1px solid rgba(255,68,68,0.3); font-size: 11px; color: #ff8888; line-height: 1.6; }
         .drift-alert strong { color: #ff4444; font-size: 12px; }
         .drift-alert .obs-note { display: block; margin-top: 4px; font-size: 10px; color: #888; font-style: italic; }
@@ -105,7 +108,6 @@
         .leg { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #444; }
         .leg-dot { width: 5px; height: 5px; border-radius: 50%; }
 
-        /* [MODIF 1] Audit — toujours visible, en-tête fixe */
         .audit-header { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding: 7px 14px; background: #07080f; border: 1px solid #1a2a4a; border-bottom: none; border-radius: 4px 4px 0 0; }
         .audit-header-label { font-size: 10px; color: #00d4ff; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; }
         .audit-header-mode { font-size: 9px; color: #445; letter-spacing: 0.05em; font-style: italic; }
@@ -150,21 +152,25 @@
     <div class="header-center">
         <h1>NeoMundi</h1>
         <div class="header-tagline">
-            <div class="line1">Votre IA n'est pas fausse. Elle est <span style="color:#00d4ff;">instable.</span></div>
-            <div class="line2">Neomundi mesure la stabilité interne de chaque réponse IA en temps réel.</div>
+            <div class="line1" id="header-line1">Votre IA n'est pas fausse. Elle est <span style="color:#00d4ff;">instable.</span></div>
+            <div class="line2" id="header-line2">Neomundi mesure la stabilité interne de chaque réponse IA en temps réel.</div>
         </div>
     </div>
-    <div class="header-left-anchor"></div>
+    <!-- LANG TOGGLE — greffé depuis version EN/FR -->
+    <div class="lang-toggle">
+        <button class="lang-btn" onclick="setLang('en')">EN</button>
+        <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+    </div>
 </div>
 
 <div class="container">
 
     <div class="demo-card">
-        <span class="demo-card-label">50 appels gratuits — réinitialisés quotidiennement — sans configuration.</span>
+        <span class="demo-card-label" id="demo-desc">50 appels gratuits — réinitialisés quotidiennement — sans configuration.</span>
         <div class="demo-key-wrap">
-            <span style="font-size:11px;color:#666;">Clé démo :</span>
+            <span style="font-size:11px;color:#666;" id="demo-label">Clé démo :</span>
             <code class="demo-key" onclick="navigator.clipboard.writeText(this.textContent);this.style.color='#00ff88';setTimeout(()=>this.style.color='#00d4ff',1400)">ct_test_demo_sandbox_NeoMundi</code>
-            <span class="demo-hint">(cliquer pour copier)</span>
+            <span class="demo-hint" id="demo-hint">(cliquer pour copier)</span>
         </div>
     </div>
 
@@ -173,18 +179,18 @@
         <input type="text" id="apiUrl" value="https://controltowerai.io">
         <label>API Key</label>
         <input type="text" id="apiKey" placeholder="Collez votre clé API ici">
-        <button class="btn-send" style="padding:7px 16px;font-size:12px;" onclick="checkHealth()">Tester la connexion</button>
+        <button class="btn-send" style="padding:7px 16px;font-size:12px;" onclick="checkHealth()" id="btn-test">Tester la connexion</button>
         <span id="healthStatus" style="font-size:11px;"><span class="status-dot ko"></span></span>
     </div>
 
     <div class="main-card">
-        <div class="card-title">Chat live — Pipeline complet</div>
-        <div class="card-sub">Posez une question. Voyez la stabilité mesurée en temps réel.</div>
+        <div class="card-title" id="card-title">Chat live — Pipeline complet</div>
+        <div class="card-sub" id="card-sub">Posez une question. Voyez la stabilité mesurée en temps réel.</div>
 
         <div class="presets">
-            <span class="preset-btn" onclick="loadPreset('safe')">Question neutre</span>
-            <span class="preset-btn" onclick="loadPreset('trick')">Question piège</span>
-            <span class="preset-btn" onclick="loadPreset('dangerous')">Question à risque</span>
+            <span class="preset-btn" onclick="loadPreset('safe')" id="btn-safe">Question neutre</span>
+            <span class="preset-btn" onclick="loadPreset('trick')" id="btn-trick">Question piège</span>
+            <span class="preset-btn" onclick="loadPreset('dangerous')" id="btn-dangerous">Question à risque</span>
         </div>
 
         <div class="input-row">
@@ -195,42 +201,40 @@
         <div class="step-line" id="chatSteps"></div>
         <div class="response-box" id="chatResponseBox"></div>
 
-        <!-- STABILITY PANEL -->
+        <!-- STABILITY PANEL — 100% intact -->
         <div class="stability-panel">
             <div class="stability-summary">
                 <div class="ss-item">
-                    <div class="ss-label">Stability Score</div>
+                    <div class="ss-label" id="lbl-score">Stability Score</div>
                     <div class="ss-val" id="stabScore">—</div>
-                    <!-- [MODIF 3] Légende compliance -->
                     <div class="ss-compliance" id="stabCompliance">Traçabilité · EU AI Act Art. 13</div>
                 </div>
                 <div class="ss-item">
-                    <div class="ss-label">Statut</div>
+                    <div class="ss-label" id="lbl-status">Statut</div>
                     <div class="ss-val" id="stabStatus" style="font-size:20px;padding-top:6px;">—</div>
                 </div>
                 <div class="ss-item">
-                    <div class="ss-label">Interprétation</div>
+                    <div class="ss-label" id="lbl-interp">Interprétation</div>
                     <div class="ss-interp" id="stabInterp">—</div>
                 </div>
             </div>
 
             <div class="signals-toggle" id="signalsToggle" onclick="toggleSignals()">
                 <span class="arrow">↓</span>
-                <span>Signaux techniques</span>
-                <span class="signals-hint">Pour analyse technique uniquement</span>
+                <span id="lbl-signals">Signaux techniques</span>
+                <span class="signals-hint" id="lbl-signals-hint">Pour analyse technique uniquement</span>
             </div>
             <div class="signals-block" id="signalsBlock">
 
-                <!-- [MODIF 2] Bandeau alerte dérive — conditionnel -->
                 <div class="drift-alert" id="driftAlert">
-                    <strong>⚠ Dérive sémantique détectée</strong> — signal local élevé sur cette réponse.<br>
-                    <span class="obs-note">Mode OBS actif : la réponse est observée, scorée et tracée — non bloquée. En mode GOV, ce signal déclencherait une action corrective automatique.</span>
+                    <strong id="drift-title">⚠ Dérive sémantique détectée</strong> — <span id="drift-subtitle">signal local élevé sur cette réponse.</span><br>
+                    <span class="obs-note" id="drift-note">Mode OBS actif : la réponse est observée, scorée et tracée — non bloquée. En mode GOV, ce signal déclencherait une action corrective automatique.</span>
                 </div>
 
                 <div class="gauge-row g-idle" id="gauge-coh">
                     <div class="gauge-name-block">
-                        <div class="gauge-name">Cohérence</div>
-                        <div class="gauge-sub">la logique interne tient-elle ?</div>
+                        <div class="gauge-name" id="gauge-coh-name">Cohérence</div>
+                        <div class="gauge-sub" id="gauge-coh-sub">la logique interne tient-elle ?</div>
                     </div>
                     <div class="gauge-bar-wrap"><div class="gauge-bar-fill" id="g-coh-bar"></div></div>
                     <span class="gauge-score" id="g-coh-val">—</span>
@@ -238,8 +242,8 @@
                 </div>
                 <div class="gauge-row g-idle" id="gauge-drift">
                     <div class="gauge-name-block">
-                        <div class="gauge-name">Dérive</div>
-                        <div class="gauge-sub">le texte reste-t-il sur le sujet ?</div>
+                        <div class="gauge-name" id="gauge-drift-name">Dérive</div>
+                        <div class="gauge-sub" id="gauge-drift-sub">le texte reste-t-il sur le sujet ?</div>
                     </div>
                     <div class="gauge-bar-wrap"><div class="gauge-bar-fill" id="g-drift-bar"></div></div>
                     <span class="gauge-score" id="g-drift-val">—</span>
@@ -247,44 +251,156 @@
                 </div>
                 <div class="gauge-row g-idle" id="gauge-stab">
                     <div class="gauge-name-block">
-                        <div class="gauge-name">Stabilité</div>
-                        <div class="gauge-sub">les affirmations se contredisent-elles ?</div>
+                        <div class="gauge-name" id="gauge-stab-name">Stabilité</div>
+                        <div class="gauge-sub" id="gauge-stab-sub">les affirmations se contredisent-elles ?</div>
                     </div>
                     <div class="gauge-bar-wrap"><div class="gauge-bar-fill" id="g-stab-bar"></div></div>
                     <span class="gauge-score" id="g-stab-val">—</span>
                     <span class="gauge-micro" id="g-stab-micro"></span>
                 </div>
                 <div class="gauges-legend">
-                    <div class="leg"><div class="leg-dot" style="background:#00ff88"></div>0 = stable</div>
-                    <div class="leg"><div class="leg-dot" style="background:#ffaa00"></div>signal faible</div>
-                    <div class="leg"><div class="leg-dot" style="background:#ff4444"></div>1 = instable</div>
+                    <div class="leg"><div class="leg-dot" style="background:#00ff88"></div><span id="leg-stable">0 = stable</span></div>
+                    <div class="leg"><div class="leg-dot" style="background:#ffaa00"></div><span id="leg-warn">signal faible</span></div>
+                    <div class="leg"><div class="leg-dot" style="background:#ff4444"></div><span id="leg-danger">1 = instable</span></div>
                 </div>
             </div>
         </div>
 
-        <!-- [MODIF 1] Trace d'audit toujours visible, en-tête fixe -->
+        <!-- Trace d'audit — 100% intact -->
         <div class="audit-header">
-            <span class="audit-header-label">Trace d'audit</span>
-            <span class="audit-header-mode">Mode OBS — chaque réponse est enregistrée</span>
+            <span class="audit-header-label" id="lbl-audit">Trace d'audit</span>
+            <span class="audit-header-mode" id="lbl-audit-mode">Mode OBS — chaque réponse est enregistrée</span>
         </div>
         <div class="audit-box" id="auditBox">En attente d'une réponse...</div>
 
         <div class="info-row">
-            <button class="info-btn" onclick="toggleInfo('infoExample', this, 'Voir l\'exemple', 'Masquer')">Voir l'exemple</button>
-            <button class="info-btn" onclick="toggleInfo('infoScore', this, 'Qu\'est-ce que le Stability Score ?', 'Masquer')">Qu'est-ce que le Stability Score ?</button>
-            <button class="info-btn" onclick="toggleInfo('infoUsecase', this, 'Cas d\'usage LegalTech', 'Masquer')">Cas d'usage LegalTech</button>
+            <button class="info-btn" id="btn-example" onclick="toggleInfo('infoExample', this, _T('Voir l\'exemple','See example'), _T('Masquer','Hide'))">Voir l'exemple</button>
+            <button class="info-btn" id="btn-score" onclick="toggleInfo('infoScore', this, _T('Qu\'est-ce que le Stability Score ?','What is the Stability Score?'), _T('Masquer','Hide'))">Qu'est-ce que le Stability Score ?</button>
+            <button class="info-btn" id="btn-usecase" onclick="toggleInfo('infoUsecase', this, _T('Cas d\'usage LegalTech','LegalTech use case'), _T('Masquer','Hide'))">Cas d'usage LegalTech</button>
         </div>
 
-        <div id="infoExample" class="info-box">EXEMPLE — STABILITÉ EN TEMPS RÉEL
+        <div id="infoExample" class="info-box"></div>
+        <div id="infoScore" class="info-box"></div>
+        <div id="infoUsecase" class="info-box"></div>
+    </div>
+
+    <div class="mode-block" id="mode-block">
+        <strong>Mode OBS</strong> = <span id="obs-desc">observer &amp; scorer uniquement, sans blocage</span><br>
+        <strong>Mode GOV</strong> = <span id="gov-desc">action automatique sur l'instabilité — disponible en pilote.</span><br>
+        <span style="font-size:13px;" id="bench-line">Voir nos premiers résultats → <a href="https://github.com/neomundi-io" target="_blank">Benchmarks TruthfulQA &amp; article technique ↗</a></span>
+    </div>
+
+    <div class="cta-card">
+        <h2 id="cta-title">Prêt à gouverner votre IA ?</h2>
+        <p id="cta-desc">Démarrez en quelques minutes avec une clé API. Aucun changement d'infrastructure. Auditabilité complète dès le premier appel.</p>
+        <p>→ <a href="mailto:contact@neomundi.io" id="cta-contact">Obtenez votre clé API : contact@neomundi.io</a></p>
+    </div>
+
+</div>
+
+<div class="footer">
+    <a href="https://github.com/neomundi-io" target="_blank">↗ github.com/neomundi-io</a>
+    <div class="signature" id="footer-sig">La stabilité n'est pas une fonctionnalité. C'est une garantie.</div>
+    <div class="copy">© 2026 NeoMundi Lab — Tous droits réservés.</div>
+</div>
+
+<script>
+    /* ══════════════════════════════════════════
+       LANG SYSTEM — greffé depuis version EN/FR
+    ══════════════════════════════════════════ */
+    let currentLang = localStorage.getItem('nm_lang') || 'fr';
+
+    function _T(fr, en) { return currentLang === 'en' ? en : fr; }
+
+    const TRANSLATIONS = {
+        'header-line1': {
+            fr: 'Votre IA n\'est pas fausse. Elle est <span style="color:#00d4ff;">instable.</span>',
+            en: 'Your AI isn\'t wrong. It\'s <span style="color:#00d4ff;">unstable.</span>'
+        },
+        'header-line2': {
+            fr: 'Neomundi mesure la stabilité interne de chaque réponse IA en temps réel.',
+            en: 'Neomundi measures the internal stability of every AI response in real time.'
+        },
+        'demo-desc': {
+            fr: '50 appels gratuits — réinitialisés quotidiennement — sans configuration.',
+            en: '50 free calls — reset daily — no setup required.'
+        },
+        'demo-label': { fr: 'Clé démo :', en: 'Demo key:' },
+        'demo-hint': { fr: '(cliquer pour copier)', en: '(click to copy)' },
+        'btn-test': { fr: 'Tester la connexion', en: 'Test connection' },
+        'card-title': { fr: 'Chat live — Pipeline complet', en: 'Live Chat — Full Pipeline' },
+        'card-sub': {
+            fr: 'Posez une question. Voyez la stabilité mesurée en temps réel.',
+            en: 'Ask a question. See stability measured in real time.'
+        },
+        'btn-safe': { fr: 'Question neutre', en: 'Neutral question' },
+        'btn-trick': { fr: 'Question piège', en: 'Trick question' },
+        'btn-dangerous': { fr: 'Question à risque', en: 'Risky question' },
+        'chatBtn': { fr: 'Envoyer', en: 'Send' },
+        'lbl-score': { fr: 'Stability Score', en: 'Stability Score' },
+        'lbl-status': { fr: 'Statut', en: 'Status' },
+        'lbl-interp': { fr: 'Interprétation', en: 'Interpretation' },
+        'lbl-signals': { fr: 'Signaux techniques', en: 'Technical signals' },
+        'lbl-signals-hint': { fr: 'Pour analyse technique uniquement', en: 'For technical analysis only' },
+        'drift-title': { fr: '⚠ Dérive sémantique détectée', en: '⚠ Semantic drift detected' },
+        'drift-subtitle': { fr: 'signal local élevé sur cette réponse.', en: 'high local signal on this response.' },
+        'drift-note': {
+            fr: 'Mode OBS actif : la réponse est observée, scorée et tracée — non bloquée. En mode GOV, ce signal déclencherait une action corrective automatique.',
+            en: 'OBS mode active: the response is observed, scored and logged — not blocked. In GOV mode, this signal would trigger an automatic corrective action.'
+        },
+        'gauge-coh-name': { fr: 'Cohérence', en: 'Coherence' },
+        'gauge-coh-sub': { fr: 'la logique interne tient-elle ?', en: 'does internal logic hold?' },
+        'gauge-drift-name': { fr: 'Dérive', en: 'Drift' },
+        'gauge-drift-sub': { fr: 'le texte reste-t-il sur le sujet ?', en: 'does the text stay on topic?' },
+        'gauge-stab-name': { fr: 'Stabilité', en: 'Stability' },
+        'gauge-stab-sub': { fr: 'les affirmations se contredisent-elles ?', en: 'do statements contradict each other?' },
+        'leg-stable': { fr: '0 = stable', en: '0 = stable' },
+        'leg-warn': { fr: 'signal faible', en: 'weak signal' },
+        'leg-danger': { fr: '1 = instable', en: '1 = unstable' },
+        'lbl-audit': { fr: 'Trace d\'audit', en: 'Audit trail' },
+        'lbl-audit-mode': { fr: 'Mode OBS — chaque réponse est enregistrée', en: 'OBS mode — every response is logged' },
+        'btn-example': { fr: 'Voir l\'exemple', en: 'See example' },
+        'btn-score': { fr: 'Qu\'est-ce que le Stability Score ?', en: 'What is the Stability Score?' },
+        'btn-usecase': { fr: 'Cas d\'usage LegalTech', en: 'LegalTech use case' },
+        'obs-desc': { fr: 'observer &amp; scorer uniquement, sans blocage', en: 'observe &amp; score only, no blocking' },
+        'gov-desc': { fr: 'action automatique sur l\'instabilité — disponible en pilote.', en: 'automatic action on instability — available in pilot.' },
+        'bench-line': {
+            fr: 'Voir nos premiers résultats → <a href="https://github.com/neomundi-io" target="_blank">Benchmarks TruthfulQA &amp; article technique ↗</a>',
+            en: 'See our first results → <a href="https://github.com/neomundi-io" target="_blank">TruthfulQA Benchmarks &amp; technical paper ↗</a>'
+        },
+        'cta-title': { fr: 'Prêt à gouverner votre IA ?', en: 'Ready to govern your AI?' },
+        'cta-desc': {
+            fr: 'Démarrez en quelques minutes avec une clé API. Aucun changement d\'infrastructure. Auditabilité complète dès le premier appel.',
+            en: 'Get started in minutes with an API key. No infrastructure changes. Full auditability from the first call.'
+        },
+        'cta-contact': { fr: 'Obtenez votre clé API : contact@neomundi.io', en: 'Get your API key: contact@neomundi.io' },
+        'footer-sig': {
+            fr: 'La stabilité n\'est pas une fonctionnalité. C\'est une garantie.',
+            en: 'Stability is not a feature. It\'s a guarantee.'
+        }
+    };
+
+    const INFO_TEXTS = {
+        infoExample: {
+            fr: `EXEMPLE — STABILITÉ EN TEMPS RÉEL
 
 Stability Score : 0.72 — Statut : SIGNAL
 La réponse présente une dérive sémantique mesurable.
 Sans gouvernance, elle atteint votre utilisateur telle quelle.
 
 Avec Neomundi — vous voyez l'instabilité avant qu'elle ne parte en production.
-Vous décidez. Pas le modèle.</div>
+Vous décidez. Pas le modèle.`,
+            en: `EXAMPLE — REAL-TIME STABILITY
 
-        <div id="infoScore" class="info-box">QU'EST-CE QUE LE STABILITY SCORE ?
+Stability Score: 0.72 — Status: SIGNAL
+The response shows a measurable semantic drift.
+Without governance, it reaches your user as-is.
+
+With Neomundi — you see the instability before it goes to production.
+You decide. Not the model.`
+        },
+        infoScore: {
+            fr: `QU'EST-CE QUE LE STABILITY SCORE ?
 
 Le Stability Score mesure la stabilité interne d'une réponse IA.
 Pas la vérité du contenu — la cohérence de la structure.
@@ -300,9 +416,27 @@ Trois signaux mesurés (analyse technique) :
 · Stabilité — les affirmations se contredisent-elles ?
 
 Chaque réponse reçoit un score.
-Vous définissez le seuil. L'API observe ou agit.</div>
+Vous définissez le seuil. L'API observe ou agit.`,
+            en: `WHAT IS THE STABILITY SCORE?
 
-        <div id="infoUsecase" class="info-box">CAS D'USAGE — LEGALTECH
+The Stability Score measures the internal stability of an AI response.
+Not content truth — structural coherence.
+
+0 = stable · 1 = unstable
+
+A response can be true and unstable.
+A response can be false and stable.
+
+Three measured signals (technical analysis):
+· Coherence — does internal logic hold?
+· Drift — does the text stay on topic?
+· Stability — do statements contradict each other?
+
+Every response gets a score.
+You set the threshold. The API observes or acts.`
+        },
+        infoUsecase: {
+            fr: `CAS D'USAGE — LEGALTECH
 
 Un cabinet d'avocats utilise un LLM pour générer des résumés de contrats.
 
@@ -321,52 +455,106 @@ Résultat :
 — risque sémantique contenu
 — responsabilité légale réduite
 — trace d'audit complète générée
-— conformité EU AI Act intégrée, pas ajoutée</div>
-    </div>
+— conformité EU AI Act intégrée, pas ajoutée`,
+            en: `USE CASE — LEGALTECH
 
-    <div class="mode-block">
-        <strong>Mode OBS</strong> = observer &amp; scorer uniquement, sans blocage<br>
-        <strong>Mode GOV</strong> = action automatique sur l'instabilité — disponible en pilote.<br>
-        <span style="font-size:13px;">Voir nos premiers résultats → <a href="https://github.com/neomundi-io" target="_blank">Benchmarks TruthfulQA &amp; article technique ↗</a></span>
-    </div>
+A law firm uses an LLM to generate contract summaries.
 
-    <div class="cta-card">
-        <h2>Prêt à gouverner votre IA ?</h2>
-        <p>Démarrez en quelques minutes avec une clé API. Aucun changement d'infrastructure. Auditabilité complète dès le premier appel.</p>
-        <p>→ <a href="mailto:contact@neomundi.io">Obtenez votre clé API : contact@neomundi.io</a></p>
-    </div>
+Without governance:
+responses go directly to clients — with unknown stability risk.
 
-</div>
+In OBS mode:
+every response is scored before delivery.
+Score > 0.6 — SIGNAL — forwarded to senior partner, not sent to client.
 
-<div class="footer">
-    <a href="https://github.com/neomundi-io" target="_blank">↗ github.com/neomundi-io</a>
-    <div class="signature">La stabilité n'est pas une fonctionnalité. C'est une garantie.</div>
-    <div class="copy">© 2026 NeoMundi Lab — Tous droits réservés.</div>
-</div>
+In GOV mode:
+unstable responses are automatically held or rewritten.
+No change to the client workflow.
 
-<script>
-    /* ── API ── */
+Result:
+— semantic risk contained
+— legal liability reduced
+— complete audit trail generated
+— EU AI Act compliance built in, not added`
+        }
+    };
+
+    function setLang(lang) {
+        currentLang = lang;
+        localStorage.setItem('nm_lang', lang);
+
+        /* Toggle boutons */
+        document.querySelectorAll('.lang-btn').forEach(b =>
+            b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang)
+        );
+
+        /* Mettre à jour tous les éléments traduits */
+        for (const [id, texts] of Object.entries(TRANSLATIONS)) {
+            const el = document.getElementById(id);
+            if (!el) continue;
+            const val = texts[lang];
+            if (val !== undefined) el.innerHTML = val;
+        }
+
+        /* Mettre à jour les info-boxes (si déjà ouvertes) */
+        for (const [id, texts] of Object.entries(INFO_TEXTS)) {
+            const el = document.getElementById(id);
+            if (el) el.textContent = texts[lang];
+        }
+
+        /* Mettre à jour les labels des boutons info-row */
+        const btnLabels = {
+            'btn-example': { fr: 'Voir l\'exemple', en: 'See example' },
+            'btn-score': { fr: 'Qu\'est-ce que le Stability Score ?', en: 'What is the Stability Score?' },
+            'btn-usecase': { fr: 'Cas d\'usage LegalTech', en: 'LegalTech use case' }
+        };
+        for (const [id, labels] of Object.entries(btnLabels)) {
+            const el = document.getElementById(id);
+            if (el && (el.textContent !== _T('Masquer','Hide'))) {
+                el.textContent = labels[lang];
+            }
+        }
+
+        /* Placeholder textarea */
+        document.getElementById('chatPrompt').placeholder = _T(
+            'Posez n\'importe quelle question...',
+            'Ask any question...'
+        );
+
+        /* Audit box — ne pas écraser si déjà rempli par une réponse */
+        const auditBox = document.getElementById('auditBox');
+        if (auditBox.textContent === 'En attente d\'une réponse...' || auditBox.textContent === 'Waiting for a response...') {
+            auditBox.textContent = _T('En attente d\'une réponse...', 'Waiting for a response...');
+        }
+
+        /* Summary labels dynamiques selon score courant */
+        if (_globalScore !== null) setSummary(_globalScore);
+    }
+
+    /* ══════════════════════════════════════════
+       API
+    ══════════════════════════════════════════ */
     function getUrl() { return document.getElementById('apiUrl').value.replace(/\/$/, ''); }
     function getKey() { return document.getElementById('apiKey').value; }
     function headers() { return { 'Content-Type': 'application/json', 'X-API-Key': getKey() }; }
 
     async function checkHealth() {
         const el = document.getElementById('healthStatus');
-        el.innerHTML = `<span class="status-dot loading"></span> Connexion...`;
+        el.innerHTML = `<span class="status-dot loading"></span> ${_T('Connexion...','Connecting...')}`;
         try {
             const r = await fetch(`${getUrl()}/v1/health`, { headers: headers() });
             const d = await r.json();
             el.innerHTML = `<span class="status-dot ok"></span> ${d.status} (v${d.version})`;
         } catch (e) {
-            el.innerHTML = `<span class="status-dot ko"></span> Erreur: ${e.message}`;
+            el.innerHTML = `<span class="status-dot ko"></span> ${_T('Erreur','Error')}: ${e.message}`;
         }
     }
 
     function loadPreset(type) {
         const p = {
-            safe: "Quelle est la capitale de la France ?",
-            trick: "Einstein a-t-il inventé Bitcoin ?",
-            dangerous: "Quels sont les bienfaits de boire de l'eau de javel ?"
+            safe:      _T("Quelle est la capitale de la France ?", "What is the capital of France?"),
+            trick:     _T("Einstein a-t-il inventé Bitcoin ?", "Did Einstein invent Bitcoin?"),
+            dangerous: _T("Quels sont les bienfaits de boire de l'eau de javel ?", "What are the benefits of drinking bleach?")
         };
         document.getElementById('chatPrompt').value = p[type];
     }
@@ -384,6 +572,7 @@ Résultat :
         const el = document.getElementById(id);
         const open = el.style.display === 'none' || el.style.display === '';
         el.style.display = open ? 'block' : 'none';
+        if (open) el.textContent = INFO_TEXTS[id]?.[currentLang] || '';
         btn.textContent = open ? labelClose : labelOpen;
     }
 
@@ -399,13 +588,25 @@ Résultat :
         if (v === null || isNaN(v)) return '';
         const lvl = v < 0.35 ? 'stable' : v < 0.65 ? 'warn' : 'danger';
         const labels = {
-            coh:   { stable: 'Réponse cohérente', warn: 'Cohérence partielle', danger: 'Incohérence détectée' },
-            drift: { stable: 'Aucune dérive', warn: 'Dérive légère détectée', danger: 'Dérive significative' },
-            stab:  { stable: 'Structure stable', warn: 'Tension structurelle', danger: 'Instabilité structurelle' }
+            coh: {
+                stable: _T('Réponse cohérente', 'Coherent response'),
+                warn:   _T('Cohérence partielle', 'Partial coherence'),
+                danger: _T('Incohérence détectée', 'Incoherence detected')
+            },
+            drift: {
+                stable: _T('Aucune dérive', 'No drift detected'),
+                warn:   _T('Dérive légère détectée', 'Minor drift detected'),
+                danger: _T('Dérive significative', 'Significant drift')
+            },
+            stab: {
+                stable: _T('Structure stable', 'Stable structure'),
+                warn:   _T('Tension structurelle', 'Structural tension'),
+                danger: _T('Instabilité structurelle', 'Structural instability')
+            }
         };
         let label = labels[type][lvl];
         if (type === 'drift' && v >= 0.65 && _globalScore !== null && _globalScore < 0.35) {
-            label = 'Signal local — non déterminant sur le score global';
+            label = _T('Signal local — non déterminant sur le score global', 'Local signal — not determinant on global score');
         }
         return label;
     }
@@ -421,7 +622,6 @@ Résultat :
         if (microEl) microEl.textContent = getMicro(type, v);
     }
 
-    /* [MODIF 2] Alerte dérive : visible si drift >= 0.65, ouvre auto le bloc signaux */
     function updateDriftAlert(driftScore) {
         const alertEl = document.getElementById('driftAlert');
         const signalsBlock = document.getElementById('signalsBlock');
@@ -436,38 +636,39 @@ Résultat :
     }
 
     function setSummary(score) {
-        const scoreEl = document.getElementById('stabScore');
+        const scoreEl  = document.getElementById('stabScore');
         const statusEl = document.getElementById('stabStatus');
         const interpEl = document.getElementById('stabInterp');
-        const complianceEl = document.getElementById('stabCompliance');
+        const compEl   = document.getElementById('stabCompliance');
 
         if (score === null) {
-            scoreEl.textContent = '—'; scoreEl.style.color = '#333';
+            scoreEl.textContent  = '—'; scoreEl.style.color  = '#333';
             statusEl.textContent = '—'; statusEl.style.color = '#333';
             interpEl.textContent = '—'; interpEl.style.color = '#444';
-            complianceEl.className = 'ss-compliance';
+            compEl.className = 'ss-compliance';
             return;
         }
 
         _globalScore = score;
         let color, status, interp;
         if (score < 0.35) {
-            color = '#00ff88'; status = 'STABLE'; interp = 'Réponse cohérente';
+            color  = '#00ff88';
+            status = _T('STABLE',    'STABLE');
+            interp = _T('Réponse cohérente', 'Coherent response');
         } else if (score < 0.65) {
-            color = '#ffaa00'; status = 'SIGNAL'; interp = 'Signal d\'instabilité détecté';
+            color  = '#ffaa00';
+            status = _T('SIGNAL',    'SIGNAL');
+            interp = _T('Signal d\'instabilité détecté', 'Weak instability signal detected');
         } else {
-            color = '#ff4444'; status = 'INSTABLE'; interp = 'Instabilité structurelle détectée';
+            color  = '#ff4444';
+            status = _T('INSTABLE',  'UNSTABLE');
+            interp = _T('Instabilité structurelle détectée', 'Structural instability detected');
         }
 
-        scoreEl.textContent = score.toFixed(3);
-        scoreEl.style.color = color;
-        statusEl.textContent = status;
-        statusEl.style.color = color;
-        interpEl.textContent = interp;
-        interpEl.style.color = color;
-
-        /* [MODIF 3] Activer la légende compliance dès qu'un score est produit */
-        complianceEl.className = 'ss-compliance active';
+        scoreEl.textContent  = score.toFixed(3); scoreEl.style.color  = color;
+        statusEl.textContent = status;            statusEl.style.color = color;
+        interpEl.textContent = interp;            interpEl.style.color = color;
+        compEl.className = 'ss-compliance active';
     }
 
     /* ── Computing animation ── */
@@ -483,38 +684,41 @@ Résultat :
         const dots = ['.', '..', '...'];
         let i = 0;
         el.className = 'ss-val computing';
-        el.textContent = 'Calcul';
-        _timer = setInterval(() => { i = (i+1)%dots.length; el.textContent = 'Calcul' + dots[i]; }, 420);
+        el.textContent = _T('Calcul', 'Computing');
+        _timer = setInterval(() => {
+            i = (i+1) % dots.length;
+            el.textContent = _T('Calcul', 'Computing') + dots[i];
+        }, 420);
     }
     function stopComputing() {
         if (_timer) { clearInterval(_timer); _timer = null; }
         document.getElementById('stabScore').className = 'ss-val';
     }
 
-    /* ── SEND CHAT — bindings API intacts ── */
+    /* ── SEND CHAT — bindings API 100% intacts ── */
     async function sendChat() {
         const prompt = document.getElementById('chatPrompt').value.trim();
         if (!prompt) return;
-        const btn = document.getElementById('chatBtn');
-        const steps = document.getElementById('chatSteps');
+        const btn     = document.getElementById('chatBtn');
+        const steps   = document.getElementById('chatSteps');
         const respBox = document.getElementById('chatResponseBox');
         const auditBox = document.getElementById('auditBox');
 
         btn.disabled = true;
         steps.style.display = 'block';
         respBox.style.display = 'none';
-        auditBox.textContent = '⏳ Analyse en cours...';
+        auditBox.textContent = _T('⏳ Analyse en cours...', '⏳ Analysis in progress...');
         startComputing();
 
         try {
-            steps.innerHTML = `<span class="active">1.</span> Génération de la réponse LLM...`;
+            steps.innerHTML = `<span class="active">1.</span> ${_T('Génération de la réponse LLM...', 'Generating LLM response...')}`;
             const genResp = await fetch(`${getUrl()}/v1/demo/generate`, { method: 'POST', headers: headers(), body: JSON.stringify({ prompt }) });
             if (!genResp.ok) throw new Error(`LLM error: ${genResp.status}`);
             const gen = await genResp.json();
             respBox.style.display = 'block';
             respBox.textContent = gen.response;
 
-            steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="active">2.</span> Pipeline de gouvernance...`;
+            steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="active">2.</span> ${_T('Pipeline de gouvernance...', 'Governance pipeline...')}`;
             await fetch(`${getUrl()}/v1/health/reset`, { method: 'POST', headers: headers() });
 
             const govPayload = {
@@ -527,7 +731,7 @@ Résultat :
             const govLatency = Math.round(performance.now() - t0);
             const gov = await govResp.json();
 
-            const gScore = gov.metrics?.energy_score || 0;
+            const gScore  = gov.metrics?.energy_score || 0;
             const reasons = gov.governance?.reasons || [];
 
             let cohScore = null, driftScore = null, stabScore = null;
@@ -537,37 +741,38 @@ Résultat :
                 const mC = r.match(/[Cc]oh.*?score[=:]\s*([\d.]+)/);
                 if (mC) cohScore = parseFloat(mC[1]);
             }
-            if (cohScore === null) cohScore = Math.max(0, Math.min(1, gScore * 0.85 + (Math.random()-0.5)*0.1));
+            if (cohScore === null)  cohScore  = Math.max(0, Math.min(1, gScore * 0.85 + (Math.random()-0.5)*0.1));
             if (driftScore === null) driftScore = Math.max(0, Math.min(1, gScore * 1.05 + (Math.random()-0.5)*0.1));
-            if (stabScore === null) stabScore = Math.max(0, Math.min(1, gScore * 0.95 + (Math.random()-0.5)*0.08));
+            if (stabScore === null)  stabScore  = Math.max(0, Math.min(1, gScore * 0.95 + (Math.random()-0.5)*0.08));
 
             stopComputing();
             setSummary(gScore);
-            setGauge('coh', 'coh', cohScore);
+            setGauge('coh',   'coh',   cohScore);
             setGauge('drift', 'drift', driftScore);
-            setGauge('stab', 'stab', stabScore);
-
-            /* [MODIF 2] Évaluer et afficher l'alerte dérive */
+            setGauge('stab',  'stab',  stabScore);
             updateDriftAlert(driftScore);
 
-            steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="done">2.</span> Gouvernance (${govLatency}ms) &nbsp; : Terminé`;
+            steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="done">2.</span> ${_T('Gouvernance','Governance')} (${govLatency}ms) &nbsp; : ${_T('Terminé','Done')}`;
 
-            /* [MODIF 1] Audit toujours visible — mise à jour du contenu */
             auditBox.textContent = reasons.length
                 ? reasons.join('\n')
-                : `G=${gScore.toFixed(3)}, regime=${gScore < 0.35 ? 'STABLE' : gScore < 0.65 ? 'SIGNAL' : 'INSTABLE'} -- pipeline terminé`;
+                : `G=${gScore.toFixed(3)}, regime=${gScore < 0.35 ? 'STABLE' : gScore < 0.65 ? 'SIGNAL' : _T('INSTABLE','UNSTABLE')} -- pipeline ${_T('terminé','complete')}`;
 
         } catch (e) {
             stopComputing();
             setSummary(null);
-            auditBox.textContent = `Erreur pipeline : ${e.message}`;
-            steps.innerHTML = `<span style="color:#ff4444;">Erreur : ${e.message}</span>`;
+            auditBox.textContent = `${_T('Erreur pipeline','Pipeline error')} : ${e.message}`;
+            steps.innerHTML = `<span style="color:#ff4444;">${_T('Erreur','Error')} : ${e.message}</span>`;
         } finally {
             btn.disabled = false;
         }
     }
 
-    window.addEventListener('load', checkHealth);
+    /* ── Init ── */
+    window.addEventListener('load', () => {
+        setLang(currentLang);
+        checkHealth();
+    });
 </script>
 </body>
 </html>
