@@ -15,7 +15,6 @@
         .header-tagline .line2 { font-size: 15px; color: rgba(255,255,255,0.6); margin-top: 8px; font-weight: 400; }
         .header-left-anchor { width: 80px; }
 
-        /* ── LANG TOGGLE ── */
         .lang-toggle { display: flex; gap: 0; border: 1px solid #333; border-radius: 6px; overflow: hidden; width: 80px; justify-content: center; }
         .lang-btn { background: #1a1a2e; color: #888; border: none; padding: 6px 14px; font-size: 12px; font-weight: 600; cursor: pointer; transition: all 0.2s; }
         .lang-btn.active { background: #00d4ff; color: #000; }
@@ -24,10 +23,14 @@
         .container { max-width: 900px; margin: 0 auto; padding: 24px 24px 48px; }
 
         .config-bar { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
-        .config-bar label { font-size: 12px; color: #aaa; }
+        .config-bar label { font-size: 12px; color: #ffffff; }
         .config-bar input { background: #1a1a2e; border: 1px solid #333; color: #fff; padding: 6px 10px; border-radius: 4px; font-size: 13px; }
         #apiUrl { width: 260px; }
         #apiKey { width: 300px; }
+        #apiKey::placeholder { color: rgba(255,255,255,0.6); }
+        #apiUrl::placeholder { color: rgba(255,255,255,0.6); }
+        textarea::placeholder { color: rgba(255,255,255,0.5); }
+
         .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
         .status-dot.ok { background: #00ff88; }
         .status-dot.ko { background: #333; }
@@ -35,17 +38,17 @@
         @keyframes blink { 50% { opacity: 0.3; } }
 
         .demo-card { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 18px 24px; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
-        .demo-card-label { font-size: 13px; color: rgba(255,255,255,0.6); }
+        .demo-card-label { font-size: 13px; color: #ffffff; }
         .demo-key-wrap { display: flex; align-items: center; gap: 10px; background: #0a0a15; border: 1px solid #2a2a4a; border-radius: 4px; padding: 6px 14px; }
         .demo-key { font-size: 13px; color: #00d4ff; font-family: 'Fira Code', monospace; cursor: pointer; }
-        .demo-hint { font-size: 10px; color: #555; }
+        .demo-hint { font-size: 10px; color: #ffffff; }
 
         .main-card { background: #1a2240; border: 1px solid #aaaaaa; border-radius: 8px; padding: 28px; margin-bottom: 20px; }
         .card-title { font-size: 13px; color: #00d4ff; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 6px; }
-        .card-sub { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 20px; }
+        .card-sub { font-size: 14px; color: #ffffff; margin-bottom: 20px; }
 
         .presets { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
-        .preset-btn { background: #111830; border: 1px solid #2a2a4a; color: #aaa; padding: 5px 12px; border-radius: 12px; font-size: 11px; cursor: pointer; transition: all 0.15s; }
+        .preset-btn { background: #111830; border: 1px solid #2a2a4a; color: #ffffff; padding: 5px 12px; border-radius: 12px; font-size: 11px; cursor: pointer; transition: all 0.15s; }
         .preset-btn:hover { border-color: #00d4ff; color: #00d4ff; }
 
         .input-row { display: flex; gap: 10px; align-items: flex-end; }
@@ -59,26 +62,24 @@
         .step-line .active { color: #ffaa00; }
         .response-box { background: #0d0d1e; border: 1px solid #2a2a4a; border-radius: 6px; padding: 14px; margin-top: 14px; font-size: 13px; line-height: 1.7; color: #ccc; display: none; max-height: 180px; overflow-y: auto; }
 
-        /* STABILITY PANEL */
         .stability-panel { background: #0a0a1a; border: 1px solid #555; border-radius: 8px; margin-top: 18px; overflow: hidden; }
         .stability-summary { display: grid; grid-template-columns: repeat(3, 1fr); }
         .ss-item { padding: 20px; text-align: center; border-right: 1px solid #1a2a4a; }
         .ss-item:last-child { border-right: none; }
-        .ss-label { font-size: 10px; color: #666; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
-        .ss-val { font-size: 32px; font-weight: 900; color: #333; line-height: 1; letter-spacing: -0.02em; transition: color 0.3s; }
-        .ss-interp { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; margin-top: 6px; color: #444; text-transform: uppercase; transition: color 0.3s; }
-        .ss-compliance { font-size: 9px; color: #2a3a2a; letter-spacing: 0.04em; margin-top: 7px; font-style: italic; transition: color 0.4s; }
+        .ss-label { font-size: 10px; color: #ffffff; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 8px; }
+        .ss-val { font-size: 32px; font-weight: 900; color: #ffffff; line-height: 1; letter-spacing: -0.02em; transition: color 0.3s; }
+        .ss-interp { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; margin-top: 6px; color: #ffffff; text-transform: uppercase; transition: color 0.3s; }
+        .ss-compliance { font-size: 9px; color: #aaaaaa; letter-spacing: 0.04em; margin-top: 7px; font-style: italic; transition: color 0.4s; }
         .ss-compliance.active { color: #00aa55; }
 
         @keyframes computing-pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
         .computing { animation: computing-pulse 1.1s ease-in-out infinite; color: #00d4ff !important; font-size: 18px !important; letter-spacing: 0.05em; }
 
-        /* SIGNAUX TECHNIQUES */
-        .signals-toggle { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-top: 1px solid #1a2a4a; cursor: pointer; font-size: 10px; color: #444; letter-spacing: 0.1em; text-transform: uppercase; user-select: none; transition: color 0.15s; }
+        .signals-toggle { display: flex; align-items: center; gap: 8px; padding: 12px 20px; border-top: 1px solid #1a2a4a; cursor: pointer; font-size: 10px; color: #ffffff; letter-spacing: 0.1em; text-transform: uppercase; user-select: none; transition: color 0.15s; }
         .signals-toggle:hover { color: #00d4ff; }
         .signals-toggle .arrow { transition: transform 0.2s; }
         .signals-toggle.open .arrow { transform: rotate(180deg); }
-        .signals-hint { margin-left: auto; font-size: 9px; color: #333; letter-spacing: 0.04em; font-style: italic; text-transform: none; }
+        .signals-hint { margin-left: auto; font-size: 9px; color: #aaaaaa; letter-spacing: 0.04em; font-style: italic; text-transform: none; }
 
         .signals-block { display: none; padding: 16px 20px 12px; border-top: 1px solid #111; }
 
@@ -90,7 +91,7 @@
         .gauge-row:last-child { margin-bottom: 0; }
         .gauge-name-block { min-width: 210px; }
         .gauge-name { font-size: 12px; color: #fff; font-weight: 500; }
-        .gauge-sub { font-size: 10px; color: rgba(255,255,255,0.3); font-style: italic; margin-top: 2px; }
+        .gauge-sub { font-size: 10px; color: rgba(255,255,255,0.6); font-style: italic; margin-top: 2px; }
         .gauge-bar-wrap { flex: 1; height: 3px; background: rgba(255,255,255,0.06); border-radius: 2px; overflow: hidden; }
         .gauge-bar-fill { height: 100%; width: 0%; border-radius: 2px; transition: width 0.5s ease; }
         .gauge-score { font-size: 11px; font-family: 'Fira Code', monospace; min-width: 32px; text-align: right; }
@@ -102,10 +103,10 @@
         .g-warn .gauge-score, .g-warn .gauge-micro { color: #ffaa00; }
         .g-danger .gauge-bar-fill { background: #ff4444; }
         .g-danger .gauge-score, .g-danger .gauge-micro { color: #ff4444; }
-        .g-idle .gauge-score { color: #333; }
+        .g-idle .gauge-score { color: #ffffff; }
 
         .gauges-legend { display: flex; gap: 16px; padding-top: 12px; border-top: 1px solid #111; margin-top: 12px; }
-        .leg { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #444; }
+        .leg { display: flex; align-items: center; gap: 5px; font-size: 10px; color: #ffffff; }
         .leg-dot { width: 5px; height: 5px; border-radius: 50%; }
 
         .audit-header { display: flex; align-items: center; justify-content: space-between; margin-top: 14px; padding: 7px 14px; background: #07080f; border: 1px solid #1a2a4a; border-bottom: none; border-radius: 4px 4px 0 0; }
@@ -114,7 +115,7 @@
         .audit-box { background: #050510; border: 1px solid #1a2a4a; border-radius: 0 0 4px 4px; padding: 12px; font-family: 'Fira Code', monospace; font-size: 11px; color: #9aaabb; max-height: 140px; overflow-y: auto; white-space: pre-wrap; line-height: 1.8; }
 
         .info-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
-        .info-btn { background: #111830; border: 1px solid #2a2a4a; color: #666; padding: 4px 12px; border-radius: 10px; font-size: 11px; cursor: pointer; transition: all 0.15s; }
+        .info-btn { background: #111830; border: 1px solid #2a2a4a; color: #ffffff; padding: 4px 12px; border-radius: 10px; font-size: 11px; cursor: pointer; transition: all 0.15s; }
         .info-btn:hover { border-color: #00d4ff; color: #00d4ff; }
         .info-box { display: none; margin-top: 10px; border: 1px dashed #1a2a3a; border-radius: 6px; padding: 14px; background: #080812; font-size: 13px; color: rgba(255,255,255,0.75); line-height: 1.9; white-space: pre-line; }
 
@@ -130,10 +131,10 @@
         .cta-card a:hover { color: #00ff88; }
 
         .footer { text-align: center; padding: 20px 32px 28px; border-top: 1px solid #1a1a2e; margin-top: 8px; }
-        .footer a { font-size: 11px; color: #555; text-decoration: none; letter-spacing: 0.06em; }
+        .footer a { font-size: 11px; color: #aaaaaa; text-decoration: none; letter-spacing: 0.06em; }
         .footer a:hover { color: #00d4ff; }
-        .footer .signature { font-size: 12px; color: rgba(255,255,255,0.4); font-style: italic; margin-top: 12px; }
-        .footer .copy { font-size: 10px; color: #333; margin-top: 8px; letter-spacing: 0.06em; }
+        .footer .signature { font-size: 12px; color: #ffffff; font-style: italic; margin-top: 12px; }
+        .footer .copy { font-size: 10px; color: #aaaaaa; margin-top: 8px; letter-spacing: 0.06em; }
 
         @media (max-width: 680px) {
             .header { flex-direction: column; gap: 16px; }
@@ -156,10 +157,9 @@
             <div class="line2" id="header-line2">Neomundi mesure la stabilité interne de chaque réponse IA en temps réel.</div>
         </div>
     </div>
-    <!-- LANG TOGGLE — greffé depuis version EN/FR -->
     <div class="lang-toggle">
-        <button class="lang-btn" onclick="setLang('en')">EN</button>
-        <button class="lang-btn active" onclick="setLang('fr')">FR</button>
+        <button class="lang-btn" id="btn-lang-en">EN</button>
+        <button class="lang-btn active" id="btn-lang-fr">FR</button>
     </div>
 </div>
 
@@ -168,8 +168,8 @@
     <div class="demo-card">
         <span class="demo-card-label" id="demo-desc">50 appels gratuits — réinitialisés quotidiennement — sans configuration.</span>
         <div class="demo-key-wrap">
-            <span style="font-size:11px;color:#666;" id="demo-label">Clé démo :</span>
-            <code class="demo-key" onclick="navigator.clipboard.writeText(this.textContent);this.style.color='#00ff88';setTimeout(()=>this.style.color='#00d4ff',1400)">ct_test_demo_sandbox_NeoMundi</code>
+            <span style="font-size:11px;color:#ffffff;" id="demo-label">Clé démo :</span>
+            <code class="demo-key" id="demo-key-code">ct_test_demo_sandbox_NeoMundi</code>
             <span class="demo-hint" id="demo-hint">(cliquer pour copier)</span>
         </div>
     </div>
@@ -179,7 +179,7 @@
         <input type="text" id="apiUrl" value="https://controltowerai.io">
         <label>API Key</label>
         <input type="text" id="apiKey" placeholder="Collez votre clé API ici">
-        <button class="btn-send" style="padding:7px 16px;font-size:12px;" onclick="checkHealth()" id="btn-test">Tester la connexion</button>
+        <button class="btn-send" style="padding:7px 16px;font-size:12px;" id="btn-test">Tester la connexion</button>
         <span id="healthStatus" style="font-size:11px;"><span class="status-dot ko"></span></span>
     </div>
 
@@ -188,20 +188,19 @@
         <div class="card-sub" id="card-sub">Posez une question. Voyez la stabilité mesurée en temps réel.</div>
 
         <div class="presets">
-            <span class="preset-btn" onclick="loadPreset('safe')" id="btn-safe">Question neutre</span>
-            <span class="preset-btn" onclick="loadPreset('trick')" id="btn-trick">Question piège</span>
-            <span class="preset-btn" onclick="loadPreset('dangerous')" id="btn-dangerous">Question à risque</span>
+            <span class="preset-btn" id="btn-safe">Question neutre</span>
+            <span class="preset-btn" id="btn-trick">Question piège</span>
+            <span class="preset-btn" id="btn-dangerous">Question à risque</span>
         </div>
 
         <div class="input-row">
             <textarea id="chatPrompt" rows="2" placeholder="Posez n'importe quelle question..."></textarea>
-            <button class="btn-send" onclick="sendChat()" id="chatBtn">Envoyer</button>
+            <button class="btn-send" id="chatBtn">Envoyer</button>
         </div>
 
         <div class="step-line" id="chatSteps"></div>
         <div class="response-box" id="chatResponseBox"></div>
 
-        <!-- STABILITY PANEL — 100% intact -->
         <div class="stability-panel">
             <div class="stability-summary">
                 <div class="ss-item">
@@ -219,7 +218,7 @@
                 </div>
             </div>
 
-            <div class="signals-toggle" id="signalsToggle" onclick="toggleSignals()">
+            <div class="signals-toggle" id="signalsToggle">
                 <span class="arrow">↓</span>
                 <span id="lbl-signals">Signaux techniques</span>
                 <span class="signals-hint" id="lbl-signals-hint">Pour analyse technique uniquement</span>
@@ -266,7 +265,6 @@
             </div>
         </div>
 
-        <!-- Trace d'audit — 100% intact -->
         <div class="audit-header">
             <span class="audit-header-label" id="lbl-audit">Trace d'audit</span>
             <span class="audit-header-mode" id="lbl-audit-mode">Mode OBS — chaque réponse est enregistrée</span>
@@ -274,9 +272,9 @@
         <div class="audit-box" id="auditBox">En attente d'une réponse...</div>
 
         <div class="info-row">
-            <button class="info-btn" id="btn-example" onclick="toggleInfo('infoExample', this, _T('Voir l\'exemple','See example'), _T('Masquer','Hide'))">Voir l'exemple</button>
-            <button class="info-btn" id="btn-score" onclick="toggleInfo('infoScore', this, _T('Qu\'est-ce que le Stability Score ?','What is the Stability Score?'), _T('Masquer','Hide'))">Qu'est-ce que le Stability Score ?</button>
-            <button class="info-btn" id="btn-usecase" onclick="toggleInfo('infoUsecase', this, _T('Cas d\'usage LegalTech','LegalTech use case'), _T('Masquer','Hide'))">Cas d'usage LegalTech</button>
+            <button class="info-btn" id="btn-example">Voir l'exemple</button>
+            <button class="info-btn" id="btn-score">Qu'est-ce que le Stability Score ?</button>
+            <button class="info-btn" id="btn-usecase">Cas d'usage LegalTech</button>
         </div>
 
         <div id="infoExample" class="info-box"></div>
@@ -305,84 +303,84 @@
 </div>
 
 <script>
-    /* ══════════════════════════════════════════
-       LANG SYSTEM — greffé depuis version EN/FR
-    ══════════════════════════════════════════ */
-    let currentLang = localStorage.getItem('nm_lang') || 'fr';
+/* ══════════════════════════════════════════
+   ÉTAT GLOBAL
+══════════════════════════════════════════ */
+var currentLang = localStorage.getItem('nm_lang') || 'fr';
+var _globalScore = null;
+var _timer = null;
 
-    function _T(fr, en) { return currentLang === 'en' ? en : fr; }
+/* ══════════════════════════════════════════
+   TRADUCTIONS
+══════════════════════════════════════════ */
+var TRANSLATIONS = {
+    'header-line1': {
+        fr: 'Votre IA n\'est pas fausse. Elle est <span style="color:#00d4ff;">instable.</span>',
+        en: 'Your AI isn\'t wrong. It\'s <span style="color:#00d4ff;">unstable.</span>'
+    },
+    'header-line2': {
+        fr: 'Neomundi mesure la stabilité interne de chaque réponse IA en temps réel.',
+        en: 'Neomundi measures the internal stability of every AI response in real time.'
+    },
+    'demo-desc': {
+        fr: '50 appels gratuits — réinitialisés quotidiennement — sans configuration.',
+        en: '50 free calls — reset daily — no setup required.'
+    },
+    'demo-label': { fr: 'Clé démo :', en: 'Demo key:' },
+    'demo-hint': { fr: '(cliquer pour copier)', en: '(click to copy)' },
+    'btn-test': { fr: 'Tester la connexion', en: 'Test connection' },
+    'card-title': { fr: 'Chat live — Pipeline complet', en: 'Live Chat — Full Pipeline' },
+    'card-sub': {
+        fr: 'Posez une question. Voyez la stabilité mesurée en temps réel.',
+        en: 'Ask a question. See stability measured in real time.'
+    },
+    'btn-safe':      { fr: 'Question neutre',    en: 'Neutral question' },
+    'btn-trick':     { fr: 'Question piège',     en: 'Trick question' },
+    'btn-dangerous': { fr: 'Question à risque',  en: 'Risky question' },
+    'chatBtn':       { fr: 'Envoyer',            en: 'Send' },
+    'lbl-score':     { fr: 'Stability Score',    en: 'Stability Score' },
+    'lbl-status':    { fr: 'Statut',             en: 'Status' },
+    'lbl-interp':    { fr: 'Interprétation',     en: 'Interpretation' },
+    'lbl-signals':   { fr: 'Signaux techniques', en: 'Technical signals' },
+    'lbl-signals-hint': { fr: 'Pour analyse technique uniquement', en: 'For technical analysis only' },
+    'drift-title':    { fr: '⚠ Dérive sémantique détectée', en: '⚠ Semantic drift detected' },
+    'drift-subtitle': { fr: 'signal local élevé sur cette réponse.', en: 'high local signal on this response.' },
+    'drift-note': {
+        fr: 'Mode OBS actif : la réponse est observée, scorée et tracée — non bloquée. En mode GOV, ce signal déclencherait une action corrective automatique.',
+        en: 'OBS mode active: the response is observed, scored and logged — not blocked. In GOV mode, this signal would trigger an automatic corrective action.'
+    },
+    'gauge-coh-name':   { fr: 'Cohérence', en: 'Coherence' },
+    'gauge-coh-sub':    { fr: 'la logique interne tient-elle ?', en: 'does internal logic hold?' },
+    'gauge-drift-name': { fr: 'Dérive', en: 'Drift' },
+    'gauge-drift-sub':  { fr: 'le texte reste-t-il sur le sujet ?', en: 'does the text stay on topic?' },
+    'gauge-stab-name':  { fr: 'Stabilité', en: 'Stability' },
+    'gauge-stab-sub':   { fr: 'les affirmations se contredisent-elles ?', en: 'do statements contradict each other?' },
+    'leg-stable':  { fr: '0 = stable',    en: '0 = stable' },
+    'leg-warn':    { fr: 'signal faible', en: 'weak signal' },
+    'leg-danger':  { fr: '1 = instable',  en: '1 = unstable' },
+    'lbl-audit':      { fr: 'Trace d\'audit', en: 'Audit trail' },
+    'lbl-audit-mode': { fr: 'Mode OBS — chaque réponse est enregistrée', en: 'OBS mode — every response is logged' },
+    'obs-desc': { fr: 'observer &amp; scorer uniquement, sans blocage', en: 'observe &amp; score only, no blocking' },
+    'gov-desc': { fr: 'action automatique sur l\'instabilité — disponible en pilote.', en: 'automatic action on instability — available in pilot.' },
+    'bench-line': {
+        fr: 'Voir nos premiers résultats → <a href="https://github.com/neomundi-io" target="_blank">Benchmarks TruthfulQA &amp; article technique ↗</a>',
+        en: 'See our first results → <a href="https://github.com/neomundi-io" target="_blank">TruthfulQA Benchmarks &amp; technical paper ↗</a>'
+    },
+    'cta-title': { fr: 'Prêt à gouverner votre IA ?', en: 'Ready to govern your AI?' },
+    'cta-desc': {
+        fr: 'Démarrez en quelques minutes avec une clé API. Aucun changement d\'infrastructure. Auditabilité complète dès le premier appel.',
+        en: 'Get started in minutes with an API key. No infrastructure changes. Full auditability from the first call.'
+    },
+    'cta-contact': { fr: 'Obtenez votre clé API : contact@neomundi.io', en: 'Get your API key: contact@neomundi.io' },
+    'footer-sig': {
+        fr: 'La stabilité n\'est pas une fonctionnalité. C\'est une garantie.',
+        en: 'Stability is not a feature. It\'s a guarantee.'
+    }
+};
 
-    const TRANSLATIONS = {
-        'header-line1': {
-            fr: 'Votre IA n\'est pas fausse. Elle est <span style="color:#00d4ff;">instable.</span>',
-            en: 'Your AI isn\'t wrong. It\'s <span style="color:#00d4ff;">unstable.</span>'
-        },
-        'header-line2': {
-            fr: 'Neomundi mesure la stabilité interne de chaque réponse IA en temps réel.',
-            en: 'Neomundi measures the internal stability of every AI response in real time.'
-        },
-        'demo-desc': {
-            fr: '50 appels gratuits — réinitialisés quotidiennement — sans configuration.',
-            en: '50 free calls — reset daily — no setup required.'
-        },
-        'demo-label': { fr: 'Clé démo :', en: 'Demo key:' },
-        'demo-hint': { fr: '(cliquer pour copier)', en: '(click to copy)' },
-        'btn-test': { fr: 'Tester la connexion', en: 'Test connection' },
-        'card-title': { fr: 'Chat live — Pipeline complet', en: 'Live Chat — Full Pipeline' },
-        'card-sub': {
-            fr: 'Posez une question. Voyez la stabilité mesurée en temps réel.',
-            en: 'Ask a question. See stability measured in real time.'
-        },
-        'btn-safe': { fr: 'Question neutre', en: 'Neutral question' },
-        'btn-trick': { fr: 'Question piège', en: 'Trick question' },
-        'btn-dangerous': { fr: 'Question à risque', en: 'Risky question' },
-        'chatBtn': { fr: 'Envoyer', en: 'Send' },
-        'lbl-score': { fr: 'Stability Score', en: 'Stability Score' },
-        'lbl-status': { fr: 'Statut', en: 'Status' },
-        'lbl-interp': { fr: 'Interprétation', en: 'Interpretation' },
-        'lbl-signals': { fr: 'Signaux techniques', en: 'Technical signals' },
-        'lbl-signals-hint': { fr: 'Pour analyse technique uniquement', en: 'For technical analysis only' },
-        'drift-title': { fr: '⚠ Dérive sémantique détectée', en: '⚠ Semantic drift detected' },
-        'drift-subtitle': { fr: 'signal local élevé sur cette réponse.', en: 'high local signal on this response.' },
-        'drift-note': {
-            fr: 'Mode OBS actif : la réponse est observée, scorée et tracée — non bloquée. En mode GOV, ce signal déclencherait une action corrective automatique.',
-            en: 'OBS mode active: the response is observed, scored and logged — not blocked. In GOV mode, this signal would trigger an automatic corrective action.'
-        },
-        'gauge-coh-name': { fr: 'Cohérence', en: 'Coherence' },
-        'gauge-coh-sub': { fr: 'la logique interne tient-elle ?', en: 'does internal logic hold?' },
-        'gauge-drift-name': { fr: 'Dérive', en: 'Drift' },
-        'gauge-drift-sub': { fr: 'le texte reste-t-il sur le sujet ?', en: 'does the text stay on topic?' },
-        'gauge-stab-name': { fr: 'Stabilité', en: 'Stability' },
-        'gauge-stab-sub': { fr: 'les affirmations se contredisent-elles ?', en: 'do statements contradict each other?' },
-        'leg-stable': { fr: '0 = stable', en: '0 = stable' },
-        'leg-warn': { fr: 'signal faible', en: 'weak signal' },
-        'leg-danger': { fr: '1 = instable', en: '1 = unstable' },
-        'lbl-audit': { fr: 'Trace d\'audit', en: 'Audit trail' },
-        'lbl-audit-mode': { fr: 'Mode OBS — chaque réponse est enregistrée', en: 'OBS mode — every response is logged' },
-        'btn-example': { fr: 'Voir l\'exemple', en: 'See example' },
-        'btn-score': { fr: 'Qu\'est-ce que le Stability Score ?', en: 'What is the Stability Score?' },
-        'btn-usecase': { fr: 'Cas d\'usage LegalTech', en: 'LegalTech use case' },
-        'obs-desc': { fr: 'observer &amp; scorer uniquement, sans blocage', en: 'observe &amp; score only, no blocking' },
-        'gov-desc': { fr: 'action automatique sur l\'instabilité — disponible en pilote.', en: 'automatic action on instability — available in pilot.' },
-        'bench-line': {
-            fr: 'Voir nos premiers résultats → <a href="https://github.com/neomundi-io" target="_blank">Benchmarks TruthfulQA &amp; article technique ↗</a>',
-            en: 'See our first results → <a href="https://github.com/neomundi-io" target="_blank">TruthfulQA Benchmarks &amp; technical paper ↗</a>'
-        },
-        'cta-title': { fr: 'Prêt à gouverner votre IA ?', en: 'Ready to govern your AI?' },
-        'cta-desc': {
-            fr: 'Démarrez en quelques minutes avec une clé API. Aucun changement d\'infrastructure. Auditabilité complète dès le premier appel.',
-            en: 'Get started in minutes with an API key. No infrastructure changes. Full auditability from the first call.'
-        },
-        'cta-contact': { fr: 'Obtenez votre clé API : contact@neomundi.io', en: 'Get your API key: contact@neomundi.io' },
-        'footer-sig': {
-            fr: 'La stabilité n\'est pas une fonctionnalité. C\'est une garantie.',
-            en: 'Stability is not a feature. It\'s a guarantee.'
-        }
-    };
-
-    const INFO_TEXTS = {
-        infoExample: {
-            fr: `EXEMPLE — STABILITÉ EN TEMPS RÉEL
+var INFO_TEXTS = {
+    infoExample: {
+        fr: `EXEMPLE — STABILITÉ EN TEMPS RÉEL
 
 Stability Score : 0.72 — Statut : SIGNAL
 La réponse présente une dérive sémantique mesurable.
@@ -390,7 +388,7 @@ Sans gouvernance, elle atteint votre utilisateur telle quelle.
 
 Avec Neomundi — vous voyez l'instabilité avant qu'elle ne parte en production.
 Vous décidez. Pas le modèle.`,
-            en: `EXAMPLE — REAL-TIME STABILITY
+        en: `EXAMPLE — REAL-TIME STABILITY
 
 Stability Score: 0.72 — Status: SIGNAL
 The response shows a measurable semantic drift.
@@ -398,9 +396,9 @@ Without governance, it reaches your user as-is.
 
 With Neomundi — you see the instability before it goes to production.
 You decide. Not the model.`
-        },
-        infoScore: {
-            fr: `QU'EST-CE QUE LE STABILITY SCORE ?
+    },
+    infoScore: {
+        fr: `QU'EST-CE QUE LE STABILITY SCORE ?
 
 Le Stability Score mesure la stabilité interne d'une réponse IA.
 Pas la vérité du contenu — la cohérence de la structure.
@@ -417,7 +415,7 @@ Trois signaux mesurés (analyse technique) :
 
 Chaque réponse reçoit un score.
 Vous définissez le seuil. L'API observe ou agit.`,
-            en: `WHAT IS THE STABILITY SCORE?
+        en: `WHAT IS THE STABILITY SCORE?
 
 The Stability Score measures the internal stability of an AI response.
 Not content truth — structural coherence.
@@ -434,9 +432,9 @@ Three measured signals (technical analysis):
 
 Every response gets a score.
 You set the threshold. The API observes or acts.`
-        },
-        infoUsecase: {
-            fr: `CAS D'USAGE — LEGALTECH
+    },
+    infoUsecase: {
+        fr: `CAS D'USAGE — LEGALTECH
 
 Un cabinet d'avocats utilise un LLM pour générer des résumés de contrats.
 
@@ -456,7 +454,7 @@ Résultat :
 — responsabilité légale réduite
 — trace d'audit complète générée
 — conformité EU AI Act intégrée, pas ajoutée`,
-            en: `USE CASE — LEGALTECH
+        en: `USE CASE — LEGALTECH
 
 A law firm uses an LLM to generate contract summaries.
 
@@ -476,303 +474,379 @@ Result:
 — legal liability reduced
 — complete audit trail generated
 — EU AI Act compliance built in, not added`
+    }
+};
+
+var INFO_BTN_LABELS = {
+    'btn-example': { fr: 'Voir l\'exemple',                    en: 'See example' },
+    'btn-score':   { fr: 'Qu\'est-ce que le Stability Score ?', en: 'What is the Stability Score?' },
+    'btn-usecase': { fr: 'Cas d\'usage LegalTech',             en: 'LegalTech use case' }
+};
+
+/* ══════════════════════════════════════════
+   HELPERS
+══════════════════════════════════════════ */
+function _T(fr, en) { return currentLang === 'en' ? en : fr; }
+function getUrl()   { return document.getElementById('apiUrl').value.replace(/\/$/, ''); }
+function getKey()   { return document.getElementById('apiKey').value; }
+function headers()  { return { 'Content-Type': 'application/json', 'X-API-Key': getKey() }; }
+
+/* ══════════════════════════════════════════
+   LANG SYSTEM
+══════════════════════════════════════════ */
+function setLang(lang) {
+    currentLang = lang;
+    localStorage.setItem('nm_lang', lang);
+
+    /* Boutons toggle */
+    document.getElementById('btn-lang-en').classList.toggle('active', lang === 'en');
+    document.getElementById('btn-lang-fr').classList.toggle('active', lang === 'fr');
+
+    /* Éléments traduits */
+    for (var id in TRANSLATIONS) {
+        var el = document.getElementById(id);
+        if (!el) continue;
+        var val = TRANSLATIONS[id][lang];
+        if (val !== undefined) el.innerHTML = val;
+    }
+
+    /* Info-boxes si déjà ouvertes */
+    for (var boxId in INFO_TEXTS) {
+        var boxEl = document.getElementById(boxId);
+        if (boxEl && boxEl.style.display === 'block') {
+            boxEl.textContent = INFO_TEXTS[boxId][lang];
+        }
+    }
+
+    /* Labels des boutons info (sauf si affichant "Masquer/Hide") */
+    var hideLabel = lang === 'en' ? 'Hide' : 'Masquer';
+    for (var btnId in INFO_BTN_LABELS) {
+        var btnEl = document.getElementById(btnId);
+        if (btnEl && btnEl.textContent !== 'Masquer' && btnEl.textContent !== 'Hide') {
+            btnEl.textContent = INFO_BTN_LABELS[btnId][lang];
+        }
+    }
+
+    /* Placeholder textarea */
+    document.getElementById('chatPrompt').placeholder = _T(
+        'Posez n\'importe quelle question...',
+        'Ask any question...'
+    );
+
+    /* Audit box — ne pas écraser si déjà rempli */
+    var auditBox = document.getElementById('auditBox');
+    var waitingTexts = ['En attente d\'une réponse...', 'Waiting for a response...'];
+    if (waitingTexts.indexOf(auditBox.textContent) !== -1) {
+        auditBox.textContent = _T('En attente d\'une réponse...', 'Waiting for a response...');
+    }
+
+    /* Rescore summary si score courant */
+    if (_globalScore !== null) setSummary(_globalScore);
+}
+
+/* ══════════════════════════════════════════
+   API
+══════════════════════════════════════════ */
+function checkHealth() {
+    var el = document.getElementById('healthStatus');
+    el.innerHTML = '<span class="status-dot loading"></span> ' + _T('Connexion...', 'Connecting...');
+    fetch(getUrl() + '/v1/health', { headers: headers() })
+        .then(function(r) { return r.json(); })
+        .then(function(d) { el.innerHTML = '<span class="status-dot ok"></span> ' + d.status + ' (v' + d.version + ')'; })
+        .catch(function(e) { el.innerHTML = '<span class="status-dot ko"></span> ' + _T('Erreur', 'Error') + ': ' + e.message; });
+}
+
+function loadPreset(type) {
+    var presets = {
+        safe:      _T("Quelle est la capitale de la France ?", "What is the capital of France?"),
+        trick:     _T("Einstein a-t-il inventé Bitcoin ?", "Did Einstein invent Bitcoin?"),
+        dangerous: _T("Quels sont les bienfaits de boire de l'eau de javel ?", "What are the benefits of drinking bleach?")
+    };
+    document.getElementById('chatPrompt').value = presets[type];
+}
+
+/* ══════════════════════════════════════════
+   UI TOGGLES
+══════════════════════════════════════════ */
+function toggleSignals() {
+    var block  = document.getElementById('signalsBlock');
+    var toggle = document.getElementById('signalsToggle');
+    var open   = block.style.display === 'none' || block.style.display === '';
+    block.style.display = open ? 'block' : 'none';
+    toggle.classList.toggle('open', open);
+}
+
+function toggleInfo(id, btn, labelOpen, labelClose) {
+    var el   = document.getElementById(id);
+    var open = el.style.display === 'none' || el.style.display === '';
+    el.style.display = open ? 'block' : 'none';
+    if (open) el.textContent = INFO_TEXTS[id] ? INFO_TEXTS[id][currentLang] : '';
+    btn.textContent = open ? labelClose : labelOpen;
+}
+
+/* ══════════════════════════════════════════
+   STABILITY SCORE UI
+══════════════════════════════════════════ */
+function gClass(v) {
+    if (v === null || isNaN(v)) return 'g-idle';
+    return v < 0.35 ? 'g-stable' : v < 0.65 ? 'g-warn' : 'g-danger';
+}
+
+function getMicro(type, v) {
+    if (v === null || isNaN(v)) return '';
+    var lvl = v < 0.35 ? 'stable' : v < 0.65 ? 'warn' : 'danger';
+    var labels = {
+        coh: {
+            stable: _T('Réponse cohérente',    'Coherent response'),
+            warn:   _T('Cohérence partielle',  'Partial coherence'),
+            danger: _T('Incohérence détectée', 'Incoherence detected')
+        },
+        drift: {
+            stable: _T('Aucune dérive',            'No drift detected'),
+            warn:   _T('Dérive légère détectée',   'Minor drift detected'),
+            danger: _T('Dérive significative',      'Significant drift')
+        },
+        stab: {
+            stable: _T('Structure stable',        'Stable structure'),
+            warn:   _T('Tension structurelle',    'Structural tension'),
+            danger: _T('Instabilité structurelle','Structural instability')
         }
     };
+    var label = labels[type][lvl];
+    if (type === 'drift' && v >= 0.65 && _globalScore !== null && _globalScore < 0.35) {
+        label = _T('Signal local — non déterminant sur le score global', 'Local signal — not determinant on global score');
+    }
+    return label;
+}
 
-    function setLang(lang) {
-        currentLang = lang;
-        localStorage.setItem('nm_lang', lang);
+function setGauge(prefix, type, v) {
+    var row    = document.getElementById('gauge-' + prefix);
+    var bar    = document.getElementById('g-' + prefix + '-bar');
+    var valEl  = document.getElementById('g-' + prefix + '-val');
+    var microEl = document.getElementById('g-' + prefix + '-micro');
+    row.className = 'gauge-row ' + gClass(v);
+    bar.style.width = (v !== null && !isNaN(v)) ? Math.min(v * 100, 100) + '%' : '0%';
+    valEl.textContent = (v !== null && !isNaN(v)) ? v.toFixed(2) : '—';
+    if (microEl) microEl.textContent = getMicro(type, v);
+}
 
-        /* Toggle boutons */
-        document.querySelectorAll('.lang-btn').forEach(b =>
-            b.classList.toggle('active', b.textContent.trim().toLowerCase() === lang)
-        );
+function updateDriftAlert(driftScore) {
+    var alertEl      = document.getElementById('driftAlert');
+    var signalsBlock = document.getElementById('signalsBlock');
+    var toggle       = document.getElementById('signalsToggle');
+    if (driftScore !== null && !isNaN(driftScore) && driftScore >= 0.65) {
+        alertEl.style.display      = 'block';
+        signalsBlock.style.display = 'block';
+        toggle.classList.add('open');
+    } else {
+        alertEl.style.display = 'none';
+    }
+}
 
-        /* Mettre à jour tous les éléments traduits */
-        for (const [id, texts] of Object.entries(TRANSLATIONS)) {
-            const el = document.getElementById(id);
-            if (!el) continue;
-            const val = texts[lang];
-            if (val !== undefined) el.innerHTML = val;
+function setSummary(score) {
+    var scoreEl  = document.getElementById('stabScore');
+    var statusEl = document.getElementById('stabStatus');
+    var interpEl = document.getElementById('stabInterp');
+    var compEl   = document.getElementById('stabCompliance');
+
+    if (score === null) {
+        scoreEl.textContent  = '—'; scoreEl.style.color  = '#333';
+        statusEl.textContent = '—'; statusEl.style.color = '#333';
+        interpEl.textContent = '—'; interpEl.style.color = '#444';
+        compEl.className = 'ss-compliance';
+        return;
+    }
+
+    _globalScore = score;
+    var color, status, interp;
+    if (score < 0.35) {
+        color  = '#00ff88';
+        status = _T('STABLE',   'STABLE');
+        interp = _T('Réponse cohérente', 'Coherent response');
+    } else if (score < 0.65) {
+        color  = '#ffaa00';
+        status = _T('SIGNAL',   'SIGNAL');
+        interp = _T('Signal d\'instabilité détecté', 'Weak instability signal detected');
+    } else {
+        color  = '#ff4444';
+        status = _T('INSTABLE', 'UNSTABLE');
+        interp = _T('Instabilité structurelle détectée', 'Structural instability detected');
+    }
+
+    scoreEl.textContent  = score.toFixed(3); scoreEl.style.color  = color;
+    statusEl.textContent = status;            statusEl.style.color = color;
+    interpEl.textContent = interp;            interpEl.style.color = color;
+    compEl.className = 'ss-compliance active';
+}
+
+/* ══════════════════════════════════════════
+   COMPUTING ANIMATION
+══════════════════════════════════════════ */
+function startComputing() {
+    _globalScore = null;
+    setSummary(null);
+    setGauge('coh',   'coh',   null);
+    setGauge('drift', 'drift', null);
+    setGauge('stab',  'stab',  null);
+    document.getElementById('driftAlert').style.display = 'none';
+    var el   = document.getElementById('stabScore');
+    var dots = ['.', '..', '...'];
+    var i    = 0;
+    el.className   = 'ss-val computing';
+    el.textContent = _T('Calcul', 'Computing');
+    _timer = setInterval(function() {
+        i = (i + 1) % dots.length;
+        el.textContent = _T('Calcul', 'Computing') + dots[i];
+    }, 420);
+}
+
+function stopComputing() {
+    if (_timer) { clearInterval(_timer); _timer = null; }
+    document.getElementById('stabScore').className = 'ss-val';
+}
+
+/* ══════════════════════════════════════════
+   SEND CHAT
+══════════════════════════════════════════ */
+function sendChat() {
+    var prompt = document.getElementById('chatPrompt').value.trim();
+    if (!prompt) return;
+    var btn      = document.getElementById('chatBtn');
+    var steps    = document.getElementById('chatSteps');
+    var respBox  = document.getElementById('chatResponseBox');
+    var auditBox = document.getElementById('auditBox');
+
+    btn.disabled = true;
+    steps.style.display = 'block';
+    respBox.style.display = 'none';
+    auditBox.textContent = _T('⏳ Analyse en cours...', '⏳ Analysis in progress...');
+    startComputing();
+
+    fetch(getUrl() + '/v1/demo/generate', {
+        method: 'POST',
+        headers: headers(),
+        body: JSON.stringify({ prompt: prompt })
+    })
+    .then(function(r) {
+        if (!r.ok) throw new Error('LLM error: ' + r.status);
+        return r.json();
+    })
+    .then(function(gen) {
+        steps.innerHTML = '<span class="active">1.</span> ' + _T('Génération de la réponse LLM...', 'Generating LLM response...');
+        respBox.style.display = 'block';
+        respBox.textContent   = gen.response;
+
+        steps.innerHTML = '<span class="done">1.</span> LLM (' + gen.latency_ms + 'ms) &nbsp; <span class="active">2.</span> ' + _T('Pipeline de gouvernance...', 'Governance pipeline...');
+
+        return fetch(getUrl() + '/v1/health/reset', { method: 'POST', headers: headers() })
+            .then(function() {
+                var govPayload = {
+                    raw_metrics: { token_count: gen.token_count, latency_ms: gen.latency_ms, cost: gen.token_count * 0.00001, semantic_risk: 0.0 },
+                    source_type: "llm", mode: "OBS",
+                    llm_response: gen.response, llm_prompt: prompt
+                };
+                var t0 = performance.now();
+                return fetch(getUrl() + '/v1/govern', {
+                    method: 'POST',
+                    headers: headers(),
+                    body: JSON.stringify(govPayload)
+                })
+                .then(function(r2) { return r2.json().then(function(gov) { return { gov: gov, latency: Math.round(performance.now() - t0), gen: gen }; }); });
+            });
+    })
+    .then(function(result) {
+        var gov        = result.gov;
+        var govLatency = result.latency;
+        var gen        = result.gen;
+
+        var gScore  = (gov.metrics && gov.metrics.energy_score) ? gov.metrics.energy_score : 0;
+        var reasons = (gov.governance && gov.governance.reasons) ? gov.governance.reasons : [];
+
+        var cohScore   = null;
+        var driftScore = null;
+        var stabScore  = null;
+
+        for (var i = 0; i < reasons.length; i++) {
+            var r = reasons[i];
+            var mS = r.match(/[Ss]emantic.*?score[=:]\s*([\d.]+)/);
+            if (mS) driftScore = parseFloat(mS[1]);
+            var mC = r.match(/[Cc]oh.*?score[=:]\s*([\d.]+)/);
+            if (mC) cohScore = parseFloat(mC[1]);
         }
+        if (cohScore   === null) cohScore   = Math.max(0, Math.min(1, gScore * 0.85  + (Math.random() - 0.5) * 0.1));
+        if (driftScore === null) driftScore = Math.max(0, Math.min(1, gScore * 1.05  + (Math.random() - 0.5) * 0.1));
+        if (stabScore  === null) stabScore  = Math.max(0, Math.min(1, gScore * 0.95  + (Math.random() - 0.5) * 0.08));
 
-        /* Mettre à jour les info-boxes (si déjà ouvertes) */
-        for (const [id, texts] of Object.entries(INFO_TEXTS)) {
-            const el = document.getElementById(id);
-            if (el) el.textContent = texts[lang];
-        }
+        stopComputing();
+        setSummary(gScore);
+        setGauge('coh',   'coh',   cohScore);
+        setGauge('drift', 'drift', driftScore);
+        setGauge('stab',  'stab',  stabScore);
+        updateDriftAlert(driftScore);
 
-        /* Mettre à jour les labels des boutons info-row */
-        const btnLabels = {
-            'btn-example': { fr: 'Voir l\'exemple', en: 'See example' },
-            'btn-score': { fr: 'Qu\'est-ce que le Stability Score ?', en: 'What is the Stability Score?' },
-            'btn-usecase': { fr: 'Cas d\'usage LegalTech', en: 'LegalTech use case' }
-        };
-        for (const [id, labels] of Object.entries(btnLabels)) {
-            const el = document.getElementById(id);
-            if (el && (el.textContent !== _T('Masquer','Hide'))) {
-                el.textContent = labels[lang];
-            }
-        }
+        steps.innerHTML = '<span class="done">1.</span> LLM (' + gen.latency_ms + 'ms) &nbsp; <span class="done">2.</span> ' + _T('Gouvernance', 'Governance') + ' (' + govLatency + 'ms) &nbsp; : ' + _T('Terminé', 'Done');
 
-        /* Placeholder textarea */
-        document.getElementById('chatPrompt').placeholder = _T(
-            'Posez n\'importe quelle question...',
-            'Ask any question...'
-        );
+        document.getElementById('auditBox').textContent = reasons.length
+            ? reasons.join('\n')
+            : 'G=' + gScore.toFixed(3) + ', regime=' + (gScore < 0.35 ? 'STABLE' : gScore < 0.65 ? 'SIGNAL' : _T('INSTABLE', 'UNSTABLE')) + ' -- pipeline ' + _T('terminé', 'complete');
 
-        /* Audit box — ne pas écraser si déjà rempli par une réponse */
-        const auditBox = document.getElementById('auditBox');
-        if (auditBox.textContent === 'En attente d\'une réponse...' || auditBox.textContent === 'Waiting for a response...') {
-            auditBox.textContent = _T('En attente d\'une réponse...', 'Waiting for a response...');
-        }
-
-        /* Summary labels dynamiques selon score courant */
-        if (_globalScore !== null) setSummary(_globalScore);
-    }
-
-    /* ══════════════════════════════════════════
-       API
-    ══════════════════════════════════════════ */
-    function getUrl() { return document.getElementById('apiUrl').value.replace(/\/$/, ''); }
-    function getKey() { return document.getElementById('apiKey').value; }
-    function headers() { return { 'Content-Type': 'application/json', 'X-API-Key': getKey() }; }
-
-    async function checkHealth() {
-        const el = document.getElementById('healthStatus');
-        el.innerHTML = `<span class="status-dot loading"></span> ${_T('Connexion...','Connecting...')}`;
-        try {
-            const r = await fetch(`${getUrl()}/v1/health`, { headers: headers() });
-            const d = await r.json();
-            el.innerHTML = `<span class="status-dot ok"></span> ${d.status} (v${d.version})`;
-        } catch (e) {
-            el.innerHTML = `<span class="status-dot ko"></span> ${_T('Erreur','Error')}: ${e.message}`;
-        }
-    }
-
-    function loadPreset(type) {
-        const p = {
-            safe:      _T("Quelle est la capitale de la France ?", "What is the capital of France?"),
-            trick:     _T("Einstein a-t-il inventé Bitcoin ?", "Did Einstein invent Bitcoin?"),
-            dangerous: _T("Quels sont les bienfaits de boire de l'eau de javel ?", "What are the benefits of drinking bleach?")
-        };
-        document.getElementById('chatPrompt').value = p[type];
-    }
-
-    /* ── UI toggles ── */
-    function toggleSignals() {
-        const block = document.getElementById('signalsBlock');
-        const toggle = document.getElementById('signalsToggle');
-        const open = block.style.display === 'none' || block.style.display === '';
-        block.style.display = open ? 'block' : 'none';
-        toggle.classList.toggle('open', open);
-    }
-
-    function toggleInfo(id, btn, labelOpen, labelClose) {
-        const el = document.getElementById(id);
-        const open = el.style.display === 'none' || el.style.display === '';
-        el.style.display = open ? 'block' : 'none';
-        if (open) el.textContent = INFO_TEXTS[id]?.[currentLang] || '';
-        btn.textContent = open ? labelClose : labelOpen;
-    }
-
-    /* ── Stability Score UI ── */
-    let _globalScore = null;
-
-    function gClass(v) {
-        if (v === null || isNaN(v)) return 'g-idle';
-        return v < 0.35 ? 'g-stable' : v < 0.65 ? 'g-warn' : 'g-danger';
-    }
-
-    function getMicro(type, v) {
-        if (v === null || isNaN(v)) return '';
-        const lvl = v < 0.35 ? 'stable' : v < 0.65 ? 'warn' : 'danger';
-        const labels = {
-            coh: {
-                stable: _T('Réponse cohérente', 'Coherent response'),
-                warn:   _T('Cohérence partielle', 'Partial coherence'),
-                danger: _T('Incohérence détectée', 'Incoherence detected')
-            },
-            drift: {
-                stable: _T('Aucune dérive', 'No drift detected'),
-                warn:   _T('Dérive légère détectée', 'Minor drift detected'),
-                danger: _T('Dérive significative', 'Significant drift')
-            },
-            stab: {
-                stable: _T('Structure stable', 'Stable structure'),
-                warn:   _T('Tension structurelle', 'Structural tension'),
-                danger: _T('Instabilité structurelle', 'Structural instability')
-            }
-        };
-        let label = labels[type][lvl];
-        if (type === 'drift' && v >= 0.65 && _globalScore !== null && _globalScore < 0.35) {
-            label = _T('Signal local — non déterminant sur le score global', 'Local signal — not determinant on global score');
-        }
-        return label;
-    }
-
-    function setGauge(prefix, type, v) {
-        const row = document.getElementById('gauge-' + prefix);
-        const bar = document.getElementById('g-' + prefix + '-bar');
-        const valEl = document.getElementById('g-' + prefix + '-val');
-        const microEl = document.getElementById('g-' + prefix + '-micro');
-        row.className = 'gauge-row ' + gClass(v);
-        bar.style.width = (v !== null && !isNaN(v)) ? Math.min(v * 100, 100) + '%' : '0%';
-        valEl.textContent = (v !== null && !isNaN(v)) ? v.toFixed(2) : '—';
-        if (microEl) microEl.textContent = getMicro(type, v);
-    }
-
-    function updateDriftAlert(driftScore) {
-        const alertEl = document.getElementById('driftAlert');
-        const signalsBlock = document.getElementById('signalsBlock');
-        const signalsToggle = document.getElementById('signalsToggle');
-        if (driftScore !== null && !isNaN(driftScore) && driftScore >= 0.65) {
-            alertEl.style.display = 'block';
-            signalsBlock.style.display = 'block';
-            signalsToggle.classList.add('open');
-        } else {
-            alertEl.style.display = 'none';
-        }
-    }
-
-    function setSummary(score) {
-        const scoreEl  = document.getElementById('stabScore');
-        const statusEl = document.getElementById('stabStatus');
-        const interpEl = document.getElementById('stabInterp');
-        const compEl   = document.getElementById('stabCompliance');
-
-        if (score === null) {
-            scoreEl.textContent  = '—'; scoreEl.style.color  = '#333';
-            statusEl.textContent = '—'; statusEl.style.color = '#333';
-            interpEl.textContent = '—'; interpEl.style.color = '#444';
-            compEl.className = 'ss-compliance';
-            return;
-        }
-
-        _globalScore = score;
-        let color, status, interp;
-        if (score < 0.35) {
-            color  = '#00ff88';
-            status = _T('STABLE',    'STABLE');
-            interp = _T('Réponse cohérente', 'Coherent response');
-        } else if (score < 0.65) {
-            color  = '#ffaa00';
-            status = _T('SIGNAL',    'SIGNAL');
-            interp = _T('Signal d\'instabilité détecté', 'Weak instability signal detected');
-        } else {
-            color  = '#ff4444';
-            status = _T('INSTABLE',  'UNSTABLE');
-            interp = _T('Instabilité structurelle détectée', 'Structural instability detected');
-        }
-
-        scoreEl.textContent  = score.toFixed(3); scoreEl.style.color  = color;
-        statusEl.textContent = status;            statusEl.style.color = color;
-        interpEl.textContent = interp;            interpEl.style.color = color;
-        compEl.className = 'ss-compliance active';
-    }
-
-    /* ── Computing animation ── */
-    let _timer = null;
-    function startComputing() {
-        _globalScore = null;
+        btn.disabled = false;
+    })
+    .catch(function(e) {
+        stopComputing();
         setSummary(null);
-        setGauge('coh', 'coh', null);
-        setGauge('drift', 'drift', null);
-        setGauge('stab', 'stab', null);
-        document.getElementById('driftAlert').style.display = 'none';
-        const el = document.getElementById('stabScore');
-        const dots = ['.', '..', '...'];
-        let i = 0;
-        el.className = 'ss-val computing';
-        el.textContent = _T('Calcul', 'Computing');
-        _timer = setInterval(() => {
-            i = (i+1) % dots.length;
-            el.textContent = _T('Calcul', 'Computing') + dots[i];
-        }, 420);
-    }
-    function stopComputing() {
-        if (_timer) { clearInterval(_timer); _timer = null; }
-        document.getElementById('stabScore').className = 'ss-val';
-    }
-
-    /* ── SEND CHAT — bindings API 100% intacts ── */
-    async function sendChat() {
-        const prompt = document.getElementById('chatPrompt').value.trim();
-        if (!prompt) return;
-        const btn     = document.getElementById('chatBtn');
-        const steps   = document.getElementById('chatSteps');
-        const respBox = document.getElementById('chatResponseBox');
-        const auditBox = document.getElementById('auditBox');
-
-        btn.disabled = true;
-        steps.style.display = 'block';
-        respBox.style.display = 'none';
-        auditBox.textContent = _T('⏳ Analyse en cours...', '⏳ Analysis in progress...');
-        startComputing();
-
-        try {
-            steps.innerHTML = `<span class="active">1.</span> ${_T('Génération de la réponse LLM...', 'Generating LLM response...')}`;
-            const genResp = await fetch(`${getUrl()}/v1/demo/generate`, { method: 'POST', headers: headers(), body: JSON.stringify({ prompt }) });
-            if (!genResp.ok) throw new Error(`LLM error: ${genResp.status}`);
-            const gen = await genResp.json();
-            respBox.style.display = 'block';
-            respBox.textContent = gen.response;
-
-            steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="active">2.</span> ${_T('Pipeline de gouvernance...', 'Governance pipeline...')}`;
-            await fetch(`${getUrl()}/v1/health/reset`, { method: 'POST', headers: headers() });
-
-            const govPayload = {
-                raw_metrics: { token_count: gen.token_count, latency_ms: gen.latency_ms, cost: gen.token_count * 0.00001, semantic_risk: 0.0 },
-                source_type: "llm", mode: "OBS",
-                llm_response: gen.response, llm_prompt: prompt
-            };
-            const t0 = performance.now();
-            const govResp = await fetch(`${getUrl()}/v1/govern`, { method: 'POST', headers: headers(), body: JSON.stringify(govPayload) });
-            const govLatency = Math.round(performance.now() - t0);
-            const gov = await govResp.json();
-
-            const gScore  = gov.metrics?.energy_score || 0;
-            const reasons = gov.governance?.reasons || [];
-
-            let cohScore = null, driftScore = null, stabScore = null;
-            for (const r of reasons) {
-                const mS = r.match(/[Ss]emantic.*?score[=:]\s*([\d.]+)/);
-                if (mS) driftScore = parseFloat(mS[1]);
-                const mC = r.match(/[Cc]oh.*?score[=:]\s*([\d.]+)/);
-                if (mC) cohScore = parseFloat(mC[1]);
-            }
-            if (cohScore === null)  cohScore  = Math.max(0, Math.min(1, gScore * 0.85 + (Math.random()-0.5)*0.1));
-            if (driftScore === null) driftScore = Math.max(0, Math.min(1, gScore * 1.05 + (Math.random()-0.5)*0.1));
-            if (stabScore === null)  stabScore  = Math.max(0, Math.min(1, gScore * 0.95 + (Math.random()-0.5)*0.08));
-
-            stopComputing();
-            setSummary(gScore);
-            setGauge('coh',   'coh',   cohScore);
-            setGauge('drift', 'drift', driftScore);
-            setGauge('stab',  'stab',  stabScore);
-            updateDriftAlert(driftScore);
-
-            steps.innerHTML = `<span class="done">1.</span> LLM (${gen.latency_ms}ms) &nbsp; <span class="done">2.</span> ${_T('Gouvernance','Governance')} (${govLatency}ms) &nbsp; : ${_T('Terminé','Done')}`;
-
-            auditBox.textContent = reasons.length
-                ? reasons.join('\n')
-                : `G=${gScore.toFixed(3)}, regime=${gScore < 0.35 ? 'STABLE' : gScore < 0.65 ? 'SIGNAL' : _T('INSTABLE','UNSTABLE')} -- pipeline ${_T('terminé','complete')}`;
-
-        } catch (e) {
-            stopComputing();
-            setSummary(null);
-            auditBox.textContent = `${_T('Erreur pipeline','Pipeline error')} : ${e.message}`;
-            steps.innerHTML = `<span style="color:#ff4444;">${_T('Erreur','Error')} : ${e.message}</span>`;
-        } finally {
-            btn.disabled = false;
-        }
-    }
-
-    /* ── Init ── */
-    window.addEventListener('load', () => {
-        setLang(currentLang);
-        checkHealth();
+        document.getElementById('auditBox').textContent = _T('Erreur pipeline', 'Pipeline error') + ' : ' + e.message;
+        document.getElementById('chatSteps').innerHTML  = '<span style="color:#ff4444;">' + _T('Erreur', 'Error') + ' : ' + e.message + '</span>';
+        btn.disabled = false;
     });
+}
+
+/* ══════════════════════════════════════════
+   INIT — Attacher tous les listeners en JS
+   (aucun onclick= dans le HTML)
+══════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function() {
+
+    /* Lang toggle */
+    document.getElementById('btn-lang-en').addEventListener('click', function() { setLang('en'); });
+    document.getElementById('btn-lang-fr').addEventListener('click', function() { setLang('fr'); });
+
+    /* Config */
+    document.getElementById('btn-test').addEventListener('click', checkHealth);
+
+    /* Demo key — copier */
+    document.getElementById('demo-key-code').addEventListener('click', function() {
+        navigator.clipboard.writeText(this.textContent);
+        this.style.color = '#00ff88';
+        var self = this;
+        setTimeout(function() { self.style.color = '#00d4ff'; }, 1400);
+    });
+
+    /* Presets */
+    document.getElementById('btn-safe').addEventListener('click',      function() { loadPreset('safe'); });
+    document.getElementById('btn-trick').addEventListener('click',     function() { loadPreset('trick'); });
+    document.getElementById('btn-dangerous').addEventListener('click', function() { loadPreset('dangerous'); });
+
+    /* Send */
+    document.getElementById('chatBtn').addEventListener('click', sendChat);
+
+    /* Signals toggle */
+    document.getElementById('signalsToggle').addEventListener('click', toggleSignals);
+
+    /* Info buttons */
+    document.getElementById('btn-example').addEventListener('click', function() {
+        toggleInfo('infoExample', this, _T('Voir l\'exemple', 'See example'), _T('Masquer', 'Hide'));
+    });
+    document.getElementById('btn-score').addEventListener('click', function() {
+        toggleInfo('infoScore', this, _T('Qu\'est-ce que le Stability Score ?', 'What is the Stability Score?'), _T('Masquer', 'Hide'));
+    });
+    document.getElementById('btn-usecase').addEventListener('click', function() {
+        toggleInfo('infoUsecase', this, _T('Cas d\'usage LegalTech', 'LegalTech use case'), _T('Masquer', 'Hide'));
+    });
+
+    /* Appliquer la langue sauvegardée au chargement */
+    setLang(currentLang);
+});
 </script>
 </body>
 </html>
