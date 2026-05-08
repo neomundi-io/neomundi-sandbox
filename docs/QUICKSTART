@@ -1,40 +1,115 @@
-# NEOMUNDI — 2 MIN QUICKSTART
+# NEOMUNDI — QUICKSTART
+
+> NeoMundi measures behavioral stability during AI generation.
+> You receive a runtime signal. You decide what to do with it.
+
+**Platform** — [controltower.neomundi.io](https://controltower.neomundi.io)
+**API** — `https://api.neomundi.io`
 
 ---
 
-## 1. What it does
+## 1. What NeoMundi does
 
-Neomundi measures in real time whether an AI response is stable during generation.
+NeoMundi is a **measurement layer**, not a guardrail.
 
-You send a prompt → you get:
+It produces a runtime signal your systems can use to:
+
+- observe
+- classify
+- route
+- trigger workflows
+- support governance decisions
+
+…on AI outputs, **without relying on the model's own self-report**.
+
+NeoMundi does not decide for you. It surfaces a signal. Your governance logic stays under your control.
+
+---
+
+## 2. Two modes
+
+| Mode    | What it does                              | Content access                          | Latency      |
+|---------|-------------------------------------------|-----------------------------------------|--------------|
+| **OBS** | Post-hoc behavioral measurement           | Metrics only — no prompt, no response   | Negligible   |
+| **GOV** | Runtime governance during generation      | In transit only — never retained        | +50–100 ms   |
+
+These two modes are structurally distinct, and that distinction is intentional.
+OBS never sees content. GOV sees content in transit but does not store it.
+
+---
+
+## 3. Mental model
+
+```text
+OBS  :  agent → LLM → response → NeoMundi → signal → system decision
+
+GOV  :  agent → NeoMundi → LLM → response + signal → system decision
+```
+
+In OBS, your system already has the response. You send us metrics for measurement.
+In GOV, NeoMundi sits between your agent and the provider, streaming both the response and the signal back to you.
+
+---
+
+## 4. What you receive
+
+For each run, NeoMundi produces:
+
 - `stability_score` (0 → 1)
-- `decision` → `ALLOW` or `FLAG`
+- `regime` classification — `STABLE`, `SIGNAL`, `CRITICAL`
+- `decision` — `ALLOW` or `FLAG`
+- runtime metadata (latency, cost, model identifier)
+- timestamped trace, suitable for audit workflows
+
+In GOV mode, you also receive the model's response token-by-token via Server-Sent Events.
 
 ---
 
-## 2. Mental model
+## 5. OBS example — metrics only
 
+Your system calls the LLM. NeoMundi receives only the measurement payload, never the prompt or the response.
+
+```python
+import requests
+
+r = requests.post(
+    "https://api.neomundi.io/v1/govern",
+    headers={"X-API-Key": "ct_live_xxx"},
+    json={
+        "mode": "OBS",
+        "raw_metrics": {
+            "token_count": 120,
+            "latency_ms": 430,
+            "model_name": "gpt-4o"
+        }
+    }
+)
+
+print(r.json())
 ```
-agent → Neomundi → (LLM + signal) → response
-```
+
+Use OBS when:
+
+- you cannot share content (regulated, classified, privacy-bound)
+- you already have your own LLM wrapper and want a measurement layer on top
+- you need an audit trail without persisting the underlying generation
 
 ---
 
-## 3. Test in 2 minutes
+## 6. GOV example — runtime gateway
+
+NeoMundi calls your provider during generation and streams both the response and the signal back to you. Your provider key is used just-in-time for that call. **It is never stored.**
 
 ```python
 import requests, json
 
-NEOMUNDI_KEY = "ct_live_xxx"
-PROVIDER_KEY = "sk-xxx"
-
 r = requests.post(
     "https://api.neomundi.io/v1/govern/stream",
-    headers={"X-API-Key": NEOMUNDI_KEY},
+    headers={"X-API-Key": "ct_live_xxx"},
     json={
         "prompt": "Explain this contract risk",
         "model": "gpt-4o",
-        "provider_api_key": PROVIDER_KEY
+        "provider_api_key": "sk-xxx"
     },
     stream=True
 )
@@ -42,39 +117,57 @@ r = requests.post(
 for line in r.iter_lines(decode_unicode=True):
     if line.startswith("data: "):
         data = json.loads(line[6:])
-        if "decision" in data:
-            print(data)
+        print(data)
 ```
+
+Use GOV when:
+
+- you want a drop-in replacement for your provider call
+- you want inline measurement during generation, not only post-hoc
+- you accept light additional latency in exchange for inline measurement
 
 ---
 
-## 4. Simple rule
+## 7. FLAG is a signal, not a verdict
+
+This is the most important distinction in NeoMundi's design.
+
+When `decision == "FLAG"`, the instrument is telling you that the generation regime exhibited instability or anomalous generation patterns. **It is not telling you the response is wrong.**
+
+What you do with FLAG is entirely yours:
+
+- regenerate the response
+- log the trace for audit
+- escalate to human review
+- reroute to a different model
+- block or redact downstream
+- run an A/B test
+- ignore (e.g. development mode)
 
 ```python
 if decision == "FLAG":
-    # block or regenerate
-else:
-    # display response
+    your_governance_logic(signal)
 ```
+
+NeoMundi never decides for you. It surfaces. You govern.
+
+> **NeoMundi measures. You decide.**
 
 ---
 
-## 5. Concrete example
+## 8. Typical use cases
 
-```python
-def agent(prompt):
-    signal = govern(prompt)
-    if signal["decision"] == "FLAG":
-        return "Regenerating..."
-    return signal["response_text"]
-```
+- Agent supervision in production
+- Runtime governance for regulated workloads
+- EU AI Act traceability and audit logging
+- Fine-tuning evaluation and model selection
+- LLM cartography and provider benchmarking
+- Infrastructure observability of AI behavior
 
 ---
 
-## 6. Get a key
-
-You need:
-- a Neomundi key (`ct_live_xxx`)
-- your own LLM provider key (OpenAI, Mistral, etc.)
+## 9. Get access
 
 → [controltower.neomundi.io](https://controltower.neomundi.io)
+
+Free tier — **100 requests** for testing. No card required.
