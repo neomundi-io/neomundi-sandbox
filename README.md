@@ -80,3 +80,11 @@ if stability_score < 0.60:
 - No prompt retention
 - No response storage
 - Runtime-only processing
+
+## Specifications
+
+### GOV Runtime Orchestration
+https://github.com/neomundi-io/neomundi-gov
+
+### Full API Quickstart
+docs/QUICKSTART
