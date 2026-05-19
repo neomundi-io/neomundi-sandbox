@@ -29,31 +29,24 @@ For LLM systems, runtime signals may reveal the point of maximum useful informat
 
 # Quickstart
 
-## Install
+## GOV Mode · runtime orchestration during generation
+
+**Bring Your Own Key. Full privacy.** Your provider key remains under your control. NeoMundi processes the generative runtime stream to produce governance and orchestration signals, without prompt or response retention.
 
 ```bash
-pip install neomundi
-
-# Runtime signal example
-
-from neomundi import ControlTower
-
-tower = ControlTower(
-    api_key="ct_live_xxx"
-)
-
-result = tower.govern(
-    model="gpt-4o",
-    prompt="Analyze this contract",
-    stream=True
-)
-
-print(result)
+curl -N -X POST https://api.neomundi.io/v1/govern/stream \
+  -H "X-API-Key: ct_live_xxx" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "prompt": "Your prompt here",
+    "model": "gpt-4o",
+    "provider_api_key": "sk-xxx"
+  }'
 ```
 
-# Example output
+**You receive a stream of signal events:**
 
-```
+```json
 {
   "decision": "FLAG",
   "stability_score": 0.67,
@@ -62,8 +55,9 @@ print(result)
 }
 ```
 
-# Runtime Actions
-```
+**Then your code decides:**
+
+```python
 if decision == "FLAG":
     retry()
 
@@ -72,6 +66,10 @@ if delta_g > threshold:
 
 if stability_score < 0.60:
     reroute()
+```
+
+→ Get your `X-API-Key` at [controltower.neomundi.io](https://controltower.neomundi.io) — 100 free requests, no card.
+
 ```
 # Architecture
 
