@@ -81,8 +81,11 @@ if stability_score < 0.60:
 
 ## Specifications & Resources
 
-→ [**Quickstart** — full API reference](https://github.com/neomundi-io/neomundi-sandbox/blob/main/docs/QUICKSTART.md)
+→ **Quickstart** — full API reference :
+ttps://github.com/neomundi-io/neomundi-sandbox/blob/main/docs/QUICKSTART.md
 
-→ [**GOV Runtime Orchestration** — protocol & implementation](https://github.com/neomundi-io/neomundi-gov)
+→ **GOV Runtime Orchestration** — protocol & implementation : 
+https://github.com/neomundi-io/neomundi-gov
 
-→ [**Runtime Telemetry Signals** — G-Score, ΔG, regime definitions](https://github.com/neomundi-io/runtime-telemetry-signals)
+→ **Runtime Telemetry Signals** — G-Score, ΔG, regime definitions :
+https://github.com/neomundi-io/runtime-telemetry-signals
