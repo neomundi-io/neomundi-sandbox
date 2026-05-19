@@ -73,3 +73,10 @@ if delta_g > threshold:
 if stability_score < 0.60:
     reroute()
 ```
+# Architecture
+
+- BYOK (Bring Your Own Key)
+- No provider key retention
+- No prompt retention
+- No response storage
+- Runtime-only processing
