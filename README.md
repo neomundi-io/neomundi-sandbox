@@ -72,6 +72,7 @@ if stability_score < 0.60:
 
 ```
 ---
+---
 ## Architecture
 
 - BYOK (Bring Your Own Key)
