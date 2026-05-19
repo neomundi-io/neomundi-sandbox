@@ -84,7 +84,7 @@ if stability_score < 0.60:
 ## Specifications
 
 ### GOV Runtime Orchestration
-https://github.com/neomundi-io/neomundi-gov
+- [GOV Runtime Orchestration](https://github.com/neomundi-io/neomundi-gov)
 
 ### Full API Quickstart
-docs/QUICKSTART
+- [Full API Quickstart](https://github.com/neomundi-io/neomundi-sandbox/blob/main/docs/QUICKSTART)
