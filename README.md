@@ -79,7 +79,10 @@ if stability_score < 0.60:
 - No response storage
 - Runtime-only processing
 
-## Specifications
+## Specifications & Resources
 
-- [GOV Runtime Orchestration](https://github.com/neomundi-io/neomundi-gov)
-- [Full API Quickstart](https://github.com/neomundi-io/neomundi-sandbox/blob/main/docs/QUICKSTART)
+→ [**Quickstart** — full API reference](https://github.com/neomundi-io/neomundi-sandbox/blob/main/docs/QUICKSTART.md)
+
+→ [**GOV Runtime Orchestration** — protocol & implementation](https://github.com/neomundi-io/neomundi-gov)
+
+→ [**Runtime Telemetry Signals** — G-Score, ΔG, regime definitions](https://github.com/neomundi-io/runtime-telemetry-signals)
