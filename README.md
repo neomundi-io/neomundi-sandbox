@@ -71,7 +71,7 @@ if stability_score < 0.60:
 → Get your `X-API-Key` at [controltower.neomundi.io](https://controltower.neomundi.io) — 100 free requests, no card.
 
 ```
-# Architecture
+## Architecture
 
 - BYOK (Bring Your Own Key)
 - No provider key retention
