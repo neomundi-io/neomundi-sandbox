@@ -1,28 +1,37 @@
-# Neomundi. The AI thermometer.
+# NeoMundi — Runtime Signal Layer for AI Agents
 
-Interactive interface to test the Law-E thermodynamic governance API.
+NeoMundi adds a real-time runtime signal layer to AI agents and LLM systems.
 
-## Open the Sandbox
+Detect drift, expose actionable runtime telemetry, and trigger decisions while your agents run.
 
-**Option 1 — GitHub Pages** (zero install):  
-→ https://neomundi-io.github.io/neomundi-sandbox/
+Use the signal to:
 
-**Option 2 — Local**: Open `index.html` in your browser.
+- stop
+- retry
+- reroute
+- escalate to humans
+- govern agent behavior in real time
 
-## Request a test API key
+For LLM systems, runtime signals may reveal the point of maximum useful information before drift, noise, and token inflation begin.
 
-To request access:  
-📧 contact@neomundi.io
-
----
-
-## API Endpoint
-
-The API is hosted at: `https://controltowerai.io`
+- 5-minute integration
+- 100 free requests
+- Win 1000 requests for feedback
 
 ---
 
-## Reliability is no longer assumed. It is continuously evaluated.
+# Get Access
+
+→ https://controltower.neomundi.io/pricing
+
+Free tier available immediately.  
+No credit card required.
 
 ---
 
+# Quickstart
+
+## Install
+
+```bash
+pip install neomundi
