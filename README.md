@@ -33,3 +33,43 @@ For LLM systems, runtime signals may reveal the point of maximum useful informat
 
 ```bash
 pip install neomundi
+
+# Runtime signal example
+
+from neomundi import ControlTower
+
+tower = ControlTower(
+    api_key="ct_live_xxx"
+)
+
+result = tower.govern(
+    model="gpt-4o",
+    prompt="Analyze this contract",
+    stream=True
+)
+
+print(result)
+```
+
+# Example output
+
+```
+{
+  "decision": "FLAG",
+  "stability_score": 0.67,
+  "delta_g": 0.13,
+  "regime": "SIGNAL"
+}
+```
+
+# Runtime Actions
+```
+if decision == "FLAG":
+    retry()
+
+if delta_g > threshold:
+    escalate_to_human()
+
+if stability_score < 0.60:
+    reroute()
+```
