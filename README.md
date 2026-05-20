@@ -76,6 +76,7 @@ if stability_score < 0.60:
 → Pilot access & feedback
 Early testers may receive up to 1000 free requests.
 contact@neomundi.io
+
 ---
 
 ## Architecture
