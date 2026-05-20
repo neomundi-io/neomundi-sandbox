@@ -68,7 +68,7 @@ if stability_score < 0.60:
     reroute()
 ```
 
-→ Get your `X-API-Key` at [controltower.neomundi.io](https://controltower.neomundi.io) — 100 free requests, no card.
+→ Get your `X-API-Key` at [controltower.neomundi.io/pricing](https://controltower.neomundi.io/pricing) — 100 free requests, no card.
 
 ---
 
