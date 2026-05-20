@@ -8,6 +8,9 @@ https://controltower.neomundi.io/pricing
 - 100 free requests
 - No credit card required
 - Win 1000 requests for feedback
+→ Pilot access & feedback
+Early testers may receive up to 1000 free requests.
+contact@neomundi.io
 
 ---
 
@@ -70,6 +73,9 @@ if stability_score < 0.60:
 
 → Get your `X-API-Key` at [controltower.neomundi.io/pricing](https://controltower.neomundi.io/pricing) — 100 free requests, no card.
 
+→ Pilot access & feedback
+Early testers may receive up to 1000 free requests.
+contact@neomundi.io
 ---
 
 ## Architecture
