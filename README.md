@@ -104,7 +104,8 @@ Together, these repositories form the minimal foundations of an industrializable
 - [`neomundi-obs`](https://github.com/neomundi-io/neomundi-obs)  
   OBS layer: post-hoc observability, without runtime orchestration.
 
-FOR AGENTS- [`neomundi-gov`](https://github.com/neomundi-io/neomundi-gov)  
+FOR AGENTS :
+- [`neomundi-gov`](https://github.com/neomundi-io/neomundi-gov)  
   GOV layer: runtime governance and orchestration during generation.
 
 - [`runtime-telemetry-signals`](https://github.com/neomundi-io/runtime-telemetry-signals)  
@@ -131,7 +132,3 @@ FOR AGENTS- [`neomundi-gov`](https://github.com/neomundi-io/neomundi-gov)
 The objective is not to establish absolute truth.
 
 The objective is to make AI generation behavior observable, interpretable, interoperable, auditable and governable at runtime.
-
-
-→ **Runtime Telemetry Signals** — G-Score, ΔG, regime definitions :
-https://github.com/neomundi-io/runtime-telemetry-signals
