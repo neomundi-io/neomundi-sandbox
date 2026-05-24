@@ -87,13 +87,51 @@ contact@neomundi.io
 - No response storage
 - Runtime-only processing
 
-## Specifications & Resources
+---
 
-→ **Quickstart** — full API reference :
-https://github.com/neomundi-io/neomundi-sandbox/blob/main/docs/QUICKSTART.md
+## NeoMundi Runtime Governance Framework
 
-→ **GOV Runtime Orchestration** — protocol & implementation : 
-https://github.com/neomundi-io/neomundi-gov
+NeoMundi is evolving from thermometer to spectrometer: from a runtime stability signal toward a multidimensional measurement layer for AI system behavior during execution.
+
+A runtime governance signal must meet three minimal requirements: it must be observable, interpretable and interoperable.
+
+The NeoMundi Runtime Governance Framework organizes these requirements across several public methodological repositories dedicated to observability, informational metrics, interpretation, interoperability and runtime governance for AI systems.
+
+Together, these repositories form the minimal foundations of an industrializable AI governance infrastructure: measure, interpret, transmit, decide, trace.
+
+### Core repositories
+
+- [`neomundi-obs`](https://github.com/neomundi-io/neomundi-obs)  
+  OBS layer: post-hoc observability, without runtime orchestration.
+
+FOR AGENTS- [`neomundi-gov`](https://github.com/neomundi-io/neomundi-gov)  
+  GOV layer: runtime governance and orchestration during generation.
+
+- [`runtime-telemetry-signals`](https://github.com/neomundi-io/runtime-telemetry-signals)  
+  Public definitions of runtime telemetry signals, including G, ΔG and governance states.
+
+- [`informational-metrics`](https://github.com/neomundi-io/informational-metrics)  
+  Public methodological notes on volumetry, volumetric density, informational energy and informational density.
+
+- [`energy-stability-index`](https://github.com/neomundi-io/energy-stability-index)  
+  Public conceptual documentation of the Energy Stability Index as a composite governance indicator.
+
+- [`runtime-interoperability-contract`](https://github.com/neomundi-io/runtime-interoperability-contract)  
+  Minimal interoperability semantics between measurement, orchestration and proof-anchoring layers.
+
+- [`interpretation-contract`](https://github.com/neomundi-io/interpretation-contract)  
+  Methodological boundaries for interpreting signals, metrics and governance decisions.
+
+- [`validity-and-grounding`](https://github.com/neomundi-io/validity-and-grounding)  
+  Public methodological documentation on validity, grounding, hallucination detection and the boundaries of proof-related signals.
+
+- [`Boundary_Tension_contract`](https://github.com/neomundi-io/Boundary_Tension_contract)  
+  Conceptual research repository dedicated to boundary tension signals in runtime AI systems.
+
+The objective is not to establish absolute truth.
+
+The objective is to make AI generation behavior observable, interpretable, interoperable, auditable and governable at runtime.
+
 
 → **Runtime Telemetry Signals** — G-Score, ΔG, regime definitions :
 https://github.com/neomundi-io/runtime-telemetry-signals
